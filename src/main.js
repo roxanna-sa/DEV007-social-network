@@ -18,9 +18,9 @@ export const onNavigate = (pathname) => {
 };
 
 routes = {
-  '/': Home(onNavigate),
+  '/': Login(onNavigate),
   '/register': Register(onNavigate),
-  '/login': Login(onNavigate),
+  '/home': Home(onNavigate),
   //'/profile': Profile(onNavigate),
   //'/wall': Wall(onNavigate),
   //'/404': NotFound(onNavigate)

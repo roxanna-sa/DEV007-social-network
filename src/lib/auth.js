@@ -4,7 +4,6 @@ import {app} from "../firebase.js"
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-
 export const createUser = (userMail, userPass) => createUserWithEmailAndPassword(auth, userMail, userPass)
 .then((userCredential) => {
     // Signed in

@@ -14,8 +14,8 @@ export const Home = (onNavigate) => {
         texto.textContent = 'Hola soy home, bienvenid@ ' + localStorage["usuario"];
 
         HomeDiv.appendChild(texto);
-    }else{
-        /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la qu le decimos que se registre o inicie sesión */
+    } else {
+        /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
         const texto = document.createElement('p');
         texto.textContent = 'Hola soy home, no estás loguead@';
         const botonInicio = document.createElement('button');
@@ -27,7 +27,7 @@ export const Home = (onNavigate) => {
         HomeDiv.appendChild(botonInicio);
         HomeDiv.appendChild(botonRegistro);
 
-        botonInicio.addEventListener('click', ()=> {onNavigate('/login')});
+        botonInicio.addEventListener('click', ()=> {onNavigate('/')});
         botonRegistro.addEventListener('click', ()=> {onNavigate('/register')});
     }
     // TO DO inputs de email y password

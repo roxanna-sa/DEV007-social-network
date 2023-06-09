@@ -49,15 +49,23 @@ export const Register = (onNavigate) => {
     const email = emailUser.value;
     const password = passwordInput.value;
     console.log(email, password);
-    createUser(email, password);
 
-    joinButtonButton.addEventListener('click', () => { onNavigate('/home') });
 
+    if (email === '' || password === '') {
+      alert('ingresa datos')
+    } else {
+      createUser(email, password).then(() => {
+        onNavigate('/home');
+      }).catch((error) => {
+        //log error
+        alert('email ya registrado')
+      });
+    }
   });
 
   return RegisterDiv;
 }
 
 //TO DO al terminar registro, verifica login y te diriga al home Bienvenid@
-//cómo guardar los demás datos. localStorage 
+//cómo guardar los demás datos. investigar Firestore
 //firebase correo y contraseña 

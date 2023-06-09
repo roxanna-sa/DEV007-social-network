@@ -10,6 +10,10 @@ export const Login = () => {
   LoginDiv.appendChild(registerButton);
   LoginDiv.appendChild(loginButton);
 
+  // loginButton.addEventListener('click',()=>{
+  //   localStorage["usuario"] = "Roxana"
+  // })
+
   // TO DO inputs de email y password
   return LoginDiv;
 }

@@ -1,18 +1,38 @@
 // Este es el punto de entrada de tu aplicacion
-import {Login} from './components/Login'
-import {Register} from './components/Register'
+import {Login} from './components/Login.js'
+import {Register} from './components/Register.js'
+import {Home} from './components/Home.js'
+
 
 const rootDiv = document.getElementById('root');
+let routes = {};
 
-const routes = {
-  '/': Home,
-  '/login': Login,
-  '/register': Register,
-  '/profile': profile, //sólo para editar perfil
-  '/wall': wall //muro personal
-  // '/friends': 'friends'
+export const onNavigate = (pathname) => {
+  window.history.pushState(
+    {},
+    pathname,
+    window.location.origin + pathname,
+  );
+  rootDiv.removeChild(rootDiv.firstChild);
+  rootDiv.appendChild(routes[pathname]);
 };
 
+routes = {
+  '/': Home(onNavigate),
+  '/register': Register(onNavigate),
+  '/login': Login(onNavigate),
+  //'/profile': Profile(onNavigate),
+  //'/wall': Wall(onNavigate),
+  //'/404': NotFound(onNavigate)
+  
+};
 
-const callComponent = routes[window.location.pathname];
-rootDiv.appendChild(callComponent());
+export const components = () => routes[window.location.pathname];
+
+window.onpopstate = () => {
+  rootDiv.removeChild(rootDiv.firstChild);
+  rootDiv.append(components());
+};
+
+// Llamadas al entrar al sitio.
+rootDiv.appendChild(components());

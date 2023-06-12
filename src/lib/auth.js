@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import {app} from "../firebase.js"
 
 // Initialize Firebase Authentication and get a reference to the service
@@ -9,6 +9,7 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
     // Signed in
     const user = userCredential.user;
     console.log(user);
+    sendEmailVerification(user);
 
     // Prueba: Actualizar usuario con nombre de usuario 
     // updateProfile(getAuth().currentUser, {

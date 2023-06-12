@@ -1,4 +1,4 @@
-import {signIn} from '../lib/auth.js'
+import { signIn } from '../lib/auth.js'
 
 //para login o mandar a registro
 export const Login = (onNavigate) => {
@@ -33,7 +33,7 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
-  registerButton.addEventListener('click', ()=> {onNavigate('/register')});
+  registerButton.addEventListener('click', () => { onNavigate('/register') });
 
   loginButton.addEventListener('click', (e) => {
     e.preventDefault()
@@ -43,7 +43,21 @@ export const Login = (onNavigate) => {
       .then(() => {
         onNavigate('/wall');
       })
-    })
+
+    if (userMail === '' || userPass === '') {
+      alert('Ingresa email y contraseña')
+    } else {
+      signIn(userMail, userPass).then(() => {
+        onNavigate('/wall');
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert('Email o contraseña incorrectos');
+        console.log(errorCode, errorMessage);
+      });
+    };
+  });
+
 
   return LoginDiv;
 }

@@ -13,7 +13,7 @@ export const Login = (onNavigate) => {
   const passwordLabel = document.createElement('label');
   const passwordInput = document.createElement('input');
   passwordInput.setAttribute('type', 'password');
-  
+
   const continueWithGoogle = document.createElement('button');
   continueWithGoogle.textContent = 'Continuar con Google';
 
@@ -33,6 +33,8 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
+  registerButton.addEventListener('click', ()=> {onNavigate('/register')});
+
   loginButton.addEventListener('click', (e) => {
     e.preventDefault()
     const userMail = emailInput.value;
@@ -40,10 +42,8 @@ export const Login = (onNavigate) => {
     signIn(userMail, userPass)
       .then(() => {
         onNavigate('/wall');
-        
       })
     })
-
 
   return LoginDiv;
 }

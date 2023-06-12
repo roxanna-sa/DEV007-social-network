@@ -24,7 +24,7 @@ routes = {
   '/home': Home(onNavigate),
   '/wall': Wall(onNavigate),
   //'/profile': Profile(onNavigate),
- 
+
   //'/404': NotFound(onNavigate)
   
 };

@@ -33,33 +33,18 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
-  loginButton.addEventListener('click', ()=> { onNavigate('/wall')});
-  registerButton.addEventListener('click', ()=> { onNavigate('/register')});
-
-  // loginButton.addEventListener('click',()=>{
-  //   localStorage["usuario"] = "Roxana"
-  // })
-
-  //TO DO 
-
-  loginButton.addEventListener('submit', (e) => {
-    e.preventDefault(); //evitar que el formulario haga el proceso de submit
-    const email = emailUser.value;
-    const password = passwordInput.value;
-    console.log(email, password);
-
-
-    if (email === '' || password === '') {
-      alert('ingresa datos')
-    } else {
-      signIn(email, password).then(() => {
+  loginButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    const userMail = emailInput.value;
+    const userPass = passwordInput.value;
+    signIn(userMail, userPass)
+      .then(() => {
         onNavigate('/wall');
-      }).catch((error) => {
-        //log error
-        alert('email ya registrado')
-      });
-    }
-  });
+        
+      })
+    })
+
+  
 
   return LoginDiv;
 }

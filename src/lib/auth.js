@@ -1,8 +1,11 @@
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, GoogleAuthProvider} from "firebase/auth";
 import {app} from "../firebase.js"
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+
+export const provider = new GoogleAuthProvider();
+
 
 export const createUser = (userMail, userPass) => createUserWithEmailAndPassword(auth, userMail, userPass)
 .then((userCredential) => {
@@ -27,17 +30,6 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
     // ..
   });
 
-  export const signIn = (userMail, userPass) => signInWithEmailAndPassword(auth, userMail, userPass)
-  .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
-      sendEmailVerification(user);
-    
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(errorCode,errorMessage);
-      // ..
-    });
+  // INGRESAR CON USUARIO EXISTENTE
+export const signIn = (userMail, userPass) => signInWithEmailAndPassword(auth, userMail, userPass);
+

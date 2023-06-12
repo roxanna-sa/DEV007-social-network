@@ -1,7 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
 import {Login} from './components/Login.js'
 import {Register} from './components/Register.js'
-import {Home} from './components/Home.js'
 import {Wall} from './components/Wall.js'
 
 
@@ -14,6 +13,7 @@ export const onNavigate = (pathname) => {
     pathname,
     window.location.origin + pathname,
   );
+  
   rootDiv.removeChild(rootDiv.firstChild);
   rootDiv.appendChild(routes[pathname]);
 };
@@ -21,10 +21,8 @@ export const onNavigate = (pathname) => {
 routes = {
   '/': Login(onNavigate),
   '/register': Register(onNavigate),
-  '/home': Home(onNavigate),
   '/wall': Wall(onNavigate),
   //'/profile': Profile(onNavigate),
-
   //'/404': NotFound(onNavigate)
   
 };

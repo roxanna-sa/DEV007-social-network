@@ -1,4 +1,4 @@
-import {signIn} from '../lib/auth.js'
+import {signIn, signInGoogle} from '../lib/auth.js'
 
 //para login o mandar a registro
 export const Login = (onNavigate) => {
@@ -16,6 +16,12 @@ export const Login = (onNavigate) => {
 
   const continueWithGoogle = document.createElement('button');
   continueWithGoogle.textContent = 'Continuar con Google';
+  continueWithGoogle.addEventListener('click', () => {
+    signInGoogle();
+    onNavigate('/wall');
+    
+  });
+
 
   emailLabel.textContent = 'Email';
   passwordLabel.textContent = 'Contraseña';
@@ -40,10 +46,21 @@ export const Login = (onNavigate) => {
     const userMail = emailInput.value;
     const userPass = passwordInput.value;
     signIn(userMail, userPass)
-      .then(() => {
+      .then((response) => {
+        console.log(response.user);
+        const objUsuario = { 
+          displayName: response.user.displayName,
+          email: response.user.email,
+          uid: response.user.uid
+        }
+
+        localStorage.setItem("usuario", JSON.stringify(objUsuario));
         onNavigate('/wall');
       })
-    })
+  })
+
+
+  
 
   return LoginDiv;
 }

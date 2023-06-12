@@ -1,3 +1,5 @@
+import {signIn} from '../lib/auth.js'
+
 //para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
@@ -31,7 +33,7 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
-  loginButton.addEventListener('click', ()=> { onNavigate('/home')});
+  loginButton.addEventListener('click', ()=> { onNavigate('/wall')});
   registerButton.addEventListener('click', ()=> { onNavigate('/register')});
 
   // loginButton.addEventListener('click',()=>{
@@ -39,6 +41,26 @@ export const Login = (onNavigate) => {
   // })
 
   //TO DO 
+
+  loginButton.addEventListener('submit', (e) => {
+    e.preventDefault(); //evitar que el formulario haga el proceso de submit
+    const email = emailUser.value;
+    const password = passwordInput.value;
+    console.log(email, password);
+
+
+    if (email === '' || password === '') {
+      alert('ingresa datos')
+    } else {
+      signIn(email, password).then(() => {
+        onNavigate('/wall');
+      }).catch((error) => {
+        //log error
+        alert('email ya registrado')
+      });
+    }
+  });
+
   return LoginDiv;
 }
 

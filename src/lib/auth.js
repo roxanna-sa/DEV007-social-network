@@ -8,12 +8,12 @@ export const provider = new GoogleAuthProvider();
 
 
 export const createUser = (userMail, userPass) => createUserWithEmailAndPassword(auth, userMail, userPass)
-.then((userCredential) => {
+  .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
     console.log(user);
     sendEmailVerification(user);
-  
+
 
     // Prueba: Actualizar usuario con nombre de usuario 
     // updateProfile(getAuth().currentUser, {
@@ -26,7 +26,7 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.error(errorCode,errorMessage);
+    console.error(errorCode, errorMessage);
     // ..
   });
 

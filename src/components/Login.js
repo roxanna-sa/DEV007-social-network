@@ -39,7 +39,7 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
-  registerButton.addEventListener('click', ()=> {onNavigate('/register')});
+  registerButton.addEventListener('click', () => { onNavigate('/register') });
 
   loginButton.addEventListener('click', (e) => {
     e.preventDefault()

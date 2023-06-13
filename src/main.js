@@ -14,10 +14,10 @@ export const onNavigate = (pathname) => {
     window.location.origin + pathname,
   );
   while (root.firstChild) {
-    root.removeChild(root.firstChild);
+    rootDiv.removeChild(root.firstChild); // ¿Por qué no son rootDiv?
   }
 
-  root.appendChild(routes[pathname](onNavigate));
+  rootDiv.appendChild(routes[pathname](onNavigate));
 };
 
 
@@ -34,11 +34,11 @@ const component = routes[window.location.pathname];
 
 window.onpopstate = () => {
   while (root.firstChild) {  // Remover todos los hijos del elemento raíz
-    root.removeChild(root.firstChild);
+    rootDiv.removeChild(root.firstChild);
   }
   // Agregar el componente correspondiente a la ruta actual
-  root.append(component(onNavigate));
+  rootDiv.append(component(onNavigate));
 };
 
 // Llamadas al entrar al sitio.
-root.appendChild(component(onNavigate));
+rootDiv.appendChild(component(onNavigate)); //Porqué manda onNavigate a la constante component?

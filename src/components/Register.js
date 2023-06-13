@@ -60,7 +60,7 @@ export const Register = (onNavigate) => {
           email: response.email,
           uid: response.uid
         }
-        localStorage.setItem('user', JSON.stringify(userObject));
+        localStorage.setItem('usuario', response.email);
         console.log(userObject);
         onNavigate('/wall');
       }).catch((error) => {

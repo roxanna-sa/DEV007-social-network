@@ -8,10 +8,15 @@ const rootDiv = document.getElementById('root');
 let routes = {};
 
 export const onNavigate = (pathname) => {
-  window.location.replace(pathname);
+  window.history.pushState(
+    {},
+    pathname,
+    window.location.origin + pathname,
+  );
   rootDiv.removeChild(rootDiv.firstChild);
   rootDiv.appendChild(routes[pathname]);
 };
+
 
 routes = {
   '/': Login(onNavigate),

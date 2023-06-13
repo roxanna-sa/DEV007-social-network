@@ -3,19 +3,18 @@ import { logOut } from "../lib/auth";
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
 
-  const getUser = localStorage.getItem('user');
+  const getUser = localStorage.getItem('usuario');
   console.log('localStorageUsuario', getUser);
 
   /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
-  if (getUser != null) {
-    const userObject = JSON.parse(localStorage['user']);
+  if (getUser) {
     console.log(userObject);
     // Verificar con firebase...
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
 
     const loggedText = document.createElement('p');
-    loggedText.textContent = 'Hola soy home/wall, bienvenid@ ' + userObject.email;
+    loggedText.textContent = 'Hola soy home/wall, bienvenid@ ' + getUser;
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';

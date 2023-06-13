@@ -13,8 +13,8 @@ export const onNavigate = (pathname) => {
     pathname,
     window.location.origin + pathname,
   );
-  while (root.firstChild) {
-    rootDiv.removeChild(root.firstChild); // ¿Por qué no son rootDiv?
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild); // ¿Por qué no son rootDiv?
   }
 
   rootDiv.appendChild(routes[pathname](onNavigate));

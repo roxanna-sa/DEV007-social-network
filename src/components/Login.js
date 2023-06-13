@@ -17,8 +17,24 @@ export const Login = (onNavigate) => {
   const continueWithGoogle = document.createElement('button');
   continueWithGoogle.textContent = 'Continuar con Google';
   continueWithGoogle.addEventListener('click', () => {
-    signInGoogle();
-    onNavigate('/wall');
+    signInGoogle().then((googleResponse) => {
+      
+      console.log(googleResponse.user);
+      const objUsuario = { 
+        displayName: googleResponse.user.displayName,
+        email: googleResponse.user.email,
+        uid: googleResponse.user.uid
+      }
+
+      localStorage.setItem("usuario", JSON.stringify(objUsuario));
+
+      onNavigate('/wall');
+
+      // FIX (?)
+      location.reload();
+
+    });
+    
     
   });
 
@@ -56,6 +72,8 @@ export const Login = (onNavigate) => {
 
         localStorage.setItem("usuario", JSON.stringify(objUsuario));
         onNavigate('/wall');
+        // FIX?
+        location.reload();
       })
   })
 

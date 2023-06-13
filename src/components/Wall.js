@@ -1,3 +1,4 @@
+import { logOut } from "../lib/auth";
 //muro personal
 export const Wall = (onNavigate) => {
     const WallDiv = document.createElement('div');
@@ -13,6 +14,16 @@ export const Wall = (onNavigate) => {
 
         const texto = document.createElement('p');
         texto.textContent = 'Hola soy home/wall, bienvenid@ ' + objUsuario.email;
+
+        const botonSalir = document.createElement('button');
+        botonSalir.textContent = 'Cerrar sesión';
+        botonSalir.addEventListener('click', () => {
+           logOut();
+           // FIX (?)
+           location.reload();
+        });
+
+        WallDiv.appendChild(botonSalir);
 
         WallDiv.appendChild(texto);
     } else {

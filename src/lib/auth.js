@@ -14,7 +14,6 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
     console.log(user);
     sendEmailVerification(user);
     return user;
-    
 
     // Prueba: Actualizar usuario con nombre de usuario 
     // updateProfile(getAuth().currentUser, {
@@ -31,16 +30,16 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
     // ..
   });
 
-  // INGRESAR CON USUARIO EXISTENTE
+// INGRESAR CON USUARIO EXISTENTE
 export const signIn = (userMail, userPass) => signInWithEmailAndPassword(auth, userMail, userPass);
-    
-// SignIn with Google
 
+// SignIn with Google
 export const signInGoogle = () => {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider);
 };
 
+//Log out
 export const logOut = () => {
   signOut(auth);
   localStorage.clear();

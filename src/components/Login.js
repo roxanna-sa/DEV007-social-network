@@ -1,4 +1,3 @@
-
 import { signIn, signInGoogle } from '../lib/auth.js'
 
 //para login o mandar a registro
@@ -21,10 +20,10 @@ export const Login = (onNavigate) => {
   continueWithGoogle.addEventListener('click', () => {
     signInGoogle();
     onNavigate('/wall');
-
   });
 
-
+  // TO DO focus email input
+  // document.getElementById("myTextField").focus();
   emailLabel.textContent = 'Email';
   passwordLabel.textContent = 'Contraseña';
 
@@ -48,35 +47,37 @@ export const Login = (onNavigate) => {
     e.preventDefault()
     const userMail = emailInput.value;
     const userPass = passwordInput.value;
-    signIn(userMail, userPass)
-      .then((response) => {
+
+    if (userMail === '' || userPass === '') {
+      alert('Ingresa email y contraseña')
+    } else {
+      signIn(userMail, userPass).then((response) => {
         console.log(response.user);
-        const objUsuario = {
+        const userObject = {
           displayName: response.user.displayName,
           email: response.user.email,
           uid: response.user.uid
         }
-
-        localStorage.setItem("usuario", JSON.stringify(objUsuario));
+        console.log(userObject);
+        localStorage.setItem('user', JSON.stringify(userObject));
         onNavigate('/wall');
-        // FIX?
-        location.reload();
-      })
-  })
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert('Email o contraseña incorrectos');
+        console.log(errorCode, errorMessage);
+      });
 
-  //Agregando clases
+      //Agregando clases
 
-  LoginDiv.classList.add('background');
-  registerButton.classList.add('registerButton');
-  emailInput.classList.add('inputEmail');
-  passwordInput.classList.add('inputpassword');
-  continueWithGoogle.classList.add('continueWithGoogle');
-  loginButton.classList.add('loginButton');
-
+      LoginDiv.classList.add('background');
+      registerButton.classList.add('registerButton');
+      emailInput.classList.add('inputEmail');
+      passwordInput.classList.add('inputpassword');
+      continueWithGoogle.classList.add('continueWithGoogle');
+      loginButton.classList.add('loginButton');
+    };
+  });
 
   return LoginDiv;
 }
-
-
-//TO DO Verificación de Login
-//al hacer login te diriga al Home Bienvenid@

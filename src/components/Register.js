@@ -50,22 +50,30 @@ export const Register = (onNavigate) => {
     const password = passwordInput.value;
     console.log(email, password);
 
-
     if (email === '' || password === '') {
-      alert('ingresa datos')
+      alert('Ingresa datos')
     } else {
-      createUser(email, password).then((user) => {
-        localStorage.setItem('usuario', user.email);
+      createUser(email, password).then((response) => {
+        console.log(response);
+        const userObject = {
+          displayName: response.displayName,
+          email: response.email,
+          uid: response.uid
+        }
+        localStorage.setItem('user', JSON.stringify(userObject));
+        console.log(userObject);
         onNavigate('/wall');
       }).catch((error) => {
         //log error
-        alert('email ya registrado')
+        console.log(error);
+        alert('Error');
+        //onNavigate('/register');
       });
     }
   });
 
   return RegisterDiv;
-}
+};
 
 //TO DO al terminar registro, verifica login y te diriga al home Bienvenid@
 //cómo guardar los demás datos. investigar Firestore

@@ -40,6 +40,13 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
 
+  //Agregando clases
+  LoginDiv.classList.add('background');
+  registerButton.classList.add('registerButton');
+  emailInput.classList.add('inputEmail');
+  passwordInput.classList.add('inputpassword');
+  continueWithGoogle.classList.add('continueWithGoogle');
+  loginButton.classList.add('loginButton');
 
   registerButton.addEventListener('click', () => { onNavigate('/register') });
 
@@ -67,15 +74,6 @@ export const Login = (onNavigate) => {
         alert('Email o contraseña incorrectos');
         console.log(errorCode, errorMessage);
       });
-
-      //Agregando clases
-
-      LoginDiv.classList.add('background');
-      registerButton.classList.add('registerButton');
-      emailInput.classList.add('inputEmail');
-      passwordInput.classList.add('inputpassword');
-      continueWithGoogle.classList.add('continueWithGoogle');
-      loginButton.classList.add('loginButton');
     };
   });
 

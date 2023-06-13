@@ -21,7 +21,7 @@ export const Login = (onNavigate) => {
   continueWithGoogle.addEventListener('click', () => {
     signInGoogle();
     onNavigate('/wall');
-    
+
   });
 
 

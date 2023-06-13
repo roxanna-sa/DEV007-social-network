@@ -1,10 +1,11 @@
-import {signIn, signInGoogle} from '../lib/auth.js'
+
+import { signIn, signInGoogle } from '../lib/auth.js'
 
 //para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
-  const registerButton = document.createElement('button');
   const loginButton = document.createElement('button');
+  const registerButton = document.createElement('button');
 
   //Form Inicio Sesión
   const loginForm = document.createElement('form');
@@ -16,10 +17,11 @@ export const Login = (onNavigate) => {
 
   const continueWithGoogle = document.createElement('button');
   continueWithGoogle.textContent = 'Continuar con Google';
+
   continueWithGoogle.addEventListener('click', () => {
     signInGoogle();
     onNavigate('/wall');
-    
+
   });
 
 
@@ -32,12 +34,13 @@ export const Login = (onNavigate) => {
   loginForm.appendChild(passwordInput);
 
   registerButton.textContent = '¿No tienes cuenta? Únete';
-  loginButton.textContent = 'Iniciar';
+  loginButton.textContent = 'Iniciar Sesión';
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(registerButton);
   LoginDiv.appendChild(loginButton);
   LoginDiv.appendChild(continueWithGoogle);
+
 
   registerButton.addEventListener('click', () => { onNavigate('/register') });
 
@@ -48,7 +51,7 @@ export const Login = (onNavigate) => {
     signIn(userMail, userPass)
       .then((response) => {
         console.log(response.user);
-        const objUsuario = { 
+        const objUsuario = {
           displayName: response.user.displayName,
           email: response.user.email,
           uid: response.user.uid
@@ -59,11 +62,19 @@ export const Login = (onNavigate) => {
       })
   })
 
+  //Agregando clases
 
-  
+  LoginDiv.classList.add('background');
+  registerButton.classList.add('registerButton');
+  emailInput.classList.add('inputEmail');
+  passwordInput.classList.add('inputpassword');
+  continueWithGoogle.classList.add('continueWithGoogle');
+  loginButton.classList.add('loginButton');
+
 
   return LoginDiv;
 }
 
-//TO DO Verificación de Login 
+
+//TO DO Verificación de Login
 //al hacer login te diriga al Home Bienvenid@

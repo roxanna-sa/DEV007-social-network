@@ -1,0 +1,71 @@
+body {
+    background-image: url("./img/logoNutriVid.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 15rem 5rem;
+}
+
+.background {
+    width: 24.375rem;
+    height: 52.75rem;
+    background-image: url("./img/backgroundMovil.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin-left: -0.50rem;
+}
+
+.inputEmail {
+    width: 20rem;
+    height: 3.625rem;
+    background: #E9F0CE;
+    border-radius: 0.625rem;
+    border-color: 3B3F20;
+    margin-top: 11.813rem;
+    font-size: 1.875rem;
+}
+
+.inputpassword {
+    width: 20rem;
+    height: 3.625rem;
+    background: #E9F0CE;
+    border-radius: 0.625rem;
+    border-color: #3B3F20;
+    margin-top: 3.125rem;
+    margin-left: 1.875rem;
+    font-size: 1.875rem;
+}
+
+.loginButton {
+    width: 14.938rem;
+    height: 2.875rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.563rem;
+    border-radius: 0.625rem;
+    margin-left: 5rem;
+  
+}
+
+
+.registerButton {
+    background: rgba(255, 255, 255, 0.014);
+    border-color: rgba(255, 255, 255, 0.014);
+    font-size: 1.75rem;
+    margin-top: 3.125rem;
+    color:#3B3F20; 
+    margin-left: 0.625rem;
+}
+
+
+.continueWithGoogle {
+    width: 17.5rem;
+    height: 2.5rem;
+    margin-top: 12.5rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.125rem;
+    border-radius: 0.938rem;
+    margin-left: 3.125rem;
+    text-align: center;
+}

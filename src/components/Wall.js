@@ -21,6 +21,7 @@ export const Wall = (onNavigate) => {
     logOutButton.textContent = 'Cerrar sesión';
     logOutButton.addEventListener('click', () => {
       logOut();
+      onNavigate('/');
     });
 
     WallDiv.appendChild(logOutButton);

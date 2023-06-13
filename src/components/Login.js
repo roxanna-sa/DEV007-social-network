@@ -18,8 +18,18 @@ export const Login = (onNavigate) => {
   continueWithGoogle.textContent = 'Continuar con Google';
 
   continueWithGoogle.addEventListener('click', () => {
-    signInGoogle();
-    onNavigate('/wall');
+    
+    signInGoogle().then((googleResponse) => {
+      const userObject = { 
+        displayName: googleResponse.user.displayName,
+        email: googleResponse.user.email,
+        uid: googleResponse.user.uid
+      }
+
+      localStorage.setItem("user", JSON.stringify(userObject));
+
+      onNavigate('/wall');
+    });
   });
 
   // TO DO focus email input
@@ -65,7 +75,7 @@ export const Login = (onNavigate) => {
           email: response.user.email,
           uid: response.user.uid
         }
-        console.log(userObject);
+        
         localStorage.setItem('user', JSON.stringify(userObject));
         onNavigate('/wall');
       }).catch((error) => {

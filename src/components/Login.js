@@ -17,21 +17,6 @@ export const Login = (onNavigate) => {
   const continueWithGoogle = document.createElement('button');
   continueWithGoogle.textContent = 'Continuar con Google';
 
-  continueWithGoogle.addEventListener('click', () => {
-    
-    signInGoogle().then((googleResponse) => {
-      const userObject = { 
-        displayName: googleResponse.user.displayName,
-        email: googleResponse.user.email,
-        uid: googleResponse.user.uid
-      }
-
-      localStorage.setItem("user", JSON.stringify(userObject));
-
-      onNavigate('/wall');
-    });
-  });
-
   // TO DO focus email input
   // document.getElementById("myTextField").focus();
   emailLabel.textContent = 'Email';
@@ -85,6 +70,21 @@ export const Login = (onNavigate) => {
         console.log(errorCode, errorMessage);
       });
     };
+  });
+
+  continueWithGoogle.addEventListener('click', () => {
+
+    signInGoogle().then((googleResponse) => {
+      const userObject = { 
+        displayName: googleResponse.user.displayName,
+        email: googleResponse.user.email,
+        uid: googleResponse.user.uid
+      }
+
+      localStorage.setItem("user", JSON.stringify(userObject));
+
+      onNavigate('/wall');
+    });
   });
 
   return LoginDiv;

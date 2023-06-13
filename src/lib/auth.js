@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
 import {app} from "../firebase.js"
 
 // Initialize Firebase Authentication and get a reference to the service
@@ -13,7 +13,8 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
     const user = userCredential.user;
     console.log(user);
     sendEmailVerification(user);
-
+    return user;
+    
 
     // Prueba: Actualizar usuario con nombre de usuario 
     // updateProfile(getAuth().currentUser, {
@@ -32,10 +33,16 @@ export const createUser = (userMail, userPass) => createUserWithEmailAndPassword
 
   // INGRESAR CON USUARIO EXISTENTE
 export const signIn = (userMail, userPass) => signInWithEmailAndPassword(auth, userMail, userPass);
-
+    
 // SignIn with Google
 
 export const signInGoogle = () => {
   const provider = new GoogleAuthProvider();
-  signInWithRedirect(auth, provider);
+  return signInWithPopup(auth, provider);
 };
+
+export const logOut = () => {
+  signOut(auth);
+  localStorage.clear();
+}
+

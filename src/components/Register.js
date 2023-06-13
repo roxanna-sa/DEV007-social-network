@@ -54,8 +54,9 @@ export const Register = (onNavigate) => {
     if (email === '' || password === '') {
       alert('ingresa datos')
     } else {
-      createUser(email, password).then(() => {
-        onNavigate('/home');
+      createUser(email, password).then((user) => {
+        localStorage.setItem('usuario', user.email);
+        onNavigate('/wall');
       }).catch((error) => {
         //log error
         alert('email ya registrado')

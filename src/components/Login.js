@@ -21,7 +21,7 @@ export const Login = (onNavigate) => {
   continueWithGoogle.addEventListener('click', () => {
     signInGoogle();
     onNavigate('/wall');
-
+    
   });
 
 
@@ -59,6 +59,8 @@ export const Login = (onNavigate) => {
 
         localStorage.setItem("usuario", JSON.stringify(objUsuario));
         onNavigate('/wall');
+        // FIX?
+        location.reload();
       })
   })
 

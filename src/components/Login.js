@@ -49,19 +49,11 @@ export const Login = (onNavigate) => {
     e.preventDefault()
     const userMail = emailInput.value;
     const userPass = passwordInput.value;
-
     if (userMail === '' || userPass === '') {
       alert('Ingresa email y contraseña')
     } else {
-      signIn(userMail, userPass).then((response) => {
-        console.log(response.user);
-        const userObject = {
-          displayName: response.user.displayName,
-          email: response.user.email,
-          uid: response.user.uid
-        }
-        
-        localStorage.setItem('user', JSON.stringify(userObject));
+      signIn(userMail, userPass).then(() => {
+        localStorage.setItem('user', userMail);
         onNavigate('/wall');
       }).catch((error) => {
         const errorCode = error.code;
@@ -75,13 +67,8 @@ export const Login = (onNavigate) => {
   continueWithGoogle.addEventListener('click', () => {
 
     signInGoogle().then((googleResponse) => {
-      const userObject = { 
-        displayName: googleResponse.user.displayName,
-        email: googleResponse.user.email,
-        uid: googleResponse.user.uid
-      }
-
-      localStorage.setItem("user", JSON.stringify(userObject));
+      console.log("Rpta de google:", googleResponse)
+      localStorage.setItem("user", googleResponse.user.email);
 
       onNavigate('/wall');
     });

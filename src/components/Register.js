@@ -55,13 +55,7 @@ export const Register = (onNavigate) => {
     } else {
       createUser(email, password).then((response) => {
         console.log(response);
-        const userObject = {
-          displayName: response.displayName,
-          email: response.email,
-          uid: response.uid
-        }
-        localStorage.setItem('usuario', response.email);
-        console.log(userObject);
+        localStorage.setItem('user', response.email);
         onNavigate('/wall');
       }).catch((error) => {
         //log error

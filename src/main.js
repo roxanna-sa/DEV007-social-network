@@ -13,25 +13,32 @@ export const onNavigate = (pathname) => {
     pathname,
     window.location.origin + pathname,
   );
-  rootDiv.removeChild(rootDiv.firstChild);
-  rootDiv.appendChild(routes[pathname]);
+  while (root.firstChild) {
+    root.removeChild(root.firstChild);
+  }
+
+  root.appendChild(routes[pathname](onNavigate));
 };
 
 
 routes = {
-  '/': Login(onNavigate),
-  '/register': Register(onNavigate),
-  '/wall': Wall(onNavigate),
+  '/': Login,
+  '/register': Register,
+  '/wall': Wall,
   //'/profile': Profile(onNavigate),
   //'/404': NotFound(onNavigate)
 };
 
-export const components = () => routes[window.location.pathname];
+// Obtener el componente correspondiente a la ruta actual
+const component = routes[window.location.pathname];
 
 window.onpopstate = () => {
-  rootDiv.removeChild(rootDiv.firstChild);
-  rootDiv.append(components());
+  while (root.firstChild) {  // Remover todos los hijos del elemento raíz
+    root.removeChild(root.firstChild);
+  }
+  // Agregar el componente correspondiente a la ruta actual
+  root.append(component(onNavigate));
 };
 
 // Llamadas al entrar al sitio.
-rootDiv.appendChild(components());
+root.appendChild(component(onNavigate));

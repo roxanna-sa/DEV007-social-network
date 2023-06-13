@@ -3,12 +3,11 @@ import { logOut } from "../lib/auth";
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
 
-  const getUser = localStorage.getItem('usuario');
-  console.log('localStorageUsuario', getUser);
+  const getUser = localStorage.getItem('user');
+  console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
 
   /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
   if (getUser) {
-    console.log(userObject);
     // Verificar con firebase...
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s

@@ -32,12 +32,6 @@ export const Register = (onNavigate) => {
   userBirthdateLabel.textContent = 'Fecha de nacimiento:';
   userPathologyLabel.textContent = '¿Tienes alguna patología?'
 
-  //Botón Unirse 
-  const joinButton = document.createElement('button');
-  joinButton.textContent = 'Unirse';
-  joinButton.className = 'join-button';
-  joinButton.setAttribute('type', 'submit');
-
   const divEmail = document.createElement('div');
   divEmail.className = 'div-email';
   divEmail.appendChild(emailLabel);
@@ -63,6 +57,12 @@ export const Register = (onNavigate) => {
   divPathology.appendChild(userPathologyLabel);
   divPathology.appendChild(userPathology);
 
+  //Botón Unirse 
+  const joinButton = document.createElement('button');
+  joinButton.textContent = 'Unirse';
+  joinButton.className = 'join-button';
+  joinButton.setAttribute('type', 'submit');
+
   registerForm.appendChild(divEmail);
   registerForm.appendChild(divPassword);
   registerForm.appendChild(divName);
@@ -85,13 +85,7 @@ export const Register = (onNavigate) => {
     } else {
       createUser(email, password).then((response) => {
         console.log(response);
-        const userObject = {
-          displayName: response.displayName,
-          email: response.email,
-          uid: response.uid
-        }
-        localStorage.setItem('user', JSON.stringify(userObject));
-        console.log(userObject);
+        localStorage.setItem('user', response.email);
         onNavigate('/wall');
       }).catch((error) => {
         //log error

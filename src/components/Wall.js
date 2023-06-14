@@ -5,18 +5,16 @@ export const Wall = (onNavigate) => {
   WallDiv.className = 'wall-div'
 
   const getUser = localStorage.getItem('user');
-  console.log('localStorageUsuario', getUser);
+  console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
 
   /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
-  if (getUser != null) {
-    const userObject = JSON.parse(localStorage['user']);
-    console.log(userObject);
+  if (getUser) {
     // Verificar con firebase...
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
 
     const loggedText = document.createElement('h2');
-    loggedText.textContent = 'Hola soy wall, bienvenid@ ' + userObject.email;
+    loggedText.textContent = 'Hola soy wall, bienvenid@ ' + getUser;
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';

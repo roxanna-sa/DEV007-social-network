@@ -68,11 +68,11 @@ export const Register = (onNavigate) => {
   registerForm.appendChild(divName);
   registerForm.appendChild(divBirthdate);
   registerForm.appendChild(divPathology);
+  registerForm.appendChild(joinButton);
 
   RegisterDiv.appendChild(welcome);
   RegisterDiv.appendChild(userIcon);
   RegisterDiv.appendChild(registerForm);
-  RegisterDiv.appendChild(joinButton)
 
   registerForm.addEventListener('submit', (e) => {
     e.preventDefault(); //evitar que el formulario haga el proceso de submit

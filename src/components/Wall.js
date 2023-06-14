@@ -2,6 +2,7 @@ import { logOut } from "../lib/auth";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
+  WallDiv.className = 'wall-div'
 
   const getUser = localStorage.getItem('user');
   console.log('localStorageUsuario', getUser);
@@ -28,16 +29,19 @@ export const Wall = (onNavigate) => {
     WallDiv.appendChild(loggedText);
   } else {
     /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
-    const notLoggedText = document.createElement('p');
+    const notLoggedText = document.createElement('h2');
     notLoggedText.textContent = 'Hola soy home, no estás loguead@';
     const logInButton = document.createElement('button');
     logInButton.textContent = 'Inicio';
     const registerButton = document.createElement('button');
-    registerButton.textContent = 'Register';
+    registerButton.textContent = 'Registrar';
 
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.className = 'buttons-div';
+    buttonsDiv.appendChild(logInButton);
+    buttonsDiv.appendChild(registerButton);
     WallDiv.appendChild(notLoggedText);
-    WallDiv.appendChild(logInButton);
-    WallDiv.appendChild(registerButton);
+    WallDiv.appendChild(buttonsDiv);
 
     logInButton.addEventListener('click', () => { onNavigate('/') });
     registerButton.addEventListener('click', () => { onNavigate('/register') });

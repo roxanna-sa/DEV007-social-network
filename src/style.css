@@ -162,3 +162,25 @@ body {
   border-radius: 10px;
   border: 0;
 }
+
+/* WALL PAGE */
+.wall-div {
+  display: grid;
+  row-gap: 1rem;
+}
+
+.buttons-div {
+  display: grid;
+  justify-items: center;
+  row-gap: 1rem;
+}
+
+.buttons-div button {
+  width: 50%;
+  height: 3rem;
+  background: #3B3F20;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  border: 0;
+}

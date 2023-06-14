@@ -8,37 +8,25 @@ const rootDiv = document.getElementById('root');
 let routes = {};
 
 export const onNavigate = (pathname) => {
-  window.history.pushState(
-    {},
-    pathname,
-    window.location.origin + pathname,
-  );
-  while (rootDiv.firstChild) {
-    rootDiv.removeChild(rootDiv.firstChild); // ¿Por qué no son rootDiv?
-  }
-
-  rootDiv.appendChild(routes[pathname](onNavigate));
+  window.location.replace(pathname);
+  rootDiv.removeChild(rootDiv.firstChild);
+  rootDiv.appendChild(routes[pathname]);
 };
 
-
 routes = {
-  '/': Login,
-  '/register': Register,
-  '/wall': Wall,
+  '/': Login(onNavigate),
+  '/register': Register(onNavigate),
+  '/wall': Wall(onNavigate),
   //'/profile': Profile(onNavigate),
   //'/404': NotFound(onNavigate)
 };
 
-// Obtener el componente correspondiente a la ruta actual
-const component = routes[window.location.pathname];
+export const components = () => routes[window.location.pathname];
 
 window.onpopstate = () => {
-  while (root.firstChild) {  // Remover todos los hijos del elemento raíz
-    rootDiv.removeChild(root.firstChild);
-  }
-  // Agregar el componente correspondiente a la ruta actual
-  rootDiv.append(component(onNavigate));
+  rootDiv.removeChild(rootDiv.firstChild);
+  rootDiv.append(components());
 };
 
 // Llamadas al entrar al sitio.
-rootDiv.appendChild(component(onNavigate)); //Porqué manda onNavigate a la constante component?
+rootDiv.appendChild(components());

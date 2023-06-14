@@ -2,7 +2,6 @@ import { logOut } from "../lib/auth";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
-  WallDiv.className = 'wall-div'
 
   const getUser = localStorage.getItem('user');
   console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
@@ -13,34 +12,30 @@ export const Wall = (onNavigate) => {
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
 
-    const loggedText = document.createElement('h2');
-    loggedText.textContent = 'Hola soy wall, bienvenid@ ' + userObject.email;
+    const loggedText = document.createElement('p');
+    loggedText.textContent = 'Hola soy home/wall, bienvenid@ ' + getUser;
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';
-    logOutButton.className = 'logout-button';
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');
     });
 
-    WallDiv.appendChild(loggedText);
     WallDiv.appendChild(logOutButton);
+    WallDiv.appendChild(loggedText);
   } else {
     /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
-    const notLoggedText = document.createElement('h2');
+    const notLoggedText = document.createElement('p');
     notLoggedText.textContent = 'Hola soy home, no estás loguead@';
     const logInButton = document.createElement('button');
     logInButton.textContent = 'Inicio';
     const registerButton = document.createElement('button');
-    registerButton.textContent = 'Registrar';
+    registerButton.textContent = 'Register';
 
-    const buttonsDiv = document.createElement('div');
-    buttonsDiv.className = 'buttons-div';
-    buttonsDiv.appendChild(logInButton);
-    buttonsDiv.appendChild(registerButton);
     WallDiv.appendChild(notLoggedText);
-    WallDiv.appendChild(buttonsDiv);
+    WallDiv.appendChild(logInButton);
+    WallDiv.appendChild(registerButton);
 
     logInButton.addEventListener('click', () => { onNavigate('/') });
     registerButton.addEventListener('click', () => { onNavigate('/register') });

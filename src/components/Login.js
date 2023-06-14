@@ -3,40 +3,62 @@ import { signIn, signInGoogle } from '../lib/auth.js'
 //para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
-  const loginButton = document.createElement('button');
-  const registerButton = document.createElement('button');
 
-  //Form Inicio Sesión
+  //Form login
   const loginForm = document.createElement('form');
+  const welcome = document.createElement('h2');
+  welcome.textContent = 'Bienvenido a Nutrivid';
+  //Div input email
+  const divEmail = document.createElement('div');
   const emailLabel = document.createElement('label');
   const emailInput = document.createElement('input');
+  // Div password
+  const divPassword = document.createElement('div');
   const passwordLabel = document.createElement('label');
   const passwordInput = document.createElement('input');
   passwordInput.setAttribute('type', 'password');
 
-  const continueWithGoogle = document.createElement('button');
-  continueWithGoogle.textContent = 'Continuar con Google';
-
   // TO DO focus email input
   // document.getElementById("myTextField").focus();
-  emailLabel.textContent = 'Email';
-  passwordLabel.textContent = 'Contraseña';
+  emailLabel.textContent = 'Email:';
+  passwordLabel.textContent = 'Contraseña:';
 
-  loginForm.appendChild(emailLabel);
-  loginForm.appendChild(emailInput);
-  loginForm.appendChild(passwordLabel);
-  loginForm.appendChild(passwordInput);
+  //buttons
+  const buttonDiv = document.createElement('div');
+  buttonDiv.className = 'button-div';
+  const loginButton = document.createElement('button');
+  const registerButton = document.createElement('button');
 
-  registerButton.textContent = '¿No tienes cuenta? Únete';
+  //TO DO Acomodar logo google
+  const continueWithGoogle = document.createElement('button');
+  const googleLogo = document.createElement('img');
+  continueWithGoogle.textContent = 'Continuar con Google';
+  googleLogo.src = './img/google.png';
+  continueWithGoogle.appendChild(googleLogo);
+
+  registerButton.textContent = '¿No tienes cuenta? \n Únete';
   loginButton.textContent = 'Iniciar Sesión';
 
+  LoginDiv.appendChild(welcome);
+
+  divEmail.appendChild(emailLabel);
+  divEmail.appendChild(emailInput);
+  loginForm.appendChild(divEmail);
+  
+  divPassword.appendChild(passwordLabel);
+  divPassword.appendChild(passwordInput);
+  loginForm.appendChild(divPassword);
+
+  buttonDiv.appendChild(loginButton);
+  buttonDiv.appendChild(registerButton);
+  buttonDiv.appendChild(continueWithGoogle);
+
   LoginDiv.appendChild(loginForm);
-  LoginDiv.appendChild(registerButton);
-  LoginDiv.appendChild(loginButton);
-  LoginDiv.appendChild(continueWithGoogle);
+  LoginDiv.appendChild(buttonDiv);
 
   //Agregando clases
-  LoginDiv.classList.add('background');
+
+  loginForm.className = 'login-form'
   registerButton.classList.add('registerButton');
   emailInput.classList.add('inputEmail');
   passwordInput.classList.add('inputpassword');

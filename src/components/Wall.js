@@ -15,18 +15,19 @@ export const Wall = (onNavigate) => {
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
 
-    const loggedText = document.createElement('p');
-    loggedText.textContent = 'Hola soy home/wall, bienvenid@ ' + userObject.email;
+    const loggedText = document.createElement('h2');
+    loggedText.textContent = 'Hola soy wall, bienvenid@ ' + userObject.email;
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';
+    logOutButton.className = 'logout-button';
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');
     });
 
-    WallDiv.appendChild(logOutButton);
     WallDiv.appendChild(loggedText);
+    WallDiv.appendChild(logOutButton);
   } else {
     /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
     const notLoggedText = document.createElement('h2');

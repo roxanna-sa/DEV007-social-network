@@ -167,6 +167,18 @@ body {
 .wall-div {
   display: grid;
   row-gap: 1rem;
+  justify-items: stretch;
+}
+
+/* Fix position */
+.logout-button {
+  width: 50%;
+  height: 3rem;
+  background: #3B3F20;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  border: 0;
 }
 
 .buttons-div {
@@ -184,3 +196,4 @@ body {
   border-radius: 10px;
   border: 0;
 }
+

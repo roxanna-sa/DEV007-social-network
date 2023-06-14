@@ -1,199 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Noto Sans';
-}
-
 body {
-  background-image: linear-gradient(rgba(249, 249, 249, 0.5),
-      rgba(239, 229, 229, 0.8)), url(./img/fondo-mobile.png);
-  background-position: center;
-  background-size: 200%;
+    background-image: url("./img/logoNutriVid.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 15rem 5rem;
 }
 
-.root {
-  height: calc(100vh - 4rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.background {
+    width: 24.375rem;
+    height: 52.75rem;
+    background-image: url("./img/backgroundMovil.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin-left: -0.50rem;
 }
 
-.root h2 {
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: #3B3F20;
+.inputEmail {
+    width: 20rem;
+    height: 3.625rem;
+    background: #E9F0CE;
+    border-radius: 0.625rem;
+    border-color: 3B3F20;
+    margin-top: 11.813rem;
+    font-size: 1.875rem;
 }
 
-.logo {
-  height: 4rem;
-}
-
-.logo img {
-  height: 4rem;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  height: calc(40vh - 4rem);
-}
-
-.login-form label {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #3B3F20;
-}
-
-.login-form input {
-  display: flex;
-  flex-direction: column;
-  width: 20rem;
-  height: 3rem;
-  background: #E9F0CE;
-  border-radius: 0.625rem;
-  border-color: #3B3F20;
-  font-size: 1.5rem;
-}
-
-.button-div {
-  width: 100vw;
-  height: calc(40vh - 4rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+.inputpassword {
+    width: 20rem;
+    height: 3.625rem;
+    background: #E9F0CE;
+    border-radius: 0.625rem;
+    border-color: #3B3F20;
+    margin-top: 3.125rem;
+    margin-left: 1.875rem;
+    font-size: 1.875rem;
 }
 
 .loginButton {
-  width: 50%;
-  height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  border: 0;
+    width: 14.938rem;
+    height: 2.875rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.563rem;
+    border-radius: 0.625rem;
+    margin-left: 5rem;
+  
 }
+
 
 .registerButton {
-  background: rgba(255, 255, 255, 0.014);
-  border-color: rgba(255, 255, 255, 0.014);
-  text-decoration: underline;
-  font-size: 1.3rem;
-  color: #3B3F20;
+    background: rgba(255, 255, 255, 0.014);
+    border-color: rgba(255, 255, 255, 0.014);
+    font-size: 1.75rem;
+    margin-top: 3.125rem;
+    color:#3B3F20; 
+    margin-left: 0.625rem;
 }
+
 
 .continueWithGoogle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 80%;
-  height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  border: 0;
+    width: 17.5rem;
+    height: 2.5rem;
+    margin-top: 12.5rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.125rem;
+    border-radius: 0.938rem;
+    margin-left: 3.125rem;
+    text-align: center;
 }
-
-.continueWithGoogle img {
-  width: 1.5rem;
-}
-
-/* REGISTER PAGE */
-
-.register-div {
-  display: grid;
-  justify-items: center;
-}
-
-.user-icon {
-  width: 5rem;
-}
-
-.register-form {
-  display: grid;
-  justify-items: center;
-}
-
-.register-form div {
-  margin-bottom: 1rem;
-  display: grid;
-}
-
-.register-form label {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #3B3F20;
-}
-
-.register-form input {
-  width: 20rem;
-  height: 3rem;
-  background: #E9F0CE;
-  border-radius: 10px;
-  border-color: #3B3F20;
-  font-size: 1.5rem;
-}
-
-.register-form select {
-  display: flex;
-  flex-direction: column;
-  width: 20rem;
-  height: 3rem;
-  background: #E9F0CE;
-  border-radius: 10px;
-  border-color: #3B3F20;
-  font-size: 1.5rem;
-}
-
-.join-button {
-  width: 50%;
-  height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  border: 0;
-}
-
-/* WALL PAGE */
-.wall-div {
-  display: grid;
-  row-gap: 1rem;
-  justify-items: stretch;
-}
-
-/* Fix position */
-.logout-button {
-  width: 50%;
-  height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  border: 0;
-}
-
-.buttons-div {
-  display: grid;
-  justify-items: center;
-  row-gap: 1rem;
-}
-
-.buttons-div button {
-  width: 50%;
-  height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  border: 0;
-}
-

@@ -208,10 +208,16 @@ body {
     border-radius: 20px;
     height: 3rem;
     width: 11rem;
-    background: none;
     font-size: 1.2rem;
     border: 3px solid;
     text-align: center;
+    background: none;
+}
+
+/* TODO LUPA */
+.lupa {
+  background: url(./img/lupa.png);
+  background-size: 2rem;
 }
 
 .divUserAndSearch{
@@ -231,6 +237,7 @@ body {
     background: none;
     border: none;
 }
+
 .divMenu img{
     width: 3rem;
 }
@@ -239,6 +246,7 @@ body {
     transform: rotate(45deg);
     width: 2rem !important;
 }
+
 .divPost{
     height: calc(100vh - 21rem);
 }

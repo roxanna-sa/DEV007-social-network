@@ -15,8 +15,6 @@ export const Wall = (onNavigate) => {
 
     const divUserAndSearch = document.createElement('div');
     divUserAndSearch.className = 'divUserAndSearch';
-    const lupa = document.createElement('img');
-    lupa.src = '../img/lupa.png';
     const userAccount = document.createElement('img');
     userAccount.src = '../img/user.png';
     userAccount.className = ' userAccount';
@@ -24,7 +22,13 @@ export const Wall = (onNavigate) => {
     searchInput.placeholder = 'Buscar';
     searchInput.setAttribute('type', 'search');
     searchInput.className = 'searchInput';
+
+    // TODO añadir lupa a search input
+    const lupa = document.createElement('div');
+    lupa.className = 'lupa';
+    // lupa.src = '../img/lupa.png';
     searchInput.appendChild(lupa);
+
     divUserAndSearch.appendChild(userAccount);
     divUserAndSearch.appendChild(searchInput);
     

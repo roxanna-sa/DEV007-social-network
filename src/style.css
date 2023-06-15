@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans';
+}
+
+body {
+    background-image: linear-gradient(rgba(249, 249, 249, 0.5),
+            rgba(239, 229, 229, 0.8)), url(./img/fondo-mobile.png);
+    background-position: center;
+    background-size: 200%;
+    background-attachment: fixed;
+}
+
+.root {
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+   }
+
+.root h2 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #3B3F20;
+}
+
+.logo {
+    height: 4rem;
+}
+
+.logo img {
+    height: 4rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: calc(40vh - 4rem);
+}
+
+.login-form label {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #3B3F20;
+}
+
+.login-form input {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: 3rem;
+    background: #E9F0CE;
+    border-radius: 0.625rem;
+    border-color: #3B3F20;
+    font-size: 1.5rem;
+}
+
+.button-div {
+    width: 100vw;
+    height: calc(40vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.loginButton {
+    width: 50%;
+    height: 3rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border: 0;
+}
+
+.registerButton {
+    background: rgba(255, 255, 255, 0.014);
+    border-color: rgba(255, 255, 255, 0.014);
+    text-decoration: underline;
+    font-size: 1.3rem;
+    color: #3B3F20;
+}
+
+.continueWithGoogle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+    height: 3rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border: 0;
+}
+
+.continueWithGoogle img {
+    width: 1.5rem;
+}
+
+/* REGISTER PAGE */
+
+.register-div {
+    display: grid;
+    justify-items: center;
+}
+
+.user-icon {
+    width: 5rem;
+}
+
+.register-form {
+    display: grid;
+    justify-items: center;
+}
+
+.register-form div {
+    margin-bottom: 1rem;
+    display: grid;
+}
+
+.register-form label {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #3B3F20;
+}
+
+.register-form input {
+    width: 20rem;
+    height: 3rem;
+    background: #E9F0CE;
+    border-radius: 10px;
+    border-color: #3B3F20;
+    font-size: 1.5rem;
+}
+
+.register-form select {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: 3rem;
+    background: #E9F0CE;
+    border-radius: 10px;
+    border-color: #3B3F20;
+    font-size: 1.5rem;
+}
+
+.join-button {
+    width: 50%;
+    height: 3rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border: 0;
+}
+
+/* WALL PAGE */
+.wall-div {
+    display: grid;
+    row-gap: 1rem;
+    justify-items: stretch;
+}
+
+/* Fix position */
+.logout-button {
+    width: 50%;
+    height: 3rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border: 0;
+}
+
+.buttons-div {
+    display: grid;
+    justify-items: center;
+    row-gap: 1rem;
+}
+
+.buttons-div button {
+    width: 50%;
+    height: 3rem;
+    background: #3B3F20;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border: 0;
+}
+
+/* Walls styles */
+
+.userAccount {
+    width: 3rem;
+    margin-left: 3rem;
+}
+
+.searchInput{
+    border-radius: 20px;
+    height: 3rem;
+    width: 11rem;
+    font-size: 1.2rem;
+    border: 3px solid;
+    text-align: center;
+    background: none;
+}
+
+/* TODO LUPA */
+.lupa {
+  background: url(./img/lupa.png);
+  background-size: 2rem;
+}
+
+.divUserAndSearch{
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    align-items: center;
+}
+
+.divMenu{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    position: sticky;
+}
+
+.divMenu button{
+    background: none;
+    border: none;
+}
+
+.divMenu img{
+    width: 3rem;
+}
+
+.divMenu .postIcon{
+    transform: rotate(45deg);
+    width: 2rem !important;
+}
+
+.divPost{
+    height: calc(100vh - 21rem);
+}

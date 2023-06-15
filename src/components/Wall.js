@@ -13,8 +13,48 @@ export const Wall = (onNavigate) => {
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
 
-    const loggedText = document.createElement('h2');
-    loggedText.textContent = 'Hola soy wall, bienvenid@ ' + getUser;
+    const divUserAndSearch = document.createElement('div');
+    divUserAndSearch.className = 'divUserAndSearch';
+    const lupa = document.createElement('img');
+    lupa.src = '../img/lupa.png';
+    const userAccount = document.createElement('img');
+    userAccount.src = '../img/user.png';
+    userAccount.className = ' userAccount';
+    const searchInput = document.createElement('input');
+    searchInput.placeholder = 'Buscar';
+    searchInput.setAttribute('type', 'search');
+    searchInput.className = 'searchInput';
+    searchInput.appendChild(lupa);
+    divUserAndSearch.appendChild(userAccount);
+    divUserAndSearch.appendChild(searchInput);
+    
+    //Espacio para post
+    const divPost = document.createElement('div');
+    divPost.className ='divPost';
+
+
+    //Menu 
+    const divMenu = document.createElement('div');
+    divMenu.className = 'divMenu';
+    const homeButton = document.createElement('button');
+    const homeIcon = document.createElement('img');
+    homeIcon.src = '../img/home.png';
+    homeButton.appendChild(homeIcon);
+    divMenu.appendChild(homeButton);
+    const postButton = document.createElement('button');
+    const postIcon = document.createElement('img');
+    postIcon.src = '../img/add-post.png';
+    postIcon.className = 'postIcon';
+    postButton.appendChild(postIcon);
+    divMenu.appendChild(postButton);
+    const friendsButton = document.createElement('button');
+    const friendsIcon = document.createElement('img');
+    friendsIcon.src = '../img/friends.png';
+    friendsButton.appendChild(friendsIcon);
+    divMenu.appendChild(friendsButton);
+
+
+
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';
@@ -24,8 +64,11 @@ export const Wall = (onNavigate) => {
       onNavigate('/');
     });
 
-    WallDiv.appendChild(loggedText);
+    WallDiv.appendChild(divUserAndSearch);
+    WallDiv.appendChild(divPost);
+    WallDiv.appendChild(divMenu);
     WallDiv.appendChild(logOutButton);
+
   } else {
     /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
     const notLoggedText = document.createElement('h2');

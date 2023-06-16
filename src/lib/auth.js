@@ -13,7 +13,6 @@ export const createUser = (userMail, userPass, displayName) => createUserWithEma
     const user = userCredential.user;
     console.log(user);
     sendEmailVerification(user);
-   
 
     // Prueba: Actualizar usuario con nombre de usuario 
     updateProfile(getAuth().currentUser, {
@@ -21,7 +20,6 @@ export const createUser = (userMail, userPass, displayName) => createUserWithEma
     });
 
     return user;
-   
 
     // Guardamos el id de usuario en localStorage y tal vez traemos los datos del usuario desde firebase. 
     // Como por ej el nombre (y si alcanzamos) la imágen para dejarla también en localStorage y poder mostrarla en las otras pantallas.

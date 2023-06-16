@@ -1,4 +1,6 @@
+import { doc } from "firebase/firestore";
 import { logOut } from "../lib/auth";
+import { createPost } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
@@ -29,8 +31,7 @@ export const Wall = (onNavigate) => {
     lupa.className = 'lupa';
     // lupa.src = '../img/lupa.png';
     searchInput.appendChild(lupa);
-    
-    
+
     divUserAndSearch.appendChild(userAccount);
     divUserAndSearch.appendChild(searchInput);
     divUserAndSearch.appendChild(welcome);
@@ -39,6 +40,23 @@ export const Wall = (onNavigate) => {
     const divPost = document.createElement('div');
     divPost.className ='divPost';
 
+    const postInput = document.createElement('input');
+    postInput.className = 'postInput';
+    const publishPost = document.createElement('button');
+    publishPost.className = 'publishPost';
+    publishPost.textContent = 'Publicar';
+    divPost.appendChild(postInput);
+    divPost.appendChild(publishPost);
+
+    publishPost.addEventListener('click', () => {
+      const inputText = postInput.value;
+      console.log(inputText);
+      createPost(inputText).then(() => {
+
+      }).catch(err => {
+        console.log(err);
+      });
+    })
 
     //Menu 
     const divMenu = document.createElement('div');
@@ -59,9 +77,6 @@ export const Wall = (onNavigate) => {
     friendsIcon.src = '../img/friends.png';
     friendsButton.appendChild(friendsIcon);
     divMenu.appendChild(friendsButton);
-
-
-
 
     const logOutButton = document.createElement('button');
     logOutButton.textContent = 'Cerrar sesión';

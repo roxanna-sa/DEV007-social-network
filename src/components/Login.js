@@ -75,8 +75,9 @@ export const Login = (onNavigate) => {
     if (userMail === '' || userPass === '') {
       alert('Ingresa email y contraseña')
     } else {
-      signIn(userMail, userPass).then(() => {
+      signIn(userMail, userPass).then((response) => {
         localStorage.setItem('user', userMail);
+        localStorage.setItem('name', response.user.displayName);
         onNavigate('/wall');
       }).catch((error) => {
         const errorCode = error.code;
@@ -92,6 +93,7 @@ export const Login = (onNavigate) => {
     signInGoogle().then((googleResponse) => {
       console.log("Rpta de google:", googleResponse)
       localStorage.setItem("user", googleResponse.user.email);
+      localStorage.setItem('name', googleResponse.user.displayName);
 
       onNavigate('/wall');
     });

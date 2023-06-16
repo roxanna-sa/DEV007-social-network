@@ -34,10 +34,10 @@ const component = routes[window.location.pathname];
 
 window.onpopstate = () => {
   while (root.firstChild) {  // Remover todos los hijos del elemento raíz
-    rootDiv.removeChild(root.firstChild);
+    root.removeChild(root.firstChild);
   }
   // Agregar el componente correspondiente a la ruta actual
-  rootDiv.append(component(onNavigate));
+  root.append(component(onNavigate));
 };
 
 // Llamadas al entrar al sitio.

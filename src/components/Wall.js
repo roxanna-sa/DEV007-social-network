@@ -12,7 +12,8 @@ export const Wall = (onNavigate) => {
     // Verificar con firebase...
 
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
-
+    const welcome = document.createElement("p");
+    welcome.textContent = '¡Bienvenido ' + localStorage.getItem('name') + '!';
     const divUserAndSearch = document.createElement('div');
     divUserAndSearch.className = 'divUserAndSearch';
     const userAccount = document.createElement('img');
@@ -28,9 +29,11 @@ export const Wall = (onNavigate) => {
     lupa.className = 'lupa';
     // lupa.src = '../img/lupa.png';
     searchInput.appendChild(lupa);
-
+    
+    
     divUserAndSearch.appendChild(userAccount);
     divUserAndSearch.appendChild(searchInput);
+    divUserAndSearch.appendChild(welcome);
     
     //Espacio para post
     const divPost = document.createElement('div');

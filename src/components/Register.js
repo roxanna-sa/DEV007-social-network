@@ -76,21 +76,26 @@ export const Register = (onNavigate) => {
 
   registerForm.addEventListener('submit', (e) => {
     e.preventDefault(); //evitar que el formulario haga el proceso de submit
-    const email = emailUser.value;
-    const password = passwordInput.value;
+    joinButton.setAttribute('disabled', true); // Bloquear botón submit para evitar doble registro
+    const email = emailUser.value.trim();
+    const password = passwordInput.value.trim();
+    const displayName = userName.value.trim();
     console.log(email, password);
 
-    if (email === '' || password === '') {
-      alert('Ingresa datos')
+    if (email === '' || password === '' || displayName === '') {
+      alert('Ingresa datos');
+      joinButton.removeAttribute('disabled');
     } else {
-      createUser(email, password).then((response) => {
+      createUser(email, password, displayName).then((response) => {
         console.log(response);
         localStorage.setItem('user', response.email);
+        localStorage.setItem('name', displayName);
         onNavigate('/wall');
       }).catch((error) => {
         //log error
         console.log(error);
         alert('Error');
+        joinButton.removeAttribute('disabled');
         //onNavigate('/register');
       });
     }

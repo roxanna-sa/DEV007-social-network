@@ -1,10 +1,10 @@
-import { doc } from "firebase/firestore";
+import { async } from "regenerator-runtime";
 import { logOut } from "../lib/auth";
-import { createPost } from "../lib/firestore";
+import { createPost, getPosts } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
-  WallDiv.className = 'wall-div'
+  WallDiv.className = 'wall-div';
 
   const getUser = localStorage.getItem('user');
   console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
@@ -35,10 +35,10 @@ export const Wall = (onNavigate) => {
     divUserAndSearch.appendChild(userAccount);
     divUserAndSearch.appendChild(searchInput);
     divUserAndSearch.appendChild(welcome);
-    
+
     //Espacio para post
     const divPost = document.createElement('div');
-    divPost.className ='divPost';
+    divPost.className = 'divPost';
 
     const postInput = document.createElement('input');
     postInput.className = 'postInput';
@@ -48,15 +48,29 @@ export const Wall = (onNavigate) => {
     divPost.appendChild(postInput);
     divPost.appendChild(publishPost);
 
-    publishPost.addEventListener('click', () => {
+    publishPost.addEventListener('click', async () => {
       const inputText = postInput.value;
       console.log(inputText);
-      createPost(inputText).then(() => {
 
-      }).catch(err => {
-        console.log(err);
+      const post = document.createElement('div');
+      console.log(post);
+      post.textContent = await createPost(inputText);
+
+      divPost.appendChild(post);
+    });
+
+    //Muestra todos los posts ya guardados en firestore
+    async function showAllPosts() {
+      let arrayPosts = await getAllPosts();
+      console.log(arrayPosts);
+      arrayPosts.forEach(post => {
+        const singlePost = document.createElement('div');
+        singlePost.textContent = post.postContent;
+        divPost.appendChild(singlePost)
       });
-    })
+    }
+
+    showAllPosts();
 
     //Menu 
     const divMenu = document.createElement('div');
@@ -112,4 +126,9 @@ export const Wall = (onNavigate) => {
   }
   // TO DO inputs de email y password
   return WallDiv;
+}
+
+async function getAllPosts() {
+  //console.log(await getPosts());
+  return await getPosts();
 }

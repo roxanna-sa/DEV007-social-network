@@ -168,6 +168,10 @@ body {
   border: 0;
 }
 
+.join-button:hover {
+  cursor: pointer;
+}
+
 /* WALL PAGE */
 .wall-div {
   display: grid;

@@ -247,28 +247,24 @@ body {
   width: 2rem !important;
 }
 
-
 /* Styles posts */
-.divPost {
-  height: calc(100vh - 21rem);
-  display: grid;
-  justify-items: center;
-  grid-template-rows: auto;
+
+.publishPostInputAndButton {
+  display: flex;
+  justify-content: space-around;
 }
 
 .postInput {
-  width: 20rem;
-  height: 3rem;
+  width: 50%;
+  height: 2rem;
   background: #E9F0CE;
   border-radius: 10px;
   border-color: #3B3F20;
-  font-size: 1.5rem;
+  font-size: 1rem;
   resize: none;
-  /* Disables resizability */
-
 }
 
-.publishPost {
+.publishButton {
   width: 25%;
   height: 2rem;
   background: #3B3F20;
@@ -278,9 +274,17 @@ body {
   border: 0;
 }
 
+.divPost {
+  height: calc(100vh - 21rem); 
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto;
+  row-gap: 1rem;
+}
+
 .divPost div {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   width: 19.8rem;
   height: auto;
   word-wrap: break-word;
@@ -292,9 +296,22 @@ body {
 }
 
 .divPost div .userName {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
   border: none;
   font-size: 1.2rem;
   font-weight: 600;
   width: auto;
   color: #3B3F20;
+}
+
+.divPost button {
+  background: none;
+  border: none;
+}
+
+.menuPost {
+  height: 1.5rem;
 }

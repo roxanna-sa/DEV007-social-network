@@ -7,94 +7,74 @@ export const Wall = (onNavigate) => {
 
   const getUser = localStorage.getItem('user');
   //console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
-
   /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
   if (getUser) {
     // Verificar con firebase...
-
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
-    const welcome = document.createElement("p");
-    welcome.textContent = '¡Bienvenido ' + localStorage.getItem('name') + '!';
     const divUserAndSearch = document.createElement('div');
     divUserAndSearch.className = 'divUserAndSearch';
-    const userAccount = document.createElement('img');
-    userAccount.src = '../img/user.png';
-    userAccount.className = ' userAccount';
-    const searchInput = document.createElement('input');
-    searchInput.placeholder = 'Buscar';
-    searchInput.setAttribute('type', 'search');
-    searchInput.className = 'searchInput';
+    divUserAndSearch.innerHTML = `
+    <img src='../img/user.png' class='userAccount'>
+    <input placeholder="Buscar" type="search" class="searchInput">
+    `
 
     // TODO añadir lupa a search input
-    const lupa = document.createElement('div');
-    lupa.className = 'lupa';
-    // lupa.src = '../img/lupa.png';
-    searchInput.appendChild(lupa);
+    // const lupa = document.createElement('div');
+    // lupa.className = 'lupa';
+    // // lupa.src = '../img/lupa.png';
 
-    divUserAndSearch.appendChild(userAccount);
-    divUserAndSearch.appendChild(searchInput);
-    divUserAndSearch.appendChild(welcome);
-
-    //Espacio para post
+    const publishPostInputAndButton = document.createElement('div');
+    publishPostInputAndButton.className = 'publishPostInputAndButton'
+    publishPostInputAndButton.innerHTML = `
+    <input class='postInput' id='postInput'></input>
+    <button class='publishButton' id='publishButton'>Publicar</button>
+    `;
+    //Espacio para posts
     const divPost = document.createElement('div');
     divPost.className = 'divPost';
 
-    const postInput = document.createElement('input');
-    postInput.id = 'postInput';
-    postInput.className = 'postInput';
-    const publishPost = document.createElement('button');
-    
-    publishPost.className = 'publishPost';
-    publishPost.textContent = 'Publicar';
-    divPost.appendChild(postInput);
-    divPost.appendChild(publishPost);
+    document.addEventListener('DOMContentLoaded', () => {
+      let publishButton = document.getElementById('publishButton');
 
-    publishPost.addEventListener('click', async () => {
-      const inputText = postInput.value;
-     
-      if (inputText.trim() === '') {
-        alert('Debes escribir algo para publicar...');
-        
-      } else {
-        await createPost(inputText);
+      publishButton.addEventListener('click', async () => {
+        const inputText = postInput.value;
 
-        const post = document.createElement('div');
-        post.className = 'post';
-        post.textContent = inputText;
-  
-        const userName = document.createElement('div');
-        userName.className = 'userName';
-        userName.textContent = localStorage.getItem('name');
-  
-        post.appendChild(userName);
-        divPost.appendChild(post);
-        clearInput();
-       
-      }   
+        if (inputText.trim() === '') {
+          alert('Debes escribir algo para publicar...');
+        } else {
+          await createPost(inputText);
+
+          const post = document.createElement('div');
+          post.className = 'post';
+          post.innerHTML = `
+        <div class='userName' id='userName'>${localStorage.getItem('name')}</div>
+        <button><img src='../img/menu.png' class='menuPost'></button>
+        <p> ${inputText}</p>
+        `
+          divPost.appendChild(post);
+          clearInput();
+        }
+      });
+
+      function clearInput() {
+        //console.log('borrando el input');
+        document.getElementById("postInput").value = '';
+      }
     });
-
-    function clearInput() {
-      //console.log('borrando el input');
-      document.getElementById("postInput").value = '';
-    }
 
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
       let arrayPosts = await getAllPosts();
-      //console.log(arrayPosts);
       arrayPosts.forEach(post => {
-        //console.log(post);
         const singlePost = document.createElement('div');
-        const userName = document.createElement('div');
-        userName.className = 'userName';
-        userName.textContent = post.userName;
 
-        singlePost.textContent = post.postContent;
-        singlePost.appendChild(userName);
+        singlePost.innerHTML = `
+        <div class="userName">${post.userName}<button><img src='../img/menu.png'class='menuPost'></button></div>
+        
+        <p>${post.postContent}</p>
+        `;
 
-        //console.log(singlePost);
-        divPost.appendChild(singlePost)
-        console.log(post);
+        divPost.appendChild(singlePost);
       });
     }
 
@@ -103,60 +83,47 @@ export const Wall = (onNavigate) => {
     //Menu 
     const divMenu = document.createElement('div');
     divMenu.className = 'divMenu';
-    const homeButton = document.createElement('button');
-    const homeIcon = document.createElement('img');
-    homeIcon.src = '../img/home.png';
-    homeButton.appendChild(homeIcon);
-    divMenu.appendChild(homeButton);
-    const postButton = document.createElement('button');
-    const postIcon = document.createElement('img');
-    postIcon.src = '../img/add-post.png';
-    postIcon.className = 'postIcon';
-    postButton.appendChild(postIcon);
-    divMenu.appendChild(postButton);
-    const friendsButton = document.createElement('button');
-    const friendsIcon = document.createElement('img');
-    friendsIcon.src = '../img/friends.png';
-    friendsButton.appendChild(friendsIcon);
-    divMenu.appendChild(friendsButton);
 
-    const logOutButton = document.createElement('button');
-    logOutButton.textContent = 'Cerrar sesión';
-    logOutButton.className = 'logout-button';
+    divMenu.innerHTML = `
+    <button><img src='../img/home.png'></button>
+    <button><img src='../img/add-post.png' class='postIcon'></button>
+    <button><img src='../img/friends.png'></button>
+    `
+
+    const logOutButton = document.createElement('div');
+    logOutButton.innerHTML = `<button class='logout-button'>Cerrar sesión</button>`
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');
     });
 
     WallDiv.appendChild(divUserAndSearch);
+    WallDiv.appendChild(publishPostInputAndButton);
     WallDiv.appendChild(divPost);
     WallDiv.appendChild(divMenu);
     WallDiv.appendChild(logOutButton);
 
   } else {
-    /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
-    const notLoggedText = document.createElement('h2');
-    notLoggedText.textContent = 'Hola soy home, no estás loguead@';
-    const logInButton = document.createElement('button');
-    logInButton.textContent = 'Inicio';
-    const registerButton = document.createElement('button');
-    registerButton.textContent = 'Registrar';
+    const notLoggedUser = document.createElement('div')
+    notLoggedUser.innerHTML = `
+    <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
+    <div class='buttons-div'>
+      <button id='logInButton'>Inicio</button>
+      <button id='registerButton'>Registrar</button>
+    </div>
+    `;
 
-    const buttonsDiv = document.createElement('div');
-    buttonsDiv.className = 'buttons-div';
-    buttonsDiv.appendChild(logInButton);
-    buttonsDiv.appendChild(registerButton);
-    WallDiv.appendChild(notLoggedText);
-    WallDiv.appendChild(buttonsDiv);
-
-    logInButton.addEventListener('click', () => { onNavigate('/') });
-    registerButton.addEventListener('click', () => { onNavigate('/register') });
-  }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
+      document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') });
+    });
+    WallDiv.appendChild(notLoggedUser);
+  };
   // TO DO inputs de email y password
   return WallDiv;
-}
+};
 
 async function getAllPosts() {
   //console.log(await getPosts());
   return await getPosts();
-}
+};

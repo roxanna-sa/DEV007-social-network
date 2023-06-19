@@ -41,6 +41,7 @@ export const Wall = (onNavigate) => {
     divPost.className = 'divPost';
 
     const postInput = document.createElement('input');
+    postInput.id = 'postInput';
     postInput.className = 'postInput';
     const publishPost = document.createElement('button');
     publishPost.className = 'publishPost';
@@ -52,11 +53,19 @@ export const Wall = (onNavigate) => {
       const inputText = postInput.value;
       await createPost(inputText);
       
+      
       const post = document.createElement('div');
       post.textContent = inputText;
       divPost.appendChild(post);
       //console.log(post);
+
+      clearInput();
     });
+
+    function clearInput() {
+      //console.log('borrando el input');
+      document.getElementById("postInput").value = '';
+    }
 
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
@@ -70,6 +79,7 @@ export const Wall = (onNavigate) => {
     }
 
     showAllPosts();
+
 
     //Menu 
     const divMenu = document.createElement('div');

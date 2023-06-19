@@ -7,7 +7,7 @@ export const Wall = (onNavigate) => {
   WallDiv.className = 'wall-div';
 
   const getUser = localStorage.getItem('user');
-  console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
+  //console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
 
   /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
   if (getUser) {
@@ -52,9 +52,9 @@ export const Wall = (onNavigate) => {
     publishPost.addEventListener('click', async () => {
       const inputText = postInput.value;
       await createPost(inputText);
-      
-      
+
       const post = document.createElement('div');
+      post.className = 'post';
       post.textContent = inputText;
       divPost.appendChild(post);
       //console.log(post);
@@ -73,13 +73,16 @@ export const Wall = (onNavigate) => {
       //console.log(arrayPosts);
       arrayPosts.forEach(post => {
         const singlePost = document.createElement('div');
+
+
+    console.log( localStorage.getItem('user'));
+
         singlePost.textContent = post.postContent;
         divPost.appendChild(singlePost)
       });
     }
 
     showAllPosts();
-
 
     //Menu 
     const divMenu = document.createElement('div');

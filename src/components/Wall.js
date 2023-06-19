@@ -57,7 +57,7 @@ export const Wall = (onNavigate) => {
       post.className = 'post';
       post.textContent = inputText;
       divPost.appendChild(post);
-      //console.log(post);
+      console.log(localStorage.getItem('user'));
 
       clearInput();
     });
@@ -73,12 +73,16 @@ export const Wall = (onNavigate) => {
       //console.log(arrayPosts);
       arrayPosts.forEach(post => {
         const singlePost = document.createElement('div');
-
-
-    console.log( localStorage.getItem('user'));
-
+        const userName = document.createElement('div');
+        userName.className = 'userName';
+        userName.textContent = localStorage.getItem('name');
+        
         singlePost.textContent = post.postContent;
+        singlePost.appendChild(userName);
+        
+        console.log(singlePost);
         divPost.appendChild(singlePost)
+
       });
     }
 

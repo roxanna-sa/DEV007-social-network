@@ -72,10 +72,11 @@ export const Wall = (onNavigate) => {
       let arrayPosts = await getAllPosts();
       //console.log(arrayPosts);
       arrayPosts.forEach(post => {
+        console.log(post);
         const singlePost = document.createElement('div');
         const userName = document.createElement('div');
         userName.className = 'userName';
-        userName.textContent = localStorage.getItem('name');
+        userName.textContent = post.userName;
         
         singlePost.textContent = post.postContent;
         singlePost.appendChild(userName);

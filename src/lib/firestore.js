@@ -7,6 +7,7 @@ export const createPost = async (text) => {
   const newPost = await addDoc(collection(db, 'posts'), {
     postContent: text,
     user: auth.currentUser.email,
+    userName: auth.currentUser.displayName
   });
   console.log('createPost....', newPost.path);
 };

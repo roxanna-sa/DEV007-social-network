@@ -90,9 +90,10 @@ export const Wall = (onNavigate) => {
     <button><img src='../img/friends.png'></button>
     `
 
-    const logOutButton = document.createElement('button');
-    logOutButton.textContent = 'Cerrar sesión';
-    logOutButton.className = 'logout-button';
+    const logOutButton = document.createElement('div');
+    logOutButton.innerHTML = `
+    <button class='logout-button'>Cerrar sesión</button>
+    `
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');

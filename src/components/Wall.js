@@ -44,14 +44,7 @@ export const Wall = (onNavigate) => {
         } else {
           await createPost(inputText);
 
-          const post = document.createElement('div');
-          post.className = 'post';
-          post.innerHTML = `
-        <div class='userName' id='userName'>${localStorage.getItem('name')}</div>
-        <button><img src='../img/menu.png' class='menuPost'></button>
-        <p> ${inputText}</p>
-        `
-          divPost.appendChild(post);
+          showAllPosts();
           clearInput();
         }
       });
@@ -65,6 +58,7 @@ export const Wall = (onNavigate) => {
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
       let arrayPosts = await getAllPosts();
+      divPost.innerHTML = '';
       arrayPosts.forEach(post => {
         const singlePost = document.createElement('div');
 

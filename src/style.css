@@ -280,6 +280,7 @@ body {
   justify-items: center;
   grid-template-rows: auto;
   row-gap: 1rem;
+  overflow-y: scroll;
 }
 
 .divPost div {

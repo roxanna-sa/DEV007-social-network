@@ -54,15 +54,15 @@ export const Wall = (onNavigate) => {
       await createPost(inputText);
 
       const post = document.createElement('div');
-      const userName = document.createElement('div');
       post.className = 'post';
       post.textContent = inputText;
+
+      const userName = document.createElement('div');
       userName.className = 'userName';
-      userName.textContent =  localStorage.getItem('name');
-     
+      userName.textContent = localStorage.getItem('name');
+
       post.appendChild(userName);
       divPost.appendChild(post);
-      
 
       clearInput();
     });
@@ -77,16 +77,16 @@ export const Wall = (onNavigate) => {
       let arrayPosts = await getAllPosts();
       //console.log(arrayPosts);
       arrayPosts.forEach(post => {
-        console.log(post);
+        //console.log(post);
         const singlePost = document.createElement('div');
         const userName = document.createElement('div');
         userName.className = 'userName';
         userName.textContent = post.userName;
-        
+
         singlePost.textContent = post.postContent;
         singlePost.appendChild(userName);
-        
-        console.log(singlePost);
+
+        //console.log(singlePost);
         divPost.appendChild(singlePost)
 
       });

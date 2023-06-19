@@ -38,8 +38,8 @@ export const createPost = async (text) => {
 export const getPosts = () => {
   return getDocs(collection(db, 'posts')).then((res) => {
     let postsArray = [];
-    let allPosts = res.forEach((doc) => {
-      console.log(doc.data().user);
+    res.forEach((doc) => {
+      //console.log(doc.data().user);
       postsArray.push(doc.data());
       return doc.data();
     })

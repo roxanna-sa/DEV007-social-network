@@ -1,3 +1,4 @@
+import { doc } from 'firebase/firestore';
 import { signIn, signInGoogle } from '../lib/auth.js'
 
 //para login o mandar a registro
@@ -31,15 +32,11 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(buttonDiv);
 
   document.addEventListener('DOMContentLoaded', () => {
-
-  const registerButton = document.getElementById('registerButton');
-  registerButton.addEventListener('click', () => { onNavigate('/register') });
-
-  const loginButton = document.getElementById('loginButton')
+  const loginButton = document.getElementById('loginButton');
   loginButton.addEventListener('click', (e) => {
     e.preventDefault()
-    const userMail = emailInput.value;
-    const userPass = passwordInput.value;
+    const userMail = document.getElementById('email').value;
+    const userPass = document.getElementById('password').value;
 
     if (userMail === '' || userPass === '') {
       alert('Ingresa email y contraseña')
@@ -56,7 +53,14 @@ export const Login = (onNavigate) => {
       });
     };
   });
+});
 
+document.addEventListener('DOMContentLoaded', () => {
+  const registerButton = document.getElementById('registerButton');
+  registerButton.addEventListener('click', () => { onNavigate('/register') });
+  })
+
+document.addEventListener('DOMContentLoaded', () => {
   continueWithGoogle.addEventListener('click', () => {
 
     signInGoogle().then((googleResponse) => {

@@ -71,6 +71,10 @@ body {
   justify-content: space-evenly;
 }
 
+.button-div button:hover {
+  cursor: pointer;
+}
+
 .loginButton {
   width: 50%;
   height: 3rem;
@@ -182,6 +186,10 @@ body {
   border: 0;
 }
 
+.logout-button:hover{
+  cursor: pointer;
+}
+
 .buttons-div {
   display: grid;
   justify-items: center;
@@ -196,6 +204,10 @@ body {
   font-size: 1.3rem;
   border-radius: 10px;
   border: 0;
+}
+
+.buttons-div button:hover {
+  cursor: pointer;
 }
 
 /* Walls styles */
@@ -275,8 +287,12 @@ body {
   border: 0;
 }
 
+.publishButton:hover{
+  cursor: pointer;
+}
+
 .divPost {
-  height: calc(100vh - 21rem); 
+  height: calc(100vh - 21rem);
   display: grid;
   justify-items: center;
   grid-template-rows: auto;

@@ -42,17 +42,17 @@ export const Wall = (onNavigate) => {
         if (inputText.trim() === '') {
           alert('Debes escribir algo para publicar...');
         } else {
-        await createPost(inputText);
+          await createPost(inputText);
 
-        const post = document.createElement('div');
-        post.className = 'post';
-        post.innerHTML = `
+          const post = document.createElement('div');
+          post.className = 'post';
+          post.innerHTML = `
         <div class='userName' id='userName'>${localStorage.getItem('name')}</div>
         <button><img src='../img/menu.png' class='menuPost'></button>
         <p> ${inputText}</p>
         `
-        divPost.appendChild(post);
-        clearInput();
+          divPost.appendChild(post);
+          clearInput();
         }
       });
 
@@ -105,20 +105,18 @@ export const Wall = (onNavigate) => {
     WallDiv.appendChild(logOutButton);
 
   } else {
-    /* El usuario NO está logueado, por lo tanto sólo ve una página estática en la que le decimos que se registre o inicie sesión */
-    const notLoggedUser = createHtmlElement(`
-  <div>
+    const notLoggedUser = document.createElement('div')
+    notLoggedUser.innerHTML = `
     <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
-    <div>
+    <div class='buttons-div'>
       <button>Inicio</button>
       <button>Registrar</button>
     </div>
-  </div>
-`);
+    `;
 
-    document.addEventListener('DOMContentLoaded', () => { 
+    document.addEventListener('DOMContentLoaded', () => {
       logInButton.addEventListener('click', () => { onNavigate('/') });
-    registerButton.addEventListener('click', () => { onNavigate('/register') });
+      registerButton.addEventListener('click', () => { onNavigate('/register') });
     });
     WallDiv.appendChild(notLoggedUser);
   };

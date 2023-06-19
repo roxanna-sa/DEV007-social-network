@@ -1,4 +1,3 @@
-import { doc } from 'firebase/firestore';
 import { signIn, signInGoogle } from '../lib/auth.js'
 
 //para login o mandar a registro

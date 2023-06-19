@@ -94,7 +94,7 @@ export const Wall = (onNavigate) => {
 
         //console.log(singlePost);
         divPost.appendChild(singlePost)
-
+        console.log(post);
       });
     }
 

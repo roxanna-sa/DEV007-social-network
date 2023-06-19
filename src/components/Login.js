@@ -79,11 +79,12 @@ export const Login = (onNavigate) => {
         localStorage.setItem('user', userMail);
         localStorage.setItem('name', response.user.displayName);
         onNavigate('/wall');
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      }).catch(() => {
+        
         alert('Email o contraseña incorrectos');
-        console.log(errorCode, errorMessage);
+        
+      
+       
       });
     };
   });

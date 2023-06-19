@@ -39,7 +39,7 @@ export const getPosts = () => {
   return getDocs(collection(db, 'posts')).then((res) => {
     let postsArray = [];
     let allPosts = res.forEach((doc) => {
-      console.log(doc.data().user);
+      //console.log(doc.data().user);
       postsArray.push(doc.data());
       return doc.data();
     })

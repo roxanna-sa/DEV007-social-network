@@ -54,10 +54,15 @@ export const Wall = (onNavigate) => {
       await createPost(inputText);
 
       const post = document.createElement('div');
+      const userName = document.createElement('div');
       post.className = 'post';
       post.textContent = inputText;
+      userName.className = 'userName';
+      userName.textContent =  localStorage.getItem('name');
+     
+      post.appendChild(userName);
       divPost.appendChild(post);
-      console.log(localStorage.getItem('user'));
+      
 
       clearInput();
     });

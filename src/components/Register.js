@@ -7,74 +7,48 @@ export const Register = (onNavigate) => {
   RegisterDiv.className = 'register-div';
   const welcome = document.createElement('h2');
   welcome.textContent = 'Ingresa tus datos';
-  const userIcon = document.createElement('img');
-  userIcon.className = 'user-icon';
-  userIcon.src = './img/user.png';
 
   //Create form elements
   const registerForm = document.createElement('form');
   registerForm.className = 'register-form';
-  const emailLabel = document.createElement('label');
-  const emailUser = document.createElement('input');
-  const passwordLabel = document.createElement('label');
-  const passwordInput = document.createElement('input');
-  passwordInput.setAttribute('type', 'password');
-  const userNameLabel = document.createElement('label');
-  const userName = document.createElement('input');
-  const userBirthdateLabel = document.createElement('label');
-  const userBirthdate = document.createElement('input');
-  const userPathologyLabel = document.createElement('label');
-  const userPathology = document.createElement('select');
-
-  emailLabel.textContent = 'Email:';
-  passwordLabel.textContent = 'Contraseña:';
-  userNameLabel.textContent = 'Nombre:';
-  userBirthdateLabel.textContent = 'Fecha de nacimiento:';
-  userPathologyLabel.textContent = '¿Tienes alguna patología?'
-
-  const divEmail = document.createElement('div');
-  divEmail.className = 'div-email';
-  divEmail.appendChild(emailLabel);
-  divEmail.appendChild(emailUser);
-
-  const divPassword = document.createElement('div');
-  divPassword.className = 'div-password';
-  divPassword.appendChild(passwordLabel);
-  divPassword.appendChild(passwordInput);
-
-  const divName = document.createElement('div');
-  divName.className = 'div-name';
-  divName.appendChild(userNameLabel);
-  divName.appendChild(userName);
-
-  const divBirthdate = document.createElement('div');
-  divBirthdate.className = 'div-birthdate';
-  divBirthdate.appendChild(userBirthdateLabel);
-  divBirthdate.appendChild(userBirthdate);
-
-  const divPathology = document.createElement('div');
-  divPathology.className = 'div-pathology';
-  divPathology.appendChild(userPathologyLabel);
-  divPathology.appendChild(userPathology);
-
-  //Botón Unirse 
-  const joinButton = document.createElement('button');
-  joinButton.textContent = 'Unirse';
-  joinButton.className = 'join-button';
-  joinButton.setAttribute('type', 'submit');
-
-  registerForm.appendChild(divEmail);
-  registerForm.appendChild(divPassword);
-  registerForm.appendChild(divName);
-  registerForm.appendChild(divBirthdate);
-  registerForm.appendChild(divPathology);
-  registerForm.appendChild(joinButton);
+  registerForm.innerHTML = `
+  <img src='./img/user.png' class='user-icon'>
+  <div class="div-email">
+    <label for='email'>Email:</label>
+    <input type='text' name='email' id='email'>
+  </div>
+  <div class="div-password">
+    <label for='password'>Contraseña:</label>
+    <input type='password' name='password' id='password'>
+  </div>
+  <div class="div-name">
+    <label for='name'>Nombre:</label>
+    <input type='text' name='name' id='name'>
+  </div>
+  <div class="div-birthdate">
+    <label for='birthdate'>Fecha de nacimiento:</label>
+    <input type='text' name='birthdate' id='birthdate'>
+  </div>
+  <div class="div-pathology">
+    <label for='pathology'>¿Tienes alguna patología?:</label>
+    <select name="select-pathology">
+      <option value="value1">Value 1</option>
+      <option value="value2" >Value 2</option>
+      <option value="value3">Value 3</option>
+    </select>
+  </div>
+  <button class='join-button' id='join-button' type='submit'>Unirse</button>
+  `
 
   RegisterDiv.appendChild(welcome);
-  RegisterDiv.appendChild(userIcon);
   RegisterDiv.appendChild(registerForm);
 
   registerForm.addEventListener('submit', (e) => {
+    const joinButton = document.getElementById('join-button');
+    const emailUser = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const userName = document.getElementById('name');
+
     e.preventDefault(); //evitar que el formulario haga el proceso de submit
     joinButton.setAttribute('disabled', true); // Bloquear botón submit para evitar doble registro
     const email = emailUser.value.trim();
@@ -103,7 +77,3 @@ export const Register = (onNavigate) => {
 
   return RegisterDiv;
 };
-
-//TO DO al terminar registro, verifica login y te diriga al home Bienvenid@
-//cómo guardar los demás datos. investigar Firestore
-//firebase correo y contraseña 

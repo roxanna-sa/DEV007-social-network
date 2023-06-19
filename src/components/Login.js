@@ -3,74 +3,39 @@ import { signIn, signInGoogle } from '../lib/auth.js'
 //para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
-
   //Form login
   const loginForm = document.createElement('form');
-  const welcome = document.createElement('h2');
-  welcome.textContent = 'Bienvenido a Nutrivid';
-  //Div input email
-  const divEmail = document.createElement('div');
-  const emailLabel = document.createElement('label');
-  const emailInput = document.createElement('input');
-  // Div password
-  const divPassword = document.createElement('div');
-  const passwordLabel = document.createElement('label');
-  const passwordInput = document.createElement('input');
-  passwordInput.setAttribute('type', 'password');
-
-  // TO DO focus email input
-  // document.getElementById("myTextField").focus();
-  emailLabel.textContent = 'Email:';
-  passwordLabel.textContent = 'Contraseña:';
+  loginForm.className = 'login-form';
+  loginForm.innerHTML = `
+  <h2>¡Bienvenido a Nutrivid!</h2>
+  <div class="div-email">
+    <label for='email'>Email:</label>
+    <input type='text' name='email' id='email'>
+  </div>
+  <div class="div-password">
+    <label for='password'>Contraseña:</label>
+    <input type='password' name='password' id='password'>
+  </div>
+  `;
 
   //buttons
   const buttonDiv = document.createElement('div');
   buttonDiv.className = 'button-div';
-  const loginButton = document.createElement('button');
-  const registerButton = document.createElement('button');
-
-  //TO DO Acomodar logo google
-  const continueWithGoogle = document.createElement('button');
-  const googleLogo = document.createElement('img');
-  continueWithGoogle.textContent = 'Continuar con Google';
-  googleLogo.src = './img/google.png';
-  continueWithGoogle.appendChild(googleLogo);
-
-  registerButton.textContent = '¿No tienes cuenta? \n Únete';
-  loginButton.textContent = 'Iniciar Sesión';
-
-  LoginDiv.appendChild(welcome);
-
-  divEmail.appendChild(emailLabel);
-  divEmail.appendChild(emailInput);
-  loginForm.appendChild(divEmail);
-  
-  divPassword.appendChild(passwordLabel);
-  divPassword.appendChild(passwordInput);
-  loginForm.appendChild(divPassword);
-
-  buttonDiv.appendChild(loginButton);
-  buttonDiv.appendChild(registerButton);
-  buttonDiv.appendChild(continueWithGoogle);
+  buttonDiv.innerHTML = `
+  <button class='loginButton' id='loginButton'>Iniciar sesión</button>
+  <button class='registerButton'id='registerButton'>¿No tienes cuenta? \n Regístrate</button>
+  <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
+  `
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
 
-  //Agregando clases
-
-  loginForm.className = 'login-form'
-  registerButton.classList.add('registerButton');
-  emailInput.classList.add('inputEmail');
-  passwordInput.classList.add('inputpassword');
-  continueWithGoogle.classList.add('continueWithGoogle');
-  loginButton.classList.add('loginButton');
-
-  registerButton.addEventListener('click', () => { onNavigate('/register') });
-
+  document.addEventListener('DOMContentLoaded', () => {
+  const loginButton = document.getElementById('loginButton');
   loginButton.addEventListener('click', (e) => {
     e.preventDefault()
-    const userMail = emailInput.value;
-    const userPass = passwordInput.value;
+    const userMail = document.getElementById('email').value;
+    const userPass = document.getElementById('password').value;
 
     if (userMail === '' || userPass === '') {
       alert('Ingresa email y contraseña')
@@ -88,7 +53,14 @@ export const Login = (onNavigate) => {
       });
     };
   });
+});
 
+document.addEventListener('DOMContentLoaded', () => {
+  const registerButton = document.getElementById('registerButton');
+  registerButton.addEventListener('click', () => { onNavigate('/register') });
+  })
+
+document.addEventListener('DOMContentLoaded', () => {
   continueWithGoogle.addEventListener('click', () => {
 
     signInGoogle().then((googleResponse) => {
@@ -98,6 +70,7 @@ export const Login = (onNavigate) => {
 
       onNavigate('/wall');
     });
+  });
   });
 
   return LoginDiv;

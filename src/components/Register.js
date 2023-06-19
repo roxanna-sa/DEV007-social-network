@@ -12,7 +12,7 @@ export const Register = (onNavigate) => {
   const registerForm = document.createElement('form');
   registerForm.className = 'register-form';
   registerForm.innerHTML = `
-  <img src='./img/user.png' class='user-icon'>
+  <img src='./img/user.png' class='user-icon' id='user-icon'>
   <div class="div-email">
     <label for='email'>Email:</label>
     <input type='text' name='email' id='email'>

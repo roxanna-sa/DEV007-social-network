@@ -50,19 +50,18 @@ export const Wall = (onNavigate) => {
 
     publishPost.addEventListener('click', async () => {
       const inputText = postInput.value;
-      console.log(inputText);
-
+      await createPost(inputText);
+      
       const post = document.createElement('div');
-      console.log(post);
-      post.textContent = await createPost(inputText);
-
+      post.textContent = inputText;
       divPost.appendChild(post);
+      //console.log(post);
     });
 
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
       let arrayPosts = await getAllPosts();
-      console.log(arrayPosts);
+      //console.log(arrayPosts);
       arrayPosts.forEach(post => {
         const singlePost = document.createElement('div');
         singlePost.textContent = post.postContent;

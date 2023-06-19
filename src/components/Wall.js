@@ -1,4 +1,3 @@
-import { async } from "regenerator-runtime";
 import { logOut } from "../lib/auth";
 import { createPost, getPosts } from "../lib/firestore";
 //muro personal
@@ -44,6 +43,7 @@ export const Wall = (onNavigate) => {
     postInput.id = 'postInput';
     postInput.className = 'postInput';
     const publishPost = document.createElement('button');
+    
     publishPost.className = 'publishPost';
     publishPost.textContent = 'Publicar';
     divPost.appendChild(postInput);
@@ -51,20 +51,26 @@ export const Wall = (onNavigate) => {
 
     publishPost.addEventListener('click', async () => {
       const inputText = postInput.value;
-      await createPost(inputText);
+     
+      if (inputText.trim() === '') {
+        alert('Debes escribir algo para publicar...');
+        
+      } else {
+        await createPost(inputText);
 
-      const post = document.createElement('div');
-      post.className = 'post';
-      post.textContent = inputText;
-
-      const userName = document.createElement('div');
-      userName.className = 'userName';
-      userName.textContent = localStorage.getItem('name');
-
-      post.appendChild(userName);
-      divPost.appendChild(post);
-
-      clearInput();
+        const post = document.createElement('div');
+        post.className = 'post';
+        post.textContent = inputText;
+  
+        const userName = document.createElement('div');
+        userName.className = 'userName';
+        userName.textContent = localStorage.getItem('name');
+  
+        post.appendChild(userName);
+        divPost.appendChild(post);
+        clearInput();
+       
+      }   
     });
 
     function clearInput() {

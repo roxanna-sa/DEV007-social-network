@@ -48,4 +48,5 @@ export const getPosts = () => {
   })
 };
 
+
 export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));

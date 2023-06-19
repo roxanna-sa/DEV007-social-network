@@ -1,6 +1,6 @@
 // aqui exportaras las funciones que necesites
 
-import { addDoc, collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore"
+import { addDoc, collection, getDocs, doc, deleteDoc } from "firebase/firestore"
 import { auth, db } from "../firebase"
 
 export const createPost = async (text) => {
@@ -46,3 +46,5 @@ export const getPosts = () => {
     return postsArray;
   })
 };
+
+export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));

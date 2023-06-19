@@ -91,9 +91,7 @@ export const Wall = (onNavigate) => {
     `
 
     const logOutButton = document.createElement('div');
-    logOutButton.innerHTML = `
-    <button class='logout-button'>Cerrar sesión</button>
-    `
+    logOutButton.innerHTML = `<button class='logout-button'>Cerrar sesión</button>`
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');
@@ -110,14 +108,14 @@ export const Wall = (onNavigate) => {
     notLoggedUser.innerHTML = `
     <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
     <div class='buttons-div'>
-      <button>Inicio</button>
-      <button>Registrar</button>
+      <button id='logInButton'>Inicio</button>
+      <button id='registerButton'>Registrar</button>
     </div>
     `;
 
     document.addEventListener('DOMContentLoaded', () => {
-      logInButton.addEventListener('click', () => { onNavigate('/') });
-      registerButton.addEventListener('click', () => { onNavigate('/register') });
+      document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
+      document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') });
     });
     WallDiv.appendChild(notLoggedUser);
   };

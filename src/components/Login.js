@@ -31,46 +31,37 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(buttonDiv);
 
   document.addEventListener('DOMContentLoaded', () => {
-  const loginButton = document.getElementById('loginButton');
-  loginButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    const userMail = document.getElementById('email').value;
-    const userPass = document.getElementById('password').value;
+    const parentElement = document.getElementById('root');
+    parentElement.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.matches('#loginButton')) {
+        event.preventDefault()
+        const userMail = document.getElementById('email').value;
+        const userPass = document.getElementById('password').value;
 
-    if (userMail === '' || userPass === '') {
-      alert('Ingresa email y contraseña')
-    } else {
-      signIn(userMail, userPass).then((response) => {
-        localStorage.setItem('user', userMail);
-        localStorage.setItem('name', response.user.displayName);
-        onNavigate('/wall');
-      }).catch(() => {
-        
-        alert('Email o contraseña incorrectos');
-        
-      
-       
-      });
-    };
-  });
-});
+        if (userMail === '' || userPass === '') {
+          alert('Ingresa email y contraseña')
+        } else {
+          signIn(userMail, userPass).then((response) => {
+            localStorage.setItem('user', userMail);
+            localStorage.setItem('name', response.user.displayName);
+            onNavigate('/wall');
+          }).catch(() => {
+            alert('Email o contraseña incorrectos');
+          });
+        };
+      } else if (target.matches('#registerButton')) {
+        onNavigate('/register')
+      } else if (target.matches('#continueWithGoogle')) {
+        signInGoogle().then((googleResponse) => {
+          console.log("Rpta de google:", googleResponse)
+          localStorage.setItem("user", googleResponse.user.email);
+          localStorage.setItem('name', googleResponse.user.displayName);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const registerButton = document.getElementById('registerButton');
-  registerButton.addEventListener('click', () => { onNavigate('/register') });
-  })
-
-document.addEventListener('DOMContentLoaded', () => {
-  continueWithGoogle.addEventListener('click', () => {
-
-    signInGoogle().then((googleResponse) => {
-      console.log("Rpta de google:", googleResponse)
-      localStorage.setItem("user", googleResponse.user.email);
-      localStorage.setItem('name', googleResponse.user.displayName);
-
-      onNavigate('/wall');
+          onNavigate('/wall');
+        });
+      }
     });
-  });
   });
 
   return LoginDiv;

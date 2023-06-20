@@ -38,6 +38,7 @@ export const Register = (onNavigate) => {
     </select>
   </div>
   <button class='join-button' id='join-button' type='submit'>Unirse</button>
+  <h3 class="h3Register"> Recetas para sentirte bien...</h3>
   `
 
   RegisterDiv.appendChild(welcome);

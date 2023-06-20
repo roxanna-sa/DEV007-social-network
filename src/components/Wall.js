@@ -26,7 +26,7 @@ export const Wall = (onNavigate) => {
     const publishPostInputAndButton = document.createElement('div');
     publishPostInputAndButton.className = 'publishPostInputAndButton'
     publishPostInputAndButton.innerHTML = `
-    <input class='postInput' id='postInput'></input>
+    <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
     <button class='publishButton' id='publishButton'>Publicar</button>
     `;
     //Espacio para posts

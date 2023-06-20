@@ -30,6 +30,10 @@ body {
 
 .logo {
   height: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo img {
@@ -181,16 +185,17 @@ body {
 
 /* Fix position */
 .logout-button {
-  width: 50%;
-  height: 3rem;
+  width: 10rem;
+  height: 2rem;
   background: #3B3F20;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1rem;
   border-radius: 10px;
   border: 0;
+  margin-right: 2rem;
 }
 
-.logout-button:hover{
+.logout-button:hover {
   cursor: pointer;
 }
 
@@ -198,6 +203,7 @@ body {
   display: grid;
   justify-items: center;
   row-gap: 1rem;
+  margin-top: 5rem;
 }
 
 .buttons-div button {
@@ -291,12 +297,12 @@ body {
   border: 0;
 }
 
-.publishButton:hover{
+.publishButton:hover {
   cursor: pointer;
 }
 
 .divPost {
-  height: calc(100vh - 21rem);
+  height: calc(100vh - 17rem);
   display: grid;
   justify-items: center;
   grid-template-rows: auto;
@@ -336,4 +342,72 @@ body {
 
 .menuPost {
   height: 1.5rem;
+}
+
+/* --------------- MEDIA QUERIES ------------------*/
+@media only screen and (min-width: 540px) {
+  .divPost div {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .root {
+    height: calc(100vh - 7rem);
+  }
+
+  .continueWithGoogle {
+    width: 50%;
+  }
+
+  .join-button {
+    margin-top: 2rem;
+  }
+
+  .logo {
+    height: 7rem;
+  }
+
+  .logo img {
+    height: 6rem;
+  }
+
+  .logout-button {
+    margin-right: 2rem;
+    width: 15rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .userAccount {
+    width: 5rem;
+  }
+
+  .searchInput {
+    width: 90%;
+    font-size: 1.7rem;
+  }
+
+  .publishButton {
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .postInput {
+    height: 3rem;
+  }
+
+  .divPost {
+    height: calc(100vh - 24rem);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .divPost div {
+    font-size: 1.3rem;
+  }
+
+  .divPost div .userName {
+    font-size: 1.5rem;
+  }
 }

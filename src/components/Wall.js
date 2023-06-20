@@ -95,8 +95,12 @@ export const Wall = (onNavigate) => {
     WallDiv.appendChild(publishPostInputAndButton);
     WallDiv.appendChild(divPost);
     WallDiv.appendChild(divMenu);
-    const header = document.getElementById('logo');
-    header.appendChild(logOutButton);
+
+    if(WallDiv) {
+      const header = document.getElementById('logo');
+      header.appendChild(logOutButton);
+    }
+    
   } else {
     const notLoggedUser = document.createElement('div')
     notLoggedUser.innerHTML = `

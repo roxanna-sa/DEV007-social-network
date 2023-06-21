@@ -27,16 +27,24 @@ export const Login = (onNavigate) => {
   <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
   <h3> Recetas para sentirte bien...</h3>
   `;
+  
+    const header = document.getElementById('logo');
+    // console.log(header.lastElementChild);
+    if (window.location.pathname != '/wall') {
+      if(header.lastElementChild.id === 'logout-button'){
+        header.lastElementChild.remove();
+      };
+    } ;
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
 
-  document.addEventListener('DOMContentLoaded', () => {
     const parentElement = document.getElementById('root');
+    console.log(parentElement);
     parentElement.addEventListener('click', (event) => {
       const target = event.target;
       if (target.matches('#loginButton')) {
-        event.preventDefault()
+        event.preventDefault();
         const userMail = document.getElementById('email').value;
         const userPass = document.getElementById('password').value;
 
@@ -61,9 +69,9 @@ export const Login = (onNavigate) => {
 
           onNavigate('/wall');
         });
-      }
+      };
     });
-  });
+
 
   return LoginDiv;
 }

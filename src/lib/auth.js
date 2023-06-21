@@ -42,6 +42,7 @@ export const signInGoogle = () => {
 
 //Log out
 export const logOut = () => {
+  localStorage.clear();
   localStorage.removeItem('user');
   signOut(auth);
 }

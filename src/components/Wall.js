@@ -1,3 +1,4 @@
+import { auth } from "../firebase";
 import { logOut } from "../lib/auth";
 import { createPost, getPosts } from "../lib/firestore";
 //muro personal
@@ -6,15 +7,14 @@ export const Wall = (onNavigate) => {
   WallDiv.className = 'wall-div';
 
   const getUser = localStorage.getItem('user');
-  //console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
+  console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
 
   if (getUser) {
     // Verificar con firebase...
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
-
     const userNameLogged = document.createElement('p');
     userNameLogged.textContent = localStorage.getItem('name');
-    
+
     const divUserAndSearch = document.createElement('div');
     divUserAndSearch.className = 'divUserAndSearch';
     divUserAndSearch.innerHTML = `
@@ -52,25 +52,24 @@ export const Wall = (onNavigate) => {
     WallDiv.appendChild(divPost);
     WallDiv.appendChild(divMenu);
 
-    document.addEventListener('DOMContentLoaded', () => {
-      let publishButton = document.getElementById('publishButton');
-      console.log(publishButton);
-      publishButton.addEventListener('click', async () => {
-        const inputText = postInput.value;
+    let publishButton = publishPostInputAndButton.lastElementChild; //DOM traverse
+    //console.log(publishButton);
+    publishButton.addEventListener('click', async () => {
+      const inputText = postInput.value;
 
-        if (inputText.trim() === '') {
-          alert('Debes escribir algo para publicar...');
-        } else {
-          await createPost(inputText);
-          clearInput();
-        }
-      });
-
-      function clearInput() {
-        //console.log('borrando el input');
-        document.getElementById("postInput").value = '';
+      if (inputText.trim() === '') {
+        alert('Debes escribir algo para publicar...');
+      } else {
+        await createPost(inputText);
+        showAllPosts();
+        clearInput();
       }
     });
+
+    function clearInput() {
+      //console.log('borrando el input');
+      document.getElementById("postInput").value = '';
+    };
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
       let arrayPosts = await getAllPosts();
@@ -90,8 +89,11 @@ export const Wall = (onNavigate) => {
 
     showAllPosts();
 
-    const logOutButton = document.createElement('div');
-    logOutButton.innerHTML = `<button class='logout-button'>Cerrar sesión</button>`;
+    const logOutButton = document.createElement('button');
+    logOutButton.className = 'logout-button';
+    logOutButton.id = 'logout-button';
+    logOutButton.textContent = 'Cerrar sesión';
+
     // const logOutButton = document.getElementById('logout-button');
     console.log(logOutButton);
     logOutButton.addEventListener('click', () => {
@@ -99,10 +101,13 @@ export const Wall = (onNavigate) => {
       onNavigate('/');
     });
 
-    if(WallDiv) {
+    if (window.location.pathname === '/wall') {
+      console.log(getUser);
+
       const header = document.getElementById('logo');
+      console.log(header);
       header.appendChild(logOutButton);
-    }
+    };
 
   } else {
     const notLoggedUser = document.createElement('div')

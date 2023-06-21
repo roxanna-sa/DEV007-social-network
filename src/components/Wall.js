@@ -81,6 +81,7 @@ export const Wall = (onNavigate) => {
         <div class="userName">${post.userName}<button><img src='../img/menu.png'class='menuPost'></button></div>
         
         <p>${post.postContent}</p>
+        <button class="likeButton"><img src='../img/like.png'class='iconLike'></button>
         `;
 
         divPost.appendChild(singlePost);

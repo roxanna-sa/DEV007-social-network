@@ -26,7 +26,7 @@ export const Login = (onNavigate) => {
   <button class='registerButton'id='registerButton'>¿No tienes cuenta? \n Regístrate</button>
   <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
   <h3> Recetas para sentirte bien...</h3>
-  `
+  `;
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
@@ -52,7 +52,7 @@ export const Login = (onNavigate) => {
           });
         };
       } else if (target.matches('#registerButton')) {
-        onNavigate('/register')
+        onNavigate('/register');
       } else if (target.matches('#continueWithGoogle')) {
         signInGoogle().then((googleResponse) => {
           console.log("Rpta de google:", googleResponse)

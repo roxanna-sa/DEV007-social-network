@@ -7,7 +7,7 @@ export const Wall = (onNavigate) => {
 
   const getUser = localStorage.getItem('user');
   //console.log("Obteniendo el usuario en local storage..", localStorage.getItem('user'));
-  /* Cuando en localStorate["Usuario"] revisamos en firebase que esa id exista y traemos los datos del usuario, mostrandole el timeline  */
+
   if (getUser) {
     // Verificar con firebase...
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
@@ -16,7 +16,7 @@ export const Wall = (onNavigate) => {
     divUserAndSearch.innerHTML = `
     <img src='../img/user.png' class='userAccount'>
     <input placeholder="Buscar" type="search" class="searchInput">
-    `
+    `;
 
     // TODO añadir lupa a search input
     // const lupa = document.createElement('div');
@@ -33,9 +33,23 @@ export const Wall = (onNavigate) => {
     const divPost = document.createElement('div');
     divPost.className = 'divPost';
 
+    //Menu 
+    const divMenu = document.createElement('div');
+    divMenu.className = 'divMenu';
+    divMenu.innerHTML = `
+    <button><img src='../img/home.png'></button>
+    <button><img src='../img/add-post.png' class='postIcon'></button>
+    <button><img src='../img/friends.png'></button>
+    `;
+
+    WallDiv.appendChild(divUserAndSearch);
+    WallDiv.appendChild(publishPostInputAndButton);
+    WallDiv.appendChild(divPost);
+    WallDiv.appendChild(divMenu);
+
     document.addEventListener('DOMContentLoaded', () => {
       let publishButton = document.getElementById('publishButton');
-
+      console.log(publishButton);
       publishButton.addEventListener('click', async () => {
         const inputText = postInput.value;
 
@@ -43,8 +57,6 @@ export const Wall = (onNavigate) => {
           alert('Debes escribir algo para publicar...');
         } else {
           await createPost(inputText);
-
-          showAllPosts();
           clearInput();
         }
       });
@@ -54,7 +66,6 @@ export const Wall = (onNavigate) => {
         document.getElementById("postInput").value = '';
       }
     });
-
     //Muestra todos los posts ya guardados en firestore
     async function showAllPosts() {
       let arrayPosts = await getAllPosts();
@@ -74,33 +85,20 @@ export const Wall = (onNavigate) => {
 
     showAllPosts();
 
-    //Menu 
-    const divMenu = document.createElement('div');
-    divMenu.className = 'divMenu';
-
-    divMenu.innerHTML = `
-    <button><img src='../img/home.png'></button>
-    <button><img src='../img/add-post.png' class='postIcon'></button>
-    <button><img src='../img/friends.png'></button>
-    `
-
     const logOutButton = document.createElement('div');
-    logOutButton.innerHTML = `<button class='logout-button'>Cerrar sesión</button>`
+    logOutButton.innerHTML = `<button class='logout-button'>Cerrar sesión</button>`;
+    // const logOutButton = document.getElementById('logout-button');
+    console.log(logOutButton);
     logOutButton.addEventListener('click', () => {
       logOut();
       onNavigate('/');
     });
 
-    WallDiv.appendChild(divUserAndSearch);
-    WallDiv.appendChild(publishPostInputAndButton);
-    WallDiv.appendChild(divPost);
-    WallDiv.appendChild(divMenu);
-
     if(WallDiv) {
       const header = document.getElementById('logo');
       header.appendChild(logOutButton);
     }
-    
+
   } else {
     const notLoggedUser = document.createElement('div')
     notLoggedUser.innerHTML = `

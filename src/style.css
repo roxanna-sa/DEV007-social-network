@@ -194,7 +194,12 @@ body {
   border-radius: 10px;
   border: 0;
   margin-right: 2rem;
+  /* opacity: 0; */
 }
+
+/* .show-logout {
+  opacity: 1;
+} */
 
 .logout-button:hover {
   cursor: pointer;
@@ -415,7 +420,8 @@ body {
 }
 
 @media only screen and (min-width: 1024px) {
- /* -----Vista Login---- */
+
+  /* -----Vista Login---- */
   body {
     background-position: right;
     background-size: 62vw;
@@ -482,30 +488,33 @@ body {
     color: #3B3F20;
     font-weight: 1px;
   }
-   /* -----Vista Register---- */
-   .register-form {
+
+  /* -----Vista Register---- */
+  .register-form {
     width: 92%;
     display: grid;
     justify-items: center;
     justify-content: flex-start;
-}
+  }
 
 
- .postInput {
-  height: 4rem;
-  width: 71%;
-}
-.publishButton {
-  height: 3rem;
-  font-size: 1.5rem;
-  width: 10%;
-}
-.h3Register{
-  font-size: 2rem;
-  text-align: right;
-  width: 192%;
-  margin-left: 250%;
-  margin-bottom: -20%;
-  color: #3B3F20;
-}
+  .postInput {
+    height: 4rem;
+    width: 71%;
+  }
+
+  .publishButton {
+    height: 3rem;
+    font-size: 1.5rem;
+    width: 10%;
+  }
+
+  .h3Register {
+    font-size: 2rem;
+    text-align: right;
+    width: 192%;
+    margin-left: 250%;
+    margin-bottom: -20%;
+    color: #3B3F20;
+  }
 }

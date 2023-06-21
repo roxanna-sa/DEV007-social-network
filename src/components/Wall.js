@@ -11,11 +11,16 @@ export const Wall = (onNavigate) => {
   if (getUser) {
     // Verificar con firebase...
     // Si no es válido eliminar todo localStorage con localStorage.clear() y enviar de nuevo a la misma página.npm s
+
+    const userNameLogged = document.createElement('p');
+    userNameLogged.textContent = localStorage.getItem('name');
+    
     const divUserAndSearch = document.createElement('div');
     divUserAndSearch.className = 'divUserAndSearch';
     divUserAndSearch.innerHTML = `
     <img src='../img/user.png' class='userAccount'>
     <input placeholder="Buscar" type="search" class="searchInput">
+    <p id='userNameLogged' class='userNameLogged'>${userNameLogged.textContent}</p>
     `
 
     // TODO añadir lupa a search input

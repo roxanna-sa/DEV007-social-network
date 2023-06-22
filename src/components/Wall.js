@@ -1,4 +1,3 @@
-import { auth } from "../firebase";
 import { logOut } from "../lib/auth";
 import { createPost, getPosts, addLike } from "../lib/firestore";
 //muro personal
@@ -88,8 +87,8 @@ export const Wall = (onNavigate) => {
       });
 
       // Add event listener to every like button
-      Array.from(document.getElementsByClassName("likeButton")).forEach((el) => {
-        el.addEventListener('click', async (clickedElement) => {
+      Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
+      el.addEventListener('click', async (clickedElement) => {
           const clickedElementId = clickedElement.currentTarget.id;
           const currentLikesP = clickedElement.currentTarget.children[1];
 

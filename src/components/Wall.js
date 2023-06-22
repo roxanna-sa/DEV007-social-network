@@ -1,6 +1,6 @@
 import { auth } from "../firebase";
 import { logOut } from "../lib/auth";
-import { createPost, getPosts } from "../lib/firestore";
+import { createPost, getPosts, addLike } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
@@ -81,10 +81,21 @@ export const Wall = (onNavigate) => {
         <div class="userName">${post.userName}<button><img src='../img/menu.png'class='menuPost'></button></div>
         
         <p>${post.postContent}</p>
-        <button class="likeButton"><img src='../img/like.png'class='iconLike'></button>
+        <button id="${post.id}" class="likeButton"><img src='../img/like.png'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
         `;
 
         divPost.appendChild(singlePost);
+      });
+
+      // Add event listener to every like button
+      Array.from(document.getElementsByClassName("likeButton")).forEach((el) => {
+        el.addEventListener('click', async (clickedElement) => {
+          const clickedElementId = clickedElement.currentTarget.id;
+          const currentLikesP = clickedElement.currentTarget.children[1];
+
+          await addLike(clickedElementId);
+          currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML)+1;
+        })
       });
     }
 

@@ -450,6 +450,7 @@ body {
     grid-template-columns: 1fr 1fr;
     justify-content: space-evenly;
     background-repeat: no-repeat;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 90%), url(./img/fondo-mobile.png); /*Gradiente hacia la izquierda*/
   }
 
   .root h2 {

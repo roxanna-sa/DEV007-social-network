@@ -289,7 +289,7 @@ body {
   background: #E9F0CE;
   border-radius: 10px;
   border-color: #3B3F20;
-  
+
   font-size: 1rem;
   resize: none;
   box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
@@ -309,7 +309,7 @@ body {
 .publishButton:active {
   transform: scale(0.9);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
- 
+
 }
 
 .publishButton:hover {
@@ -323,7 +323,7 @@ body {
   grid-template-rows: auto;
   row-gap: 1rem;
   overflow-y: scroll;
-  
+
 }
 
 .divPost div {
@@ -337,6 +337,7 @@ body {
   border: 1px solid #3B3F20;
   font-size: 1rem;
   padding: .2rem;
+  position: relative;
 }
 
 .divPost div .userName {
@@ -360,15 +361,32 @@ body {
   height: 1.5rem;
 }
 
-.likeButton{
+.menu {
+  border: none;
+  border-radius: 10px;
+  list-style: none;
+  position: absolute;
+  z-index: 2;
+  background: #3B3F20;
+  color: white;
+  
+}
+.divSelect{
+  border: none !important;
+
+}
+
+.likeButton {
   width: 30px;
 }
-.iconLike{
+
+.iconLike {
   width: 30px;
   height: 30px;
   position: center;
 }
-.divLike{
+
+.divLike {
   background: red;
 }
 
@@ -450,7 +468,8 @@ body {
     grid-template-columns: 1fr 1fr;
     justify-content: space-evenly;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 90%), url(./img/fondo-mobile.png); /*Gradiente hacia la izquierda*/
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 90%), url(./img/fondo-mobile.png);
+    /*Gradiente hacia la izquierda*/
   }
 
   .root h2 {

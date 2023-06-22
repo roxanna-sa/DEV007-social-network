@@ -77,7 +77,7 @@ export const Wall = (onNavigate) => {
         const singlePost = document.createElement('div');
 
         singlePost.innerHTML = `
-        <div class="userName">${post.userName}<button><img src='../img/menu.png'class='menuPost'></button></div>
+        <div class="userName">${post.userName}<button id="menuPost"><img src='../img/menu.png'class='menuPost'></button></div>
         
         <p>${post.postContent}</p>
         <button id="${post.id}" class="likeButton"><img src='../img/like.png'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
@@ -85,15 +85,38 @@ export const Wall = (onNavigate) => {
 
         divPost.appendChild(singlePost);
       });
+      const MenuButton = document.getElementById('menuPost');
+      let clickCount = 0;
+
+      MenuButton.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount % 2 === 1) {
+          const divSelect = document.createElement('div');
+          divSelect.className = "divSelect";
+          divSelect.innerHTML = `
+            <ul class="menu">
+              <li>Editar</li>
+              <li>Eliminar</li>
+            </ul>
+          `;
+          MenuButton.appendChild(divSelect);
+        } else {
+          const divSelect = document.querySelector('.divSelect');
+          MenuButton.removeChild(divSelect);
+        }
+      });
+      // console.log(divSelect);
+
 
       // Add event listener to every like button
       Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
-      el.addEventListener('click', async (clickedElement) => {
+        el.addEventListener('click', async (clickedElement) => {
           const clickedElementId = clickedElement.currentTarget.id;
           const currentLikesP = clickedElement.currentTarget.children[1];
 
           await addLike(clickedElementId);
-          currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML)+1;
+          currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) + 1;
         })
       });
     }

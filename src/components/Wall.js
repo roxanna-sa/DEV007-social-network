@@ -1,5 +1,5 @@
 import { logOut } from "../lib/auth";
-import { createPost, getPosts, addLike } from "../lib/firestore";
+import { createPost, getPosts, addLike, deletePost } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
@@ -81,6 +81,7 @@ export const Wall = (onNavigate) => {
         
         <p>${post.postContent}</p>
         <button id="${post.id}" class="likeButton"><img src='../img/like.png'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
+        <button data-postid="${post.id}" class="deleteButton">Eliminar</button> <!-- Agregar el botón de eliminar -->
         `;
 
         divPost.appendChild(singlePost);
@@ -122,6 +123,26 @@ export const Wall = (onNavigate) => {
     }
 
     showAllPosts();
+
+    async function deletePostFromFirestore(postId) {
+      try {
+        await deletePost(postId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // Agrega un evento de clic para eliminar un post
+    divPost.addEventListener('click', async (event) => {
+      const target = event.target;
+      if (target.classList.contains('deleteButton')) {
+        const postId = target.getAttribute('data-postid');
+        await deletePost(postId);
+      }
+    });
+    deletePostFromFirestore();
+    showAllPosts();
+    // showAllPosts();
 
     const logOutButton = document.createElement('button');
     logOutButton.className = 'logout-button';

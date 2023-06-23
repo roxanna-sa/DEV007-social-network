@@ -44,4 +44,8 @@ export const getPosts = () => {
 };
 
 
-export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
+// export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
+
+export const deletePost = async (postId) => {
+  await deleteDoc(doc(db, 'posts', postId));
+};

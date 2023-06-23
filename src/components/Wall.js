@@ -127,17 +127,19 @@ export const Wall = (onNavigate) => {
     async function deletePostFromFirestore(postId) {
       try {
         await deletePost(postId);
+        await showAllPosts(); // aquí listamos nuevamente el registro de todos los posts existentes
       } catch (error) {
         console.error(error);
       }
     }
 
     // Agrega un evento de clic para eliminar un post
+    // Agrega un evento de clic para eliminar un post
     divPost.addEventListener('click', async (event) => {
       const target = event.target;
       if (target.classList.contains('deleteButton')) {
         const postId = target.getAttribute('data-postid');
-        await deletePost(postId);
+        await deletePostFromFirestore(postId);
       }
     });
     deletePostFromFirestore();

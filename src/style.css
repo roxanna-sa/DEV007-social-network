@@ -390,6 +390,17 @@ body {
   background: red;
 }
 
+.deleteButton{
+  width: 25%;
+  height: 2rem;
+  background: #3B3F20 !important;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 0;
+  transition: 0.2s all;
+}
+
 /* --------------- MEDIA QUERIES ------------------*/
 @media only screen and (min-width: 540px) {
   .divPost div {

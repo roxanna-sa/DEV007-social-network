@@ -1,5 +1,6 @@
+import { auth } from "../firebase";
 import { logOut } from "../lib/auth";
-import { createPost, getPosts, addLike, deletePost } from "../lib/firestore";
+import { createPost, getPosts, addLike, deletePost, removeLike } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
@@ -75,17 +76,32 @@ export const Wall = (onNavigate) => {
       divPost.innerHTML = '';
       arrayPosts.forEach(post => {
         const singlePost = document.createElement('div');
+      
+        let imgUrl = '../img/like.png';
+        let isLiked = ''; // Used to check if a post was liked, nothing else.
+
+
+        if(post.likedBy !== undefined){
+          post.likedBy.forEach(like => {
+            if(like.id === auth.currentUser.uid){
+              imgUrl = '../img/likeRed.png';
+              isLiked = 'liked';
+            }
+          });
+        }
+        
 
         singlePost.innerHTML = `
         <div class="userName">${post.userName}<button id="menuPost"><img src='../img/menu.png'class='menuPost'></button></div>
         
         <p>${post.postContent}</p>
-        <button id="${post.id}" class="likeButton"><img src='../img/like.png'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
+        <button id="${post.id}" class="likeButton ${isLiked}"><img src='${imgUrl}'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
         <button data-postid="${post.id}" class="deleteButton">Eliminar</button> <!-- Agregar el botón de eliminar -->
         `;
 
         divPost.appendChild(singlePost);
       });
+      
       const MenuButton = document.getElementById('menuPost');
       let clickCount = 0;
 
@@ -113,16 +129,32 @@ export const Wall = (onNavigate) => {
       // Add event listener to every like button
       Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
         el.addEventListener('click', async (clickedElement) => {
-          const clickedElementId = clickedElement.currentTarget.id;
-          const currentLikesP = clickedElement.currentTarget.children[1];
+          const currentTarget = clickedElement.currentTarget;
+          const clickedElementId = currentTarget.id;
+          const currentLikesIMG = currentTarget.children[0];
+          const currentLikesP = currentTarget.children[1];
+          // Check if post is already liked
+          const wasLiked = currentTarget.classList.contains('liked');
 
-          await addLike(clickedElementId);
-          currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) + 1;
+          if (wasLiked){
+            // remove like, count -1
+            currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) - 1;
+            currentTarget.classList.remove('liked');
+            // Remove filled heart
+            currentLikesIMG.src = '../img/like.png';
+            await removeLike(clickedElementId);
+          }else{
+            currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) + 1;
+            currentTarget.classList.add('liked');
+            // Add filled heart
+            currentLikesIMG.src = '../img/likeRed.png';
+            await addLike(clickedElementId);
+          }
         })
       });
     }
 
-    showAllPosts();
+    //showAllPosts();
 
     async function deletePostFromFirestore(postId) {
       try {
@@ -142,7 +174,7 @@ export const Wall = (onNavigate) => {
         await deletePostFromFirestore(postId);
       }
     });
-    deletePostFromFirestore();
+    //deletePostFromFirestore();
     showAllPosts();
     // showAllPosts();
 

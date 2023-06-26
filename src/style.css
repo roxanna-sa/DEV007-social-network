@@ -367,12 +367,15 @@ body {
 
 .menu {
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   list-style: none;
   position: absolute;
   z-index: 2;
   background: #3B3F20;
   color: white;
+  width: 4rem;
+  height: 2.5rem;
+  font-size: .8rem;
 }
 
 .hidden {
@@ -381,6 +384,11 @@ body {
 
 .show {
   display: block;
+}
+
+.show-menu {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .edit-button {

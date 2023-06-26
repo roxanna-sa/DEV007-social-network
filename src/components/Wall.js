@@ -93,11 +93,12 @@ getLoggedUser()
 
             singlePost.innerHTML = `
           <div class="userName">${post.userName}<button id="menuPost-${post.id}" class='hidden'><img src='../img/menu.png' class='menuPost' >
-          </button>
           <ul class="menu hidden" id='menu-${post.id}'>
                 <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
+                <hr></hr>
                 <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
-              </ul>
+          </ul>
+          </button>
           </div>
           
           <p>${post.postContent}</p>
@@ -109,7 +110,7 @@ getLoggedUser()
             if (user === post.user) {
               console.log('user verified');
               const MenuButton = document.getElementById(`menuPost-${post.id}`);
-              MenuButton.classList.add('show');
+              MenuButton.classList.add('show-menu');
               MenuButton.classList.remove('hidden');
 
               let clickCount = 0;

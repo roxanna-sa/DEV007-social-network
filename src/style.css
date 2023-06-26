@@ -369,11 +369,18 @@ body {
   z-index: 2;
   background: #3B3F20;
   color: white;
-  
 }
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .divSelect{
   border: none !important;
-
 }
 
 .likeButton {

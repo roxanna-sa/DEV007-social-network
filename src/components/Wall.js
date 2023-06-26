@@ -29,36 +29,54 @@ getLoggedUser()
         // lupa.className = 'lupa';
         // // lupa.src = '../img/lupa.png';
 
-        const publishPostInputAndButton = document.createElement('div');
-        publishPostInputAndButton.className = 'publishPostInputAndButton'
-        publishPostInputAndButton.innerHTML = `
-      <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
-      <button class='publishButton' id='publishButton'>Publicar</button>
-      `;
+      //   const publishPostInputAndButton = document.createElement('div');
+      //   publishPostInputAndButton.className = 'publishPostInputAndButton'
+      //   publishPostInputAndButton.innerHTML = `
+      // <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
+      // <button class='publishButton' id='publishButton'>Publicar</button>
+      // `;
         //Espacio para posts
         const divPost = document.createElement('div');
         divPost.className = 'divPost';
+
+        const modalPost = document.createElement('div');
+        modalPost.className = 'modal-post';
+        modalPost.id = 'modal-post';
+        modalPost.innerHTML = `
+        <div class='modal-content'>
+        <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
+        <button class='publishButton' id='publishButton'>Publicar</button>
+        </div>
+        `
 
         //Menu 
         const divMenu = document.createElement('div');
         divMenu.className = 'divMenu';
         divMenu.innerHTML = `
       <button><img src='../img/home.png'></button>
-      <button><img src='../img/add-post.png' class='postIcon'></button>
+      <button><img src='../img/add-post.png' class='postIcon' id='createPostButton'></button>
       <button><img src='../img/friends.png'></button>
       `;
 
         WallDiv.appendChild(divUserAndSearch);
-        WallDiv.appendChild(publishPostInputAndButton);
+        // WallDiv.appendChild(publishPostInputAndButton);
         WallDiv.appendChild(divPost);
+        WallDiv.appendChild(modalPost);
         WallDiv.appendChild(divMenu);
 
         // let currentUserEmail = getLoggedUser();
         // console.log('currentUserEmail', currentUserEmail);
 
-        let publishButton = publishPostInputAndButton.lastElementChild; //DOM traverse
+        const createPostButton = document.getElementById('createPostButton');
+        createPostButton.addEventListener('click', () => {
+          modalPost.classList.add('show-modal');
+          console.log('mostrar modal');
+        })
+
+        let publishButton = document.getElementById('publishButton'); //DOM traverse
         publishButton.addEventListener('click', async () => {
           const inputText = postInput.value;
+          modalPost.classList.remove('show-modal');
 
           if (inputText.trim() === '') {
             alert('Debes escribir algo para publicar...');

@@ -1,11 +1,10 @@
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, updateProfile} from "firebase/auth";
-import {app} from "../firebase.js"
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { app } from "../firebase.js"
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
 export const provider = new GoogleAuthProvider();
-
 
 export const createUser = (userMail, userPass, displayName) => createUserWithEmailAndPassword(auth, userMail, userPass)
   .then((userCredential) => {
@@ -16,7 +15,7 @@ export const createUser = (userMail, userPass, displayName) => createUserWithEma
 
     // Prueba: Actualizar usuario con nombre de usuario 
     updateProfile(getAuth().currentUser, {
-        displayName: displayName,
+      displayName: displayName,
     });
 
     return user;
@@ -40,7 +39,24 @@ export const signInGoogle = () => {
   return signInWithPopup(auth, provider);
 };
 
-//Log out
+//get logged in user
+export const getLoggedUser = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('inside getLoggedUser', user.email);
+        resolve(user.email);
+      } else {
+        console.log('no user');
+        resolve(null);
+      }
+    }, (error) => {
+      console.log(error);
+      reject(error);
+    });
+  });
+};
+
 export const logOut = () => {
   localStorage.clear();
   localStorage.removeItem('user');

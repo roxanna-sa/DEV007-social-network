@@ -255,6 +255,10 @@ body {
   align-items: center;
 }
 
+.divUserAndSearch p {
+  margin-left: 2rem;
+}
+
 .divMenu {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

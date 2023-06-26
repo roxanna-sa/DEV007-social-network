@@ -8,19 +8,21 @@ export const Wall = (onNavigate) => {
 
   //const getUser = localStorage.getItem('user');
 
-  let currentUserEmail = getLoggedUser()
+getLoggedUser()
     .then((user) => {
       console.log(user);
       if (user) {
-        const userNameLogged = document.createElement('p');
-        userNameLogged.textContent = localStorage.getItem('name');
+        const userNameLogged = localStorage.getItem('name');
 
         const divUserAndSearch = document.createElement('div');
         divUserAndSearch.className = 'divUserAndSearch';
         divUserAndSearch.innerHTML = `
+        <div>
       <img src='../img/user.png' class='userAccount'>
+      <p>${userNameLogged}</p>
+      </div>
       <input placeholder="Buscar" type="search" class="searchInput">
-      <p id='userNameLogged' class='userNameLogged'>${userNameLogged.textContent}</p>
+
       `;
 
         // TODO añadir lupa a search input

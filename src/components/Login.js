@@ -40,7 +40,6 @@ export const Login = (onNavigate) => {
   LoginDiv.appendChild(buttonDiv);
 
     const parentElement = document.getElementById('root');
-    console.log(parentElement);
     parentElement.addEventListener('click', (event) => {
       const target = event.target;
       if (target.matches('#loginButton')) {

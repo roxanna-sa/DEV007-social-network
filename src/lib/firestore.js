@@ -50,7 +50,7 @@ export const getPosts = () => {
       postsArray.push(data);
       return doc.data();
     })
-    console.log(postsArray);
+    // console.log(postsArray);
     return postsArray;
   })
 };

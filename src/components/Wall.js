@@ -1,6 +1,6 @@
 import { auth } from "../firebase";
 import { getLoggedUser, logOut } from "../lib/auth";
-import { createPost, getPosts, addLike, deletePost, removeLike } from "../lib/firestore";
+import { createPost, getPosts, addLike, deletePost, removeLike, editPost } from "../lib/firestore";
 //muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
@@ -94,7 +94,7 @@ export const Wall = (onNavigate) => {
           <div class="userName">${post.userName}<button id="menuPost-${post.id}"><img src='../img/menu.png' class='menuPost' >
           </button>
           <ul class="menu hidden" id='menu-${post.id}'>
-                <li>Editar</li>
+                <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
                 <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
               </ul>
           </div>
@@ -117,11 +117,32 @@ export const Wall = (onNavigate) => {
                 if (clickCount % 2 === 1) {
                   menuEditDelete.classList.add('show');
                   menuEditDelete.classList.remove('hidden');
-                  let deletePostButton = document.getElementById(`deletePost-${post.id}`)
+                  //Delete post
+                  let deletePostButton = document.getElementById(`deletePost-${post.id}`);
                   deletePostButton.addEventListener('click', async (event) => {
                     const postId = deletePostButton.getAttribute('data-postid');
                     await deletePostFromFirestore(postId);
                   });
+
+                  //Edit post 
+                  let editPostButton = document.getElementById(`editPost-${post.id}`);
+                  editPostButton.addEventListener('click', () => {
+                    console.log('editar post');
+                    const postId = editPostButton.getAttribute('data-postid');
+                    const editInput = document.createElement('input');
+                    editInput.id = `editInput-${post.id}`;
+                    const editButton = document.createElement('button');
+                    editButton.className = 'edit-button';
+                    editButton.textContent = 'Terminar'
+                    editButton.id = `editButton-${post.id}`;
+                    singlePost.appendChild(editInput);
+                    singlePost.appendChild(editButton);
+
+                    editButton.addEventListener('click', async () => {
+                      await editPostFirestore(postId, editInput.value);
+                    });
+                  });
+
                 } else {
                   menuEditDelete.classList.add('hidden');
                   menuEditDelete.classList.remove('show');
@@ -130,9 +151,6 @@ export const Wall = (onNavigate) => {
             }
 
           });
-
-
-
 
           // Add event listener to every like button
           Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
@@ -173,6 +191,14 @@ export const Wall = (onNavigate) => {
           }
         };
 
+        async function editPostFirestore(postId, editInput) {
+          try {
+            await editPost(postId, editInput);
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        };
 
         const logOutButton = document.createElement('button');
         logOutButton.className = 'logout-button';
@@ -194,11 +220,11 @@ export const Wall = (onNavigate) => {
       } else {
         const notLoggedUser = document.createElement('div')
         notLoggedUser.innerHTML = `
-      <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
-      <div class='buttons-div'>
-        <button id='logInButton'>Inicio</button>
-        <button id='registerButton'>Registrar</button>
-      </div>
+        <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
+        <div class='buttons-div'>
+          <button id='logInButton'>Inicio</button>
+          <button id='registerButton'>Registrar</button>
+        </div>
       `;
 
         document.addEventListener('DOMContentLoaded', () => {

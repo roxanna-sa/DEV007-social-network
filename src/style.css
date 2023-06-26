@@ -379,6 +379,15 @@ body {
   display: block;
 }
 
+.edit-button {
+  background-color: #3B3F20 !important;
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+
+}
 .divSelect{
   border: none !important;
 }

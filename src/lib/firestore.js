@@ -1,6 +1,6 @@
 // aqui exportaras las funciones que necesites
 
-import { addDoc, collection, getDocs, doc, deleteDoc , serverTimestamp, query, orderBy, arrayUnion, updateDoc, arrayRemove } from "firebase/firestore"
+import { addDoc, collection, getDocs, doc, deleteDoc, serverTimestamp, query, orderBy, arrayUnion, updateDoc, arrayRemove } from "firebase/firestore"
 import { auth, db } from "../firebase"
 
 export const createPost = async (text) => {
@@ -16,7 +16,7 @@ export const createPost = async (text) => {
 export const addLike = async (postId) => {
   const postRef = doc(db, 'posts', postId); // Reference to /posts
   const userRef = doc(db, 'users', auth.currentUser.uid); // Reference to /users
-  
+
   // actualiza el like en el post
   updateDoc(postRef, {
     likedBy: arrayUnion(userRef), // <- de quién es el like?
@@ -28,7 +28,7 @@ export const addLike = async (postId) => {
 export const removeLike = async (postId) => {
   const postRef = doc(db, 'posts', postId); // Reference to /posts
   const userRef = doc(db, 'users', auth.currentUser.uid); // Reference to /users
-  
+
   // actualiza el like en el post
   updateDoc(postRef, {
     likedBy: arrayRemove(userRef), // <- de quién es el like?
@@ -36,7 +36,6 @@ export const removeLike = async (postId) => {
     console.log(res);
   });
 }
-
 
 export const getPosts = () => {
   const postRef = collection(db, 'posts');
@@ -55,9 +54,14 @@ export const getPosts = () => {
   })
 };
 
-
-// export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
-
 export const deletePost = async (postId) => {
   await deleteDoc(doc(db, 'posts', postId));
+};
+
+export const editPost = async (postId, editInput) => {
+  const postRef = doc(db, "posts", postId);
+  await updateDoc(postRef, {
+    postContent: editInput
+  });
+
 };

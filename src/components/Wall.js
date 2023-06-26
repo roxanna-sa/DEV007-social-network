@@ -6,9 +6,21 @@ export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
   WallDiv.className = 'wall-div';
 
+  // Agregar el div del modal al final del wall-div
+  const modal = document.createElement('div');
+  modal.id = 'modal';
+  modal.className = 'modalEdit';
+
+  // Contenido del modal
+  const modalContent = document.createElement('div');
+  modalContent.id = 'modal-content';
+
+  modal.appendChild(modalContent);
+  WallDiv.appendChild(modal);
+
   //const getUser = localStorage.getItem('user');
 
-getLoggedUser()
+  getLoggedUser()
     .then((user) => {
       console.log(user);
       if (user) {
@@ -29,12 +41,12 @@ getLoggedUser()
         // lupa.className = 'lupa';
         // // lupa.src = '../img/lupa.png';
 
-      //   const publishPostInputAndButton = document.createElement('div');
-      //   publishPostInputAndButton.className = 'publishPostInputAndButton'
-      //   publishPostInputAndButton.innerHTML = `
-      // <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
-      // <button class='publishButton' id='publishButton'>Publicar</button>
-      // `;
+        //   const publishPostInputAndButton = document.createElement('div');
+        //   publishPostInputAndButton.className = 'publishPostInputAndButton'
+        //   publishPostInputAndButton.innerHTML = `
+        // <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
+        // <button class='publishButton' id='publishButton'>Publicar</button>
+        // `;
         //Espacio para posts
         const divPost = document.createElement('div');
         divPost.className = 'divPost';
@@ -44,7 +56,7 @@ getLoggedUser()
         modalPost.id = 'modal-post';
         modalPost.innerHTML = `
         <div class='modal-content'>
-        <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
+        <input class='postInput ph-center' id='postInput' placeholder= "¿Qué cocinas hoy?"></input>
         <button class='publishButton' id='publishButton'>Publicar</button>
         </div>
         `
@@ -124,7 +136,6 @@ getLoggedUser()
           `;
 
             divPost.appendChild(singlePost);
-
             if (user === post.user) {
               console.log('user verified');
               const MenuButton = document.getElementById(`menuPost-${post.id}`);
@@ -132,6 +143,8 @@ getLoggedUser()
               MenuButton.classList.remove('hidden');
 
               let clickCount = 0;
+
+              const editPostButton = document.getElementById(`editPost-${post.id}`); // Mover esta línea fuera del bloque de MenuButton.addEventListener
 
               MenuButton.addEventListener('click', () => {
                 clickCount++;
@@ -148,23 +161,50 @@ getLoggedUser()
                   });
 
                   //Edit post 
-                  let editPostButton = document.getElementById(`editPost-${post.id}`);
-                  editPostButton.addEventListener('click', () => {
-                    console.log('editar post');
-                    const postId = editPostButton.getAttribute('data-postid');
+                  editPostButton.addEventListener('click', async (event) => { // Corregir el nombre del evento de clic
+                    const postId = event.target.getAttribute('data-postid'); // Utilizar event.target en lugar de editPostButton
+                    const postContent = post.postContent;
+
+                    // Obtener el modal y el contenido del modal
+                    const modal = document.getElementById('modal');
+                    const modalContent = document.getElementById('modal-content');
+                    // Limpiar el contenido anterior del modal
+                    modalContent.innerHTML = '';
+
+                    // Crear los elementos del modal
                     const editInput = document.createElement('input');
                     editInput.id = `editInput-${post.id}`;
+                    editInput.value = postContent;
                     const editButton = document.createElement('button');
+                    editInput.className= 'inputEdit'
                     editButton.className = 'edit-button';
                     editButton.textContent = 'Terminar'
                     editButton.id = `editButton-${post.id}`;
-                    singlePost.appendChild(editInput);
-                    singlePost.appendChild(editButton);
+
+                    // Agregar los elementos al contenido del modal
+                    modalContent.appendChild(editInput);
+                    modalContent.appendChild(editButton);
+
+                    // Mostrar el modal
+                    modal.style.display = 'block';
 
                     editButton.addEventListener('click', async () => {
                       await editPostFirestore(postId, editInput.value);
+
+                      // Ocultar el modal después de editar el post
+                      hideModal();
                     });
                   });
+
+                  function showModal() {
+                    const modal = document.getElementById('modal');
+                    modal.style.display = 'block';
+                  }
+
+                  function hideModal() {
+                    const modal = document.getElementById('modal');
+                    modal.style.display = 'none';
+                  }
 
                 } else {
                   menuEditDelete.classList.add('hidden');

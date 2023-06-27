@@ -56,8 +56,9 @@ export const Wall = (onNavigate) => {
         modalPost.id = 'modal-post';
         modalPost.innerHTML = `
         <div class='modal-content'>
-        <input class='postInput ph-center' id='postInput' placeholder= "¿Qué cocinas hoy?"></input>
+        <textarea class='postInput ph-center' id='postInput' placeholder= "¿Qué cocinas hoy?"></textarea>
         <button class='publishButton' id='publishButton'>Publicar</button>
+        <input type="file" id="fileToUpload" accept="image/*" multiple  />
         </div>
         `
 
@@ -93,7 +94,10 @@ export const Wall = (onNavigate) => {
           if (inputText.trim() === '') {
             alert('Debes escribir algo para publicar...');
           } else {
-            await createPost(inputText);
+            // Obtener archivos, si es que hay.
+            const files = document.getElementById('fileToUpload').files;
+
+            await createPost(inputText, files);
             showAllPosts();
             clearInput();
           }
@@ -101,6 +105,7 @@ export const Wall = (onNavigate) => {
 
         function clearInput() {
           document.getElementById("postInput").value = '';
+          document.getElementById("fileToUpload").value = '';
         };
         //Muestra todos los posts ya guardados en firestore
         async function showAllPosts() {
@@ -121,17 +126,25 @@ export const Wall = (onNavigate) => {
               });
             }
 
+            let images = "";
+            post.photos?.forEach(photo => {
+              images += `<img src='${photo}' class="postPhoto" />`;
+            });
+
+
             singlePost.innerHTML = `
-          <div class="userName">${post.userName}<button id="menuPost-${post.id}" class='hidden'><img src='../img/menu.png' class='menuPost' >
-          <ul class="menu hidden" id='menu-${post.id}'>
-                <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
+          <div class="userName">${post.userName}
+          <button id="menuPost-${post.id}" class='hidden'><img src='../img/menu.png' class='menuPost' >
+            <ul class="menu hidden" id='menu-${post.id}'>
+              <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
                 <hr></hr>
-                <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
-          </ul>
+              <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
+            </ul>
           </button>
           </div>
           
-          <p>${post.postContent}</p>
+          ${images}
+          <p class= 'postContent'>${post.postContent}</p>
           <button id="${post.id}" class="likeButton ${isLiked}"><img src='${imgUrl}'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
           `;
 

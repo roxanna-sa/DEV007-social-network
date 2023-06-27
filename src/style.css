@@ -366,6 +366,15 @@ body {
   border: none;
 }
 
+.postContent{
+  white-space:pre-wrap;
+}
+
+.postPhoto{
+  width: 50%;
+  border-radius: 10px;
+}
+
 .menuPost {
   height: 1.5rem;
 }
@@ -405,7 +414,7 @@ body {
   transform: translate(-50%, -50%);
   background-color:white;
   padding: 1rem 1.5rem;
-   border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .show-modal {

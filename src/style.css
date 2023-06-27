@@ -289,11 +289,10 @@ body {
 
 .postInput {
   width: 100%;
-  height: 20rem;
+  height: 15rem;
   background: #E9F0CE;
   border-radius: 10px;
   border-color: #3B3F20;
-
   font-size: 1rem;
   resize: none;
   box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
@@ -371,7 +370,9 @@ body {
 }
 
 .postPhoto{
-  width: 50%;
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -406,15 +407,37 @@ body {
 }
 
 .modal-content {
-  height: 41%;
+  height: 43%;
   width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color:white;
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
+  background-color: #6f7549;
+}
+
+.modal-btns {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type=file]::file-selector-button {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  border: none;
+  background: #3B3F20;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+  font-size: 1rem;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #E9F0CE;
+  color: black;
 }
 
 .show-modal {
@@ -549,7 +572,13 @@ background-color: rgba(0, 0, 0, 0.3)
   }
 
   .postInput {
-    height: 3rem;
+    height: 75%;
+    font-size: 1.5rem;
+  }
+
+  input[type=file]::file-selector-button {
+    font-size: 1.5rem;
+    margin: 0 .5rem 0 0;
   }
 
   .divPost {
@@ -649,7 +678,7 @@ background-color: rgba(0, 0, 0, 0.3)
 
 
   .postInput {
-    height: 19rem;
+    height: 80%;
     width: 98%;
 }
   
@@ -657,7 +686,7 @@ background-color: rgba(0, 0, 0, 0.3)
   .publishButton {
     height: 3rem;
     font-size: 1.5rem;
-    width: 10%;
+    width: 15%;
   }
 
   .h3Register {
@@ -678,7 +707,8 @@ background-color: rgba(0, 0, 0, 0.3)
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0)}
+    background-color: rgba(0, 0, 0)
+  }
     
     .modalEdit{
       display: none;

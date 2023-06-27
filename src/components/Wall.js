@@ -56,9 +56,11 @@ export const Wall = (onNavigate) => {
         modalPost.id = 'modal-post';
         modalPost.innerHTML = `
         <div class='modal-content'>
-        <textarea class='postInput ph-center' id='postInput' placeholder= "¿Qué cocinas hoy?"></textarea>
-        <button class='publishButton' id='publishButton'>Publicar</button>
-        <input type="file" id="fileToUpload" accept="image/*" multiple  />
+          <textarea class='postInput ph-center' id='postInput' placeholder= "¿Qué cocinas hoy?"></textarea>
+          <div class='modal-btns'>
+          <input class='upload-file' type="file" id="fileToUpload" accept="image/*" multiple  />
+          <button class='publishButton' id='publishButton'>Publicar</button>
+          </div>
         </div>
         `
 
@@ -143,8 +145,8 @@ export const Wall = (onNavigate) => {
           </button>
           </div>
           
-          ${images}
           <p class= 'postContent'>${post.postContent}</p>
+          ${images}
           <button id="${post.id}" class="likeButton ${isLiked}"><img src='${imgUrl}'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
           `;
 
@@ -195,8 +197,8 @@ export const Wall = (onNavigate) => {
                     editButton.id = `editButton-${post.id}`;
 
                     // Agregar los elementos al contenido del modal
+                    editInput.appendChild(editButton);
                     modalContent.appendChild(editInput);
-                    modalContent.appendChild(editButton);
 
                     // Mostrar el modal
                     modal.style.display = 'block';

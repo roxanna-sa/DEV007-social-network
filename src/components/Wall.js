@@ -14,6 +14,7 @@ export const Wall = (onNavigate) => {
   // Contenido del modal
   const modalContent = document.createElement('div');
   modalContent.id = 'modal-content';
+  modalContent.className = 'modal-content'
 
   modal.appendChild(modalContent);
   WallDiv.appendChild(modal);
@@ -197,8 +198,8 @@ export const Wall = (onNavigate) => {
                     editButton.id = `editButton-${post.id}`;
 
                     // Agregar los elementos al contenido del modal
-                    editInput.appendChild(editButton);
                     modalContent.appendChild(editInput);
+                    modalContent.appendChild(editButton);
 
                     // Mostrar el modal
                     modal.style.display = 'block';

@@ -300,7 +300,8 @@ body {
 
 .ph-center::-webkit-input-placeholder {
   text-align: center;
-  line-height: 100px;/* Centrado vertical */
+  line-height: 100px;
+  /* Centrado vertical */
 }
 
 .publishButton {
@@ -365,11 +366,11 @@ body {
   border: none;
 }
 
-.postContent{
-  white-space:pre-wrap;
+.postContent {
+  white-space: pre-wrap;
 }
 
-.postPhoto{
+.postPhoto {
   width: 100%;
   height: 15rem;
   object-fit: cover;
@@ -395,7 +396,6 @@ body {
 
 .modal-post {
   position: fixed;
-  /* left: 2%; */
   top: 0;
   width: 100%;
   height: 100%;
@@ -413,7 +413,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   border-radius: 0.5rem;
   background-color: #6f7549;
 }
@@ -421,6 +421,39 @@ body {
 .modal-btns {
   display: flex;
   flex-direction: column;
+}
+
+.modalEdit {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3)
+}
+
+.inputEdit {
+  width: 100%;
+  height: 85%;
+  background: #E9F0CE;
+  border-radius: 10px;
+  border-color: #3B3F20;
+  font-size: 1rem;
+  box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
+}
+
+.edit-button {
+  background-color: #3B3F20 !important;
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: .6rem;
+  border: none;
 }
 
 input[type=file]::file-selector-button {
@@ -460,15 +493,6 @@ input[type=file]::file-selector-button:hover {
   flex-direction: row-reverse;
 }
 
-.edit-button {
-  background-color: #3B3F20 !important;
-  width: 5rem;
-  height: 2rem;
-  color: white;
-  font-size: 1rem;
-  border-radius: 10px;
-}
-
 .divSelect {
   border: none !important;
 }
@@ -497,30 +521,7 @@ input[type=file]::file-selector-button:hover {
   border: 0;
   transition: 0.2s all;
 }
-.modalEdit{
-display: none;
-position: fixed;
-z-index: 1;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-overflow: auto;
-background-color: rgba(0, 0, 0, 0.3)
-}
 
-.inputEdit {
-  width: 91%;
-  margin-left: 4%;
-  margin-top: 50%;
-  height: 17rem;
-  background: #E9F0CE;
-  border-radius: 10px;
-  border-color: #3B3F20;
-  font-size: 1rem;
-  resize: none;
-  box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
-}
 
 /* --------------- MEDIA QUERIES ------------------*/
 @media only screen and (min-width: 540px) {
@@ -680,8 +681,8 @@ background-color: rgba(0, 0, 0, 0.3)
   .postInput {
     height: 80%;
     width: 98%;
-}
-  
+  }
+
 
   .publishButton {
     height: 3rem;
@@ -709,9 +710,9 @@ background-color: rgba(0, 0, 0, 0.3)
     overflow: auto;
     background-color: rgba(0, 0, 0)
   }
-    
-    .modalEdit{
-      display: none;
+
+  .modalEdit {
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -720,18 +721,18 @@ background-color: rgba(0, 0, 0, 0.3)
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.3)
-    }
+  }
 
-    .inputEdit {
-      width: 91%;
-      margin-left: 4%;
-      height: 17rem;
-      background: #E9F0CE;
-      border-radius: 10px;
-      border-color: #3B3F20;
-      font-size: 1rem;
-      resize: none;
-      box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
+  .inputEdit {
+    width: 91%;
+    margin-left: 4%;
+    height: 17rem;
+    background: #E9F0CE;
+    border-radius: 10px;
+    border-color: #3B3F20;
+    font-size: 1rem;
+    resize: none;
+    box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
   }
 
 }

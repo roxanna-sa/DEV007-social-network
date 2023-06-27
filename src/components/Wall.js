@@ -218,16 +218,23 @@ export const Wall = (onNavigate) => {
                     const modal = document.getElementById('modal');
                     modal.style.display = 'none';
                   }
-
+                  
                 } else {
                   menuEditDelete.classList.add('hidden');
                   menuEditDelete.classList.remove('show');
                 };
               });
             }
-
+            
           });
 
+          //Close modal window clicking outside target
+          modalPost.addEventListener('click', (event) => {
+            if (event.target == modalPost) {
+              modalPost.classList.remove('show-modal');
+            }
+          });
+          
           // Add event listener to every like button
           Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
             el.addEventListener('click', async (clickedElement) => {

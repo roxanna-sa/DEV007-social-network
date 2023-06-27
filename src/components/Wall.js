@@ -228,7 +228,7 @@ export const Wall = (onNavigate) => {
             
           });
 
-          //Close modal window clicking outside target
+          //Close modal (create) window clicking outside target
           modalPost.addEventListener('click', (event) => {
             if (event.target == modalPost) {
               modalPost.classList.remove('show-modal');

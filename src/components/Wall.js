@@ -185,7 +185,7 @@ export const Wall = (onNavigate) => {
                     modalContent.innerHTML = '';
 
                     // Crear los elementos del modal
-                    const editInput = document.createElement('input');
+                    const editInput = document.createElement('textarea');
                     editInput.id = `editInput-${post.id}`;
                     editInput.value = postContent;
                     const editButton = document.createElement('button');

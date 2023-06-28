@@ -34,8 +34,8 @@ export const Wall = (onNavigate) => {
           <img src='../img/user.png' class='userAccount'>
           <p>${userNameLogged}</p>
         </div>
-        <input placeholder="Buscar" type="search" class="searchInput">
         `;
+        // <input placeholder="Buscar" type="search" class="searchInput">
 
         // TODO añadir lupa a search input
         // const lupa = document.createElement('div');
@@ -86,7 +86,6 @@ export const Wall = (onNavigate) => {
         const createPostButton = document.getElementById('createPostButton');
         createPostButton.addEventListener('click', () => {
           modalPost.classList.add('show-modal');
-          console.log('mostrar modal');
         })
 
         let publishButton = document.getElementById('publishButton'); //DOM traverse
@@ -134,7 +133,6 @@ export const Wall = (onNavigate) => {
               images += `<img src='${photo}' class="postPhoto" />`;
             });
 
-
             singlePost.innerHTML = `
           <div class="userName">${post.userName}
           <button id="menuPost-${post.id}" class='hidden'><img src='../img/menu.png' class='menuPost' >
@@ -166,12 +164,15 @@ export const Wall = (onNavigate) => {
                 clickCount++;
 
                 const menuEditDelete = document.getElementById(`menu-${post.id}`);
+
                 if (clickCount % 2 === 1) {
                   menuEditDelete.classList.add('show');
                   menuEditDelete.classList.remove('hidden');
+
                   //Delete post
                   let deletePostButton = document.getElementById(`deletePost-${post.id}`);
                   deletePostButton.addEventListener('click', async (event) => {
+                    //TODO pedir confirmación para eliminar post
                     const postId = deletePostButton.getAttribute('data-postid');
                     await deletePostFromFirestore(postId);
                   });
@@ -192,7 +193,7 @@ export const Wall = (onNavigate) => {
                     editInput.id = `editInput-${post.id}`;
                     editInput.value = postContent;
                     const editButton = document.createElement('button');
-                    editInput.className= 'inputEdit'
+                    editInput.className = 'inputEdit'
                     editButton.className = 'edit-button';
                     editButton.textContent = 'Terminar'
                     editButton.id = `editButton-${post.id}`;
@@ -221,14 +222,13 @@ export const Wall = (onNavigate) => {
                     const modal = document.getElementById('modal');
                     modal.style.display = 'none';
                   }
-                  
+
                 } else {
                   menuEditDelete.classList.add('hidden');
                   menuEditDelete.classList.remove('show');
                 };
               });
-            }
-            
+            };
           });
 
           //Close modal (create) window clicking outside target
@@ -237,7 +237,7 @@ export const Wall = (onNavigate) => {
               modalPost.classList.remove('show-modal');
             }
           });
-          
+
           // Add event listener to every like button
           Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
             el.addEventListener('click', async (clickedElement) => {

@@ -1,8 +1,7 @@
 // Este es el punto de entrada de tu aplicacion
-import { Login } from './components/Login.js'
-import { Register } from './components/Register.js'
-import { Wall } from './components/Wall.js'
-
+import { Login } from './components/Login.js';
+import { Register } from './components/Register.js';
+import { Wall } from './components/Wall.js';
 
 const rootDiv = document.getElementById('root');
 let routes = {};
@@ -20,20 +19,19 @@ export const onNavigate = (pathname) => {
   rootDiv.appendChild(routes[pathname](onNavigate));
 };
 
-
 routes = {
   '/': Login,
   '/register': Register,
   '/wall': Wall,
-  //'/profile': Profile(onNavigate),
-  //'/404': NotFound(onNavigate)
+  // '/profile': Profile(onNavigate),
+  // '/404': NotFound(onNavigate)
 };
 
 // Obtener el componente correspondiente a la ruta actual
 const component = routes[window.location.pathname];
 
 window.onpopstate = () => {
-  while (root.firstChild) {  // Remover todos los hijos del elemento raíz
+  while (root.firstChild) { // Remover todos los hijos del elemento raíz
     root.removeChild(root.firstChild);
   }
   // Agregar el componente correspondiente a la ruta actual
@@ -41,4 +39,4 @@ window.onpopstate = () => {
 };
 
 // Llamadas al entrar al sitio.
-rootDiv.appendChild(component(onNavigate)); //Porqué manda onNavigate a la constante component?
+rootDiv.appendChild(component(onNavigate)); // Porqué manda onNavigate a la constante component?

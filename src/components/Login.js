@@ -1,9 +1,9 @@
-import { signIn, signInGoogle } from '../lib/auth.js'
+import { signIn, signInGoogle } from '../lib/auth.js';
 
-//para login o mandar a registro
+// para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
-  //Form login
+  // Form login
   const loginForm = document.createElement('form');
   loginForm.className = 'login-form';
   loginForm.innerHTML = `
@@ -18,7 +18,7 @@ export const Login = (onNavigate) => {
   </div>
   `;
 
-  //buttons
+  // buttons
   const buttonDiv = document.createElement('div');
   buttonDiv.className = 'button-div';
   buttonDiv.innerHTML = `
@@ -27,50 +27,49 @@ export const Login = (onNavigate) => {
   <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
   <h3> Recetas para sentirte bien...</h3>
   `;
-  
-    const header = document.getElementById('logo');
-    // console.log(header.lastElementChild);
-    if (window.location.pathname != '/wall') {
-      if(header.lastElementChild.id === 'logout-button'){
-        header.lastElementChild.remove();
-      };
-    } ;
+  const header = document.getElementById('logo');
+
+  // console.log(header.lastElementChild);
+  if (window.location.pathname !== '/wall') {
+    if (header.lastElementChild.id === 'logout-button') {
+      header.lastElementChild.remove();
+    }
+  }
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
 
-    const parentElement = document.getElementById('root');
-    parentElement.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.matches('#loginButton')) {
-        event.preventDefault();
-        const userMail = document.getElementById('email').value;
-        const userPass = document.getElementById('password').value;
+  const parentElement = document.getElementById('root');
+  parentElement.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target.matches('#loginButton')) {
+      event.preventDefault();
+      const userMail = document.getElementById('email').value;
+      const userPass = document.getElementById('password').value;
 
-        if (userMail === '' || userPass === '') {
-          alert('Ingresa email y contraseña')
-        } else {
-          signIn(userMail, userPass).then((response) => {
-            localStorage.setItem('user', userMail);
-            localStorage.setItem('name', response.user.displayName);
-            onNavigate('/wall');
-          }).catch(() => {
-            alert('Email o contraseña incorrectos');
-          });
-        };
-      } else if (target.matches('#registerButton')) {
-        onNavigate('/register');
-      } else if (target.matches('#continueWithGoogle')) {
-        signInGoogle().then((googleResponse) => {
-          console.log("Rpta de google:", googleResponse)
-          localStorage.setItem("user", googleResponse.user.email);
-          localStorage.setItem('name', googleResponse.user.displayName);
-
+      if (userMail === '' || userPass === '') {
+        alert('Ingresa email y contraseña');
+      } else {
+        signIn(userMail, userPass).then((response) => {
+          localStorage.setItem('user', userMail);
+          localStorage.setItem('name', response.user.displayName);
           onNavigate('/wall');
+        }).catch(() => {
+          alert('Email o contraseña incorrectos');
         });
-      };
-    });
+      }
+    } else if (target.matches('#registerButton')) {
+      onNavigate('/register');
+    } else if (target.matches('#continueWithGoogle')) {
+      signInGoogle().then((googleResponse) => {
+        console.log('Rpta de google:', googleResponse);
+        localStorage.setItem('user', googleResponse.user.email);
+        localStorage.setItem('name', googleResponse.user.displayName);
 
+        onNavigate('/wall');
+      });
+    }
+  });
 
   return LoginDiv;
-}
+};

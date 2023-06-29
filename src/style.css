@@ -392,6 +392,7 @@ body {
   width: 4rem;
   height: 2.5rem;
   font-size: .8rem;
+  margin-right: 10%;
 }
 
 .modal-post {
@@ -724,9 +725,9 @@ input[type=file]::file-selector-button:hover {
   }
 
   .inputEdit {
-    width: 91%;
+    width: 90%;
     margin-left: 4%;
-    height: 17rem;
+    height: 90%;
     background: #E9F0CE;
     border-radius: 10px;
     border-color: #3B3F20;

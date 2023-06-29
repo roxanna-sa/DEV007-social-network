@@ -1,8 +1,18 @@
-// aqui exportaras las funciones que necesites
-
-import { addDoc, collection, getDocs, doc, deleteDoc, serverTimestamp, query, orderBy, arrayUnion, updateDoc, arrayRemove } from "firebase/firestore"
-import { auth, db, storage } from "../firebase"
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  arrayUnion,
+  updateDoc,
+  arrayRemove,
+} from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { auth, db, storage } from '../firebase';
 
 export const createPost = async (text, files) => {
   // Create post / newPost is the reference to the post in DB
@@ -48,7 +58,7 @@ export const addLike = async (postId) => {
   }).then((res) => {
     console.log(res);
   });
-}
+};
 
 export const removeLike = async (postId) => {
   const postRef = doc(db, 'posts', postId); // Reference to /posts
@@ -60,23 +70,24 @@ export const removeLike = async (postId) => {
   }).then((res) => {
     console.log(res);
   });
-}
+};
 
 export const getPosts = () => {
   const postRef = collection(db, 'posts');
-  const q = query(postRef, orderBy("timestamp", "desc"));
+  const q = query(postRef, orderBy('timestamp', 'desc'));
   return getDocs(q).then((res) => {
-    let postsArray = [];
+    const postsArray = [];
     res.forEach((doc) => {
-      // creamos un objeto data que tendrá el contenido y le agregamos por nuestra parte la ID que NO viene dentro de doc.data()
-      let data = doc.data();
-      data["id"] = doc.id;
+      /* creamos un objeto data que tendrá el contenido y le agregamos
+      por nuestra parte la ID que NO viene dentro de doc.data() */
+      const data = doc.data();
+      data['id'] = doc.id;
       postsArray.push(data);
       return doc.data();
-    })
+    });
     // console.log(postsArray);
     return postsArray;
-  })
+  });
 };
 
 export const deletePost = async (postId) => {
@@ -86,9 +97,8 @@ export const deletePost = async (postId) => {
 };
 
 export const editPost = async (postId, editInput) => {
-  const postRef = doc(db, "posts", postId);
+  const postRef = doc(db, 'posts', postId);
   await updateDoc(postRef, {
-    postContent: editInput
+    postContent: editInput,
   });
-
 };

@@ -1,6 +1,6 @@
-import { createUser } from '../lib/auth.js'
+import { createUser } from '../lib/auth.js';
 
-//registro datos usuario
+// registro datos usuario
 
 export const Register = (onNavigate) => {
   const RegisterDiv = document.createElement('div');
@@ -8,7 +8,7 @@ export const Register = (onNavigate) => {
   const welcome = document.createElement('h2');
   welcome.textContent = 'Ingresa tus datos';
 
-  //Create form elements
+  // Create form elements
   const registerForm = document.createElement('form');
   registerForm.className = 'register-form';
   registerForm.innerHTML = `
@@ -39,7 +39,7 @@ export const Register = (onNavigate) => {
   </div>
   <button class='join-button' id='join-button' type='submit'>Unirse</button>
   <h3 class="h3Register"> Recetas para sentirte bien...</h3>
-  `
+  `;
 
   RegisterDiv.appendChild(welcome);
   RegisterDiv.appendChild(registerForm);
@@ -50,7 +50,7 @@ export const Register = (onNavigate) => {
     const passwordInput = document.getElementById('password');
     const userName = document.getElementById('name');
 
-    e.preventDefault(); //evitar que el formulario haga el proceso de submit
+    e.preventDefault(); // evitar que el formulario haga el proceso de submit
     joinButton.setAttribute('disabled', true); // Bloquear botón submit para evitar doble registro
     const email = emailUser.value.trim();
     const password = passwordInput.value.trim();
@@ -67,11 +67,11 @@ export const Register = (onNavigate) => {
         localStorage.setItem('name', displayName);
         onNavigate('/wall');
       }).catch((error) => {
-        //log error
+        // log error
         console.log(error);
         alert('Error');
         joinButton.removeAttribute('disabled');
-        //onNavigate('/register');
+        // onNavigate('/register');
       });
     }
   });

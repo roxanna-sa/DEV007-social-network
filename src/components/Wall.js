@@ -1,7 +1,14 @@
-import { auth } from "../firebase";
-import { getLoggedUser, logOut } from "../lib/auth";
-import { createPost, getPosts, addLike, deletePost, removeLike, editPost } from "../lib/firestore";
-//muro personal
+import { auth } from '../firebase';
+import { getLoggedUser, logOut } from '../lib/auth';
+import {
+  createPost,
+  getPosts,
+  addLike,
+  deletePost,
+  removeLike,
+  editPost,
+} from '../lib/firestore';
+// muro personal
 export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
   WallDiv.className = 'wall-div';
@@ -14,16 +21,16 @@ export const Wall = (onNavigate) => {
   // Contenido del modal
   const modalContent = document.createElement('div');
   modalContent.id = 'modal-content';
-  modalContent.className = 'modal-content'
+  modalContent.className = 'modal-content';
 
   modal.appendChild(modalContent);
   WallDiv.appendChild(modal);
 
-  //const getUser = localStorage.getItem('user');
+  // const getUser = localStorage.getItem('user');
 
   getLoggedUser()
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         const userNameLogged = localStorage.getItem('name');
 
@@ -48,7 +55,7 @@ export const Wall = (onNavigate) => {
         // <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
         // <button class='publishButton' id='publishButton'>Publicar</button>
         // `;
-        //Espacio para posts
+        // Espacio para posts
         const divPost = document.createElement('div');
         divPost.className = 'divPost';
 
@@ -63,9 +70,9 @@ export const Wall = (onNavigate) => {
           <button class='publishButton' id='publishButton'>Publicar</button>
           </div>
         </div>
-        `
+        `;
 
-        //Menu 
+        // Menu
         const divMenu = document.createElement('div');
         divMenu.className = 'divMenu';
         divMenu.innerHTML = `
@@ -82,45 +89,52 @@ export const Wall = (onNavigate) => {
 
         // let currentUserEmail = getLoggedUser();
         // console.log('currentUserEmail', currentUserEmail);
+        // function showModal() {
+        //   const modal = document.getElementById('modal');
+        //   modal.style.display = 'block';
+        // }
 
-        const createPostButton = document.getElementById('createPostButton');
-        createPostButton.addEventListener('click', () => {
-          modalPost.classList.add('show-modal');
-        })
-
-        let publishButton = document.getElementById('publishButton'); //DOM traverse
-        publishButton.addEventListener('click', async () => {
-          const inputText = postInput.value;
-          modalPost.classList.remove('show-modal');
-
-          if (inputText.trim() === '') {
-            alert('Debes escribir algo para publicar...');
-          } else {
-            // Obtener archivos, si es que hay.
-            const files = document.getElementById('fileToUpload').files;
-
-            await createPost(inputText, files);
-            showAllPosts();
-            clearInput();
-          }
-        });
+        /* eslint-disable */
+        function hideModal() {
+          const modalHide = document.getElementById('modal');
+          modalHide.style.display = 'none';
+        }
 
         function clearInput() {
-          document.getElementById("postInput").value = '';
-          document.getElementById("fileToUpload").value = '';
-        };
-        //Muestra todos los posts ya guardados en firestore
+          document.getElementById('postInput').value = '';
+          document.getElementById('fileToUpload').value = '';
+        }
+
+        async function editPostFirestore(postId, editInput) {
+          try {
+            await editPost(postId, editInput);
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        async function deletePostFromFirestore(postId) {
+          try {
+            await deletePost(postId);
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        /* eslint-enable */
+
         async function showAllPosts() {
-          let arrayPosts = await getAllPosts();
+          const arrayPosts = await getPosts();
           divPost.innerHTML = '';
-          arrayPosts.forEach(post => {
+          arrayPosts.forEach((post) => {
             const singlePost = document.createElement('div');
 
             let imgUrl = '../img/like.png';
             let isLiked = ''; // Used to check if a post was liked, nothing else.
 
             if (post.likedBy !== undefined) {
-              post.likedBy.forEach(like => {
+              post.likedBy.forEach((like) => {
                 if (like.id === auth.currentUser.uid) {
                   imgUrl = '../img/likeRed.png';
                   isLiked = 'liked';
@@ -128,10 +142,12 @@ export const Wall = (onNavigate) => {
               });
             }
 
-            let images = "";
-            post.photos?.forEach(photo => {
-              images += `<img src='${photo}' class="postPhoto" />`;
-            });
+            let images = '';
+            if (post.photos) {
+              post.photos.forEach((photo) => {
+                images += `<img src='${photo}' class="postPhoto" />`;
+              });
+            }
 
             singlePost.innerHTML = `
           <div class="userName">${post.userName}
@@ -161,6 +177,7 @@ export const Wall = (onNavigate) => {
               const editPostButton = document.getElementById(`editPost-${post.id}`); // Mover esta línea fuera del bloque de MenuButton.addEventListener
 
               MenuButton.addEventListener('click', () => {
+                //eslint-disable-next-line
                 clickCount++;
 
                 const menuEditDelete = document.getElementById(`menu-${post.id}`);
@@ -169,79 +186,67 @@ export const Wall = (onNavigate) => {
                   menuEditDelete.classList.add('show');
                   menuEditDelete.classList.remove('hidden');
 
-                  //Delete post
-                  let deletePostButton = document.getElementById(`deletePost-${post.id}`);
-                  deletePostButton.addEventListener('click', async (event) => {
-                    //TODO pedir confirmación para eliminar post
+                  // Delete post
+                  const deletePostButton = document.getElementById(`deletePost-${post.id}`);
+                  deletePostButton.addEventListener('click', async () => {
+                    // TODO pedir confirmación para eliminar post
                     const postId = deletePostButton.getAttribute('data-postid');
                     await deletePostFromFirestore(postId);
                   });
 
-                  //Edit post 
+                  // Edit post
                   editPostButton.addEventListener('click', async (event) => { // Corregir el nombre del evento de clic
                     const postId = event.target.getAttribute('data-postid'); // Utilizar event.target en lugar de editPostButton
                     const postContent = post.postContent;
 
                     // Obtener el modal y el contenido del modal
-                    const modal = document.getElementById('modal');
-                    const modalContent = document.getElementById('modal-content');
+                    const modalEditPost = document.getElementById('modal');
+                    const modalContentEditPost = document.getElementById('modal-content');
                     // Limpiar el contenido anterior del modal
-                    modalContent.innerHTML = '';
+                    modalContentEditPost.innerHTML = '';
 
                     // Crear los elementos del modal
                     const editInput = document.createElement('textarea');
                     editInput.id = `editInput-${post.id}`;
                     editInput.value = postContent;
                     const editButton = document.createElement('button');
-                    editInput.className = 'inputEdit'
+                    editInput.className = 'inputEdit';
                     editButton.className = 'edit-button';
-                    editButton.textContent = 'Terminar'
+                    editButton.textContent = 'Terminar';
                     editButton.id = `editButton-${post.id}`;
 
                     // Agregar los elementos al contenido del modal
-                    modalContent.appendChild(editInput);
-                    modalContent.appendChild(editButton);
+                    modalContentEditPost.appendChild(editInput);
+                    modalContentEditPost.appendChild(editButton);
 
                     // Mostrar el modal
-                    modal.style.display = 'block';
+                    modalEditPost.style.display = 'block';
 
                     editButton.addEventListener('click', async () => {
                       await editPostFirestore(postId, editInput.value);
-
                       // Ocultar el modal después de editar el post
                       hideModal();
                     });
                   });
-
-                  function showModal() {
-                    const modal = document.getElementById('modal');
-                    modal.style.display = 'block';
-                  }
-
-                  function hideModal() {
-                    const modal = document.getElementById('modal');
-                    modal.style.display = 'none';
-                  }
-
                 } else {
                   menuEditDelete.classList.add('hidden');
                   menuEditDelete.classList.remove('show');
-                };
+                }
               });
-            };
+            }
           });
 
-          //Close modal (create) window clicking outside target
+          // Close modal (create) window clicking outside target
           modalPost.addEventListener('click', (event) => {
-            if (event.target == modalPost) {
+            if (event.target === modalPost) {
               modalPost.classList.remove('show-modal');
               clearInput();
             }
           });
 
           // Add event listener to every like button
-          Array.from(document.getElementsByClassName("likeButton")).forEach((el) => { //el= elemento
-            el.addEventListener('click', async (clickedElement) => {
+          Array.from(document.getElementsByClassName('likeButton')).forEach((element) => {
+            element.addEventListener('click', async (clickedElement) => {
               const currentTarget = clickedElement.currentTarget;
               const clickedElementId = currentTarget.id;
               const currentLikesIMG = currentTarget.children[0];
@@ -251,6 +256,7 @@ export const Wall = (onNavigate) => {
 
               if (wasLiked) {
                 // remove like, count -1
+                // eslint-disable-next-line
                 currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) - 1;
                 currentTarget.classList.remove('liked');
                 // Remove filled heart
@@ -263,29 +269,33 @@ export const Wall = (onNavigate) => {
                 currentLikesIMG.src = '../img/likeRed.png';
                 await addLike(clickedElementId);
               }
-            })
+            });
           });
         }
 
         showAllPosts();
 
-        async function deletePostFromFirestore(postId) {
-          try {
-            await deletePost(postId);
-            await showAllPosts(); // aquí listamos nuevamente el registro de todos los posts existentes
-          } catch (error) {
-            console.error(error);
-          }
-        };
+        const createPostButton = document.getElementById('createPostButton');
+        createPostButton.addEventListener('click', () => {
+          modalPost.classList.add('show-modal');
+        });
 
-        async function editPostFirestore(postId, editInput) {
-          try {
-            await editPost(postId, editInput);
-            await showAllPosts();
-          } catch (error) {
-            console.error(error);
+        const publishButton = document.getElementById('publishButton'); // DOM traverse
+        publishButton.addEventListener('click', async () => {
+          const inputText = document.getElementById('postInput').value;
+          modalPost.classList.remove('show-modal');
+
+          if (inputText.trim() === '') {
+            alert('Debes escribir algo para publicar...');
+          } else {
+            // Obtener archivos, si es que hay.
+            const files = document.getElementById('fileToUpload').files;
+
+            await createPost(inputText, files);
+            showAllPosts();
+            clearInput();
           }
-        };
+        });
 
         const logOutButton = document.createElement('button');
         logOutButton.className = 'logout-button';
@@ -299,13 +309,11 @@ export const Wall = (onNavigate) => {
         });
 
         if (window.location.pathname === '/wall') {
-
           const header = document.getElementById('logo');
           header.appendChild(logOutButton);
-        };
-
+        }
       } else {
-        const notLoggedUser = document.createElement('div')
+        const notLoggedUser = document.createElement('div');
         notLoggedUser.innerHTML = `
         <h2> Bienvenido a Nutrivid, inicia sesión o regístrate </h2>
         <div class='buttons-div'>
@@ -314,23 +322,17 @@ export const Wall = (onNavigate) => {
         </div>
       `;
 
+      // TO DO fix buttons 
         document.addEventListener('DOMContentLoaded', () => {
-          document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
-          document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') });
+          document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/'); });
+          document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register'); });
         });
         WallDiv.appendChild(notLoggedUser);
-      };
-
+      }
     }).catch((error) => {
       console.log('error:', error);
       return null;
     });
 
-
   return WallDiv;
-};
-
-async function getAllPosts() {
-  //console.log(await getPosts());
-  return await getPosts();
 };

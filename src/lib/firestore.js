@@ -27,6 +27,7 @@ export const createPost = async (text, files) => { // files viene del input type
 
  
   // Upload files if any
+  /* eslint-disable */
   for (const file of Array.from(files)) {
     const imageRef = ref(storage, `images/${newPost.id}/${file.name}`);
 
@@ -37,6 +38,7 @@ export const createPost = async (text, files) => { // files viene del input type
     const downloadURL = await getDownloadURL(imageRef);
     photosPublicURL.push(downloadURL);
   }
+  /* eslint-enable */
 
   // Updates photos in post.
   await updateDoc(newPost, { //Actualizar un doc que ya existe en Firebase

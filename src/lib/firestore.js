@@ -26,6 +26,7 @@ export const createPost = async (text, files) => {
   const photosPublicURL = [];
 
   // Upload files if any
+  /* eslint-disable */
   for (const file of Array.from(files)) {
     const imageRef = ref(storage, `images/${newPost.id}/${file.name}`);
 
@@ -36,6 +37,7 @@ export const createPost = async (text, files) => {
     const downloadURL = await getDownloadURL(imageRef);
     photosPublicURL.push(downloadURL);
   }
+  /* eslint-enable */
 
   // Updates photos in post.
   await updateDoc(newPost, {

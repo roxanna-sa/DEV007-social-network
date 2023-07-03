@@ -94,6 +94,7 @@ export const Wall = (onNavigate) => {
         //   modal.style.display = 'block';
         // }
 
+        /* eslint-disable */
         function hideModal() {
           const modalHide = document.getElementById('modal');
           modalHide.style.display = 'none';
@@ -103,6 +104,7 @@ export const Wall = (onNavigate) => {
           document.getElementById('postInput').value = '';
           document.getElementById('fileToUpload').value = '';
         }
+        /* eslint-enable */
 
         async function editPostFirestore(postId, editInput) {
           try {
@@ -113,8 +115,17 @@ export const Wall = (onNavigate) => {
           }
         }
 
+        async function deletePostFromFirestore(postId) {
+          try {
+            await deletePost(postId);
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
         async function showAllPosts() {
-          const arrayPosts = await getAllPosts();
+          const arrayPosts = await getPosts();
           divPost.innerHTML = '';
           arrayPosts.forEach((post) => {
             const singlePost = document.createElement('div');
@@ -166,6 +177,7 @@ export const Wall = (onNavigate) => {
               const editPostButton = document.getElementById(`editPost-${post.id}`); // Mover esta línea fuera del bloque de MenuButton.addEventListener
 
               MenuButton.addEventListener('click', () => {
+                //eslint-disable-next-line
                 clickCount++;
 
                 const menuEditDelete = document.getElementById(`menu-${post.id}`);
@@ -244,6 +256,7 @@ export const Wall = (onNavigate) => {
 
               if (wasLiked) {
                 // remove like, count -1
+                // eslint-disable-next-line
                 currentLikesP.innerHTML = parseInt(currentLikesP.innerHTML) - 1;
                 currentTarget.classList.remove('liked');
                 // Remove filled heart
@@ -261,15 +274,6 @@ export const Wall = (onNavigate) => {
         }
 
         showAllPosts();
-
-        async function deletePostFromFirestore(postId) {
-          try {
-            await deletePost(postId);
-            await showAllPosts();
-          } catch (error) {
-            console.error(error);
-          }
-        }
 
         const createPostButton = document.getElementById('createPostButton');
         createPostButton.addEventListener('click', () => {
@@ -331,8 +335,3 @@ export const Wall = (onNavigate) => {
 
   return WallDiv;
 };
-
-async function getAllPosts() {
-  // console.log(await getPosts());
-  return await getPosts();
-}

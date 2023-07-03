@@ -104,7 +104,6 @@ export const Wall = (onNavigate) => {
           document.getElementById('postInput').value = '';
           document.getElementById('fileToUpload').value = '';
         }
-        /* eslint-enable */
 
         async function editPostFirestore(postId, editInput) {
           try {
@@ -123,6 +122,7 @@ export const Wall = (onNavigate) => {
             console.error(error);
           }
         }
+        /* eslint-enable */
 
         async function showAllPosts() {
           const arrayPosts = await getPosts();
@@ -224,7 +224,6 @@ export const Wall = (onNavigate) => {
 
                     editButton.addEventListener('click', async () => {
                       await editPostFirestore(postId, editInput.value);
-
                       // Ocultar el modal después de editar el post
                       hideModal();
                     });
@@ -322,6 +321,7 @@ export const Wall = (onNavigate) => {
         </div>
       `;
 
+      // TO DO fix buttons 
         document.addEventListener('DOMContentLoaded', () => {
           document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/'); });
           document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register'); });

@@ -235,6 +235,7 @@ export const Wall = (onNavigate) => {
           modalPost.addEventListener('click', (event) => {
             if (event.target == modalPost) {
               modalPost.classList.remove('show-modal');
+              clearInput();
             }
           });
 

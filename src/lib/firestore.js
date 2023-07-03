@@ -14,7 +14,7 @@ import {
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase';
 
-export const createPost = async (text, files) => {
+export const createPost = async (text, files) => { // files viene del input type file
   // Create post / newPost is the reference to the post in DB
   const newPost = await addDoc(collection(db, 'posts'), {
     postContent: text,
@@ -25,12 +25,13 @@ export const createPost = async (text, files) => {
 
   const photosPublicURL = [];
 
+ 
   // Upload files if any
   for (const file of Array.from(files)) {
     const imageRef = ref(storage, `images/${newPost.id}/${file.name}`);
 
     // 'file' comes from the Blob or File API
-    await uploadBytes(imageRef, file);
+    await uploadBytes(imageRef, file);// sube los bytes de la imagen
 
     // Get download URL
     const downloadURL = await getDownloadURL(imageRef);
@@ -38,7 +39,7 @@ export const createPost = async (text, files) => {
   }
 
   // Updates photos in post.
-  await updateDoc(newPost, {
+  await updateDoc(newPost, { //Actualizar un doc que ya existe en Firebase
     photos: photosPublicURL, // <- que url publica tiene la foto?
   }).then((res) => {
     console.log(res);
@@ -77,7 +78,8 @@ export const getPosts = () => {
   const q = query(postRef, orderBy('timestamp', 'desc'));
   return getDocs(q).then((res) => {
     const postsArray = [];
-    res.forEach((doc) => {
+    console.log("res", res);
+    res.forEach((doc) => { // res es el querySnapshot
       /* creamos un objeto data que tendrá el contenido y le agregamos
       por nuestra parte la ID que NO viene dentro de doc.data() */
       const data = doc.data();

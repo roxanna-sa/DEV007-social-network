@@ -135,7 +135,6 @@ export const Wall = (onNavigate) => {
                 images += `<img src='${photo}' class="postPhoto" />`;
               });
             }
-           
 
             singlePost.innerHTML = `
           <div class="userName">${post.userName}
@@ -165,6 +164,7 @@ export const Wall = (onNavigate) => {
               const editPostButton = document.getElementById(`editPost-${post.id}`); // Mover esta línea fuera del bloque de MenuButton.addEventListener
 
               MenuButton.addEventListener('click', () => {
+                // eslint-disable.next-line
                 clickCount++;
 
                 const menuEditDelete = document.getElementById(`menu-${post.id}`);
@@ -173,12 +173,32 @@ export const Wall = (onNavigate) => {
                   menuEditDelete.classList.add('show');
                   menuEditDelete.classList.remove('hidden');
 
-                  //Delete post
+                  // Delete post
                   let deletePostButton = document.getElementById(`deletePost-${post.id}`);
-                  deletePostButton.addEventListener('click', async (event) => {
-                    //TODO pedir confirmación para eliminar post
-                    const postId = deletePostButton.getAttribute('data-postid');
-                    await deletePostFromFirestore(postId);
+                  deletePostButton.addEventListener('click', (event) => {
+                    const postId = event.target.getAttribute('data-postid');
+
+                    // TODO pedir confirmación para eliminar post
+                    const deletePostModal = document.createElement('div');
+                    deletePostModal.id = 'delete-post-modal-container';
+                    deletePostModal.className = 'delete-post-modal-container';
+                    deletePostModal.innerHTML = `
+                    <div class="delete-modal-content" id='delete-modal-content'>
+                    <button id="cancel">Cancelar</button>
+                    <button id="accept-button">Aceptar</button>
+                    </div>
+                    `;
+
+                    WallDiv.appendChild(deletePostModal);
+                    deletePostModal.classList.add('show-modal');
+
+                    const acceptDelete = document.getElementById('accept-button');
+
+                    acceptDelete.addEventListener('click', async ()  => {
+                      console.log('eliminando post', postId);
+                      await deletePostFromFirestore(postId);
+                      deletePostModal.classList.add('hidden');
+                    })
                   });
 
                   //Edit post 

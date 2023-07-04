@@ -34,7 +34,7 @@ Independientes para cada HU.
 Yo, como usuario, quiero poder navegar entre las distintas vistas de la aplicación sin tener que recargar la página ni usar redirecciones.
 
 Criterios de aceptación: 
-1.El usuario puede moverse entre las distintas vistas de la aplicación sin necesidad de recargar.
+1. El usuario puede moverse entre las distintas vistas de la aplicación sin necesidad de recargar.
 Login | Register | Muro
 
 ### HU2

@@ -392,6 +392,7 @@ body {
   width: 4rem;
   height: 2.5rem;
   font-size: .8rem;
+  margin-top: 0%;
   margin-right: 10%;
 }
 
@@ -529,6 +530,11 @@ input[type=file]::file-selector-button:hover {
   .divPost div {
     width: 90%;
   }
+
+  .menu {
+    margin-top: 0%;
+    margin-right: 4%;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -585,6 +591,11 @@ input[type=file]::file-selector-button:hover {
 
   .divPost {
     height: calc(100vh - 24rem);
+  }
+
+  .menu {
+    margin-top: 0%;
+    margin-right: 4%;
   }
 }
 
@@ -725,15 +736,30 @@ input[type=file]::file-selector-button:hover {
   }
 
   .inputEdit {
-    width: 90%;
+    width: 91%;
     margin-left: 4%;
-    height: 90%;
+    height: 17rem;
     background: #E9F0CE;
     border-radius: 10px;
     border-color: #3B3F20;
     font-size: 1rem;
     resize: none;
     box-shadow: 0 2px 2px 0 rgba(67, 87, 112, 0.3);
+  }
+
+  .menu {
+    border: none;
+    border-radius: 5px;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    background: #3B3F20;
+    color: white;
+    width: 4rem;
+    height: 2.5rem;
+    font-size: .8rem;
+    margin-top: 0%;
+    margin-right: 2%;
   }
 
 }

@@ -35,19 +35,7 @@ export const Wall = (onNavigate) => {
           <p>${userNameLogged}</p>
         </div>
         `;
-        // <input placeholder="Buscar" type="search" class="searchInput">
-
-        // TODO añadir lupa a search input
-        // const lupa = document.createElement('div');
-        // lupa.className = 'lupa';
-        // // lupa.src = '../img/lupa.png';
-
-        //   const publishPostInputAndButton = document.createElement('div');
-        //   publishPostInputAndButton.className = 'publishPostInputAndButton'
-        //   publishPostInputAndButton.innerHTML = `
-        // <input class='postInput' id='postInput' placeholder= "Crear Publicación"></input>
-        // <button class='publishButton' id='publishButton'>Publicar</button>
-        // `;
+       
         //Espacio para posts
         const divPost = document.createElement('div');
         divPost.className = 'divPost';

@@ -1,10 +1,13 @@
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { signIn, signInGoogle } from "../src/lib/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signIn, signInGoogle } from '../src/lib/auth';
+
+
 
 
 jest.mock('firebase/auth');
-//jest.mock('firebase/firestore');
+jest.mock('firebase/firestore');
+
+
 
 beforeEach(() => {
     jest.clearAllMocks()
@@ -39,3 +42,7 @@ describe('LogIn with Google', () => {
     });
   });
 
+
+  
+
+  

@@ -14,6 +14,7 @@ import {
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase';
 
+
 export const createPost = async (text, files) => { // files viene del input type file
   // Create post / newPost is the reference to the post in DB
   const newPost = await addDoc(collection(db, 'posts'), {
@@ -52,15 +53,18 @@ export const createPost = async (text, files) => { // files viene del input type
 };
 
 export const addLike = async (postId) => {
-  const postRef = doc(db, 'posts', postId); // Reference to /posts
-  const userRef = doc(db, 'users', auth.currentUser.uid); // Reference to /users
+  const postRef = doc(db, 'posts', postId);
+  const userRef = doc(db, 'users', auth.currentUser.uid);
 
-  // actualiza el like en el post
-  updateDoc(postRef, {
-    likedBy: arrayUnion(userRef), // <- de quién es el like?
-  }).then((res) => {
-    console.log(res);
-  });
+  try {
+    await updateDoc(postRef, {
+      likedBy: arrayUnion(userRef),
+    });
+    console.log('Like added successfully');
+  } catch (error) {
+    console.error('Failed to add like:', error);
+    throw error;
+  }
 };
 
 export const removeLike = async (postId) => {

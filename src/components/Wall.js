@@ -129,8 +129,8 @@ export const Wall = (onNavigate) => {
             }
 
             let images = "";
-            
-            if(post.photos !== undefined) {
+
+            if (post.photos !== undefined) {
               post.photos.forEach(photo => {
                 images += `<img src='${photo}' class="postPhoto" />`;
               });
@@ -161,7 +161,7 @@ export const Wall = (onNavigate) => {
 
               let clickCount = 0;
 
-              const editPostButton = document.getElementById(`editPost-${post.id}`); // Mover esta línea fuera del bloque de MenuButton.addEventListener
+              const editPostButton = document.getElementById(`editPost-${post.id}`);
 
               MenuButton.addEventListener('click', () => {
                 // eslint-disable.next-line
@@ -178,27 +178,38 @@ export const Wall = (onNavigate) => {
                   deletePostButton.addEventListener('click', (event) => {
                     const postId = event.target.getAttribute('data-postid');
 
-                    // TODO pedir confirmación para eliminar post
-                    const deletePostModal = document.createElement('div');
-                    deletePostModal.id = 'delete-post-modal-container';
-                    deletePostModal.className = 'delete-post-modal-container';
-                    deletePostModal.innerHTML = `
-                    <div class="delete-modal-content" id='delete-modal-content'>
-                    <button id="cancel">Cancelar</button>
-                    <button id="accept-button">Aceptar</button>
-                    </div>
-                    `;
+                    // Check if deletePostModal already exists
+                    let deletePostModal = document.getElementById('delete-post-modal-container');
+                    if (!deletePostModal) {
+                      // Create the deletePostModal if it doesn't exist
+                      deletePostModal = document.createElement('div');
+                      deletePostModal.id = 'delete-post-modal-container';
+                      deletePostModal.className = 'delete-post-modal-container';
+                      deletePostModal.innerHTML = `
+                      <div class="delete-modal-content" id='delete-modal-content'>
+                        <p>¿Deseas eliminar el post?</p>
+                        <div class='modal-btns'>
+                            <button id="cancel-delete">Cancelar</button>
+                            <button id="accept-button">Aceptar</button>
+                        </div>
+                      </div>
+                      `;
 
-                    WallDiv.appendChild(deletePostModal);
+                      WallDiv.appendChild(deletePostModal);
+                    }
+
                     deletePostModal.classList.add('show-modal');
 
                     const acceptDelete = document.getElementById('accept-button');
-
-                    acceptDelete.addEventListener('click', async ()  => {
-                      console.log('eliminando post', postId);
+                    acceptDelete.addEventListener('click', async () => {
                       await deletePostFromFirestore(postId);
                       deletePostModal.classList.add('hidden');
-                    })
+                    });
+
+                    const cancelDelete = document.getElementById('cancel-delete');
+                    cancelDelete.addEventListener('click', async () => {
+                      deletePostModal.classList.add('hidden');
+                    });
                   });
 
                   //Edit post 
@@ -340,7 +351,7 @@ export const Wall = (onNavigate) => {
         WallDiv.appendChild(notLoggedUser);
         document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
         document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') })
-        
+
       };
 
     }).catch((error) => {

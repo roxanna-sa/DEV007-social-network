@@ -14,6 +14,7 @@
     "htmlhint": "htmlhint dist/*.html ",
     "eslint": "eslint --ext .js src/ test/",
     "stylelint": "stylelint --aei src/**/*.css",
+    "pretest": "npm run htmlhint",
     "test": "jest --coverage",
     "dev": "vite dev src",
     "start": "npm run dev",

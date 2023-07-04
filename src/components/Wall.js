@@ -112,7 +112,7 @@ export const Wall = (onNavigate) => {
         //Muestra todos los posts ya guardados en firestore
         async function showAllPosts() {
           let arrayPosts = await getAllPosts();
-          divPost.innerHTML = '';
+          divPost.innerHTML = ''; // está vacío porque al recargar necesitamos escribir todos los post de nuevo
           arrayPosts.forEach(post => {
             const singlePost = document.createElement('div');
 
@@ -129,9 +129,13 @@ export const Wall = (onNavigate) => {
             }
 
             let images = "";
-            post.photos?.forEach(photo => {
-              images += `<img src='${photo}' class="postPhoto" />`;
-            });
+            
+            if(post.photos !== undefined) {
+              post.photos.forEach(photo => {
+                images += `<img src='${photo}' class="postPhoto" />`;
+              });
+            }
+           
 
             singlePost.innerHTML = `
           <div class="userName">${post.userName}
@@ -235,6 +239,7 @@ export const Wall = (onNavigate) => {
           modalPost.addEventListener('click', (event) => {
             if (event.target == modalPost) {
               modalPost.classList.remove('show-modal');
+              clearInput();
             }
           });
 
@@ -312,12 +317,10 @@ export const Wall = (onNavigate) => {
           <button id='registerButton'>Registrar</button>
         </div>
       `;
-
-        document.addEventListener('DOMContentLoaded', () => {
-          document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
-          document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') });
-        });
         WallDiv.appendChild(notLoggedUser);
+        document.getElementById('logInButton').addEventListener('click', () => { onNavigate('/') });
+        document.getElementById('registerButton').addEventListener('click', () => { onNavigate('/register') })
+        
       };
 
     }).catch((error) => {

@@ -71,3 +71,5 @@ export const logOut = () => {
   localStorage.removeItem('user');
   signOut(auth);
 };
+
+

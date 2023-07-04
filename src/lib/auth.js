@@ -13,7 +13,7 @@ import { app } from '../firebase.js';
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-
+/* eslint-disable-next-line */
 export const createUser = (userMail, userPass, displayName) => createUserWithEmailAndPassword(auth, userMail, userPass)
   .then((userCredential) => {
     // Signed in
@@ -49,6 +49,7 @@ export const signInGoogle = () => {
 };
 
 // get logged in user
+/* eslint-disable-next-line */
 export const getLoggedUser = () => {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, (user) => {
@@ -71,5 +72,3 @@ export const logOut = () => {
   localStorage.removeItem('user');
   signOut(auth);
 };
-
-

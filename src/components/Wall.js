@@ -108,8 +108,7 @@ export const Wall = (onNavigate) => {
             /* eslint-enable */
           }
         });
-
-
+        /* eslint-disable */
         async function deletePostFromFirestore(postId) {
           try {
             await deletePost(postId);
@@ -120,7 +119,7 @@ export const Wall = (onNavigate) => {
             console.error(error);
           }
         }
-      
+
         async function editPostFirestore(postId, editInput) {
           try {
             await editPost(postId, editInput);
@@ -130,6 +129,7 @@ export const Wall = (onNavigate) => {
             console.error(error);
           }
         }
+        /* eslint-enable */
 
         // Muestra todos los posts ya guardados en firestore
         // eslint-disable-next-line
@@ -222,7 +222,7 @@ export const Wall = (onNavigate) => {
 
                     deletePostModal.classList.add('show-modal');
 
-                    // TO DO arreglar modal para eliminar 
+                    // TO DO arreglar modal para eliminar
                     const acceptDelete = document.getElementById('accept-button');
                     acceptDelete.addEventListener('click', async () => {
                       await deletePostFromFirestore(postId);

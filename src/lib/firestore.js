@@ -70,11 +70,14 @@ export const removeLike = async (postId) => {
   const userRef = doc(db, 'users', auth.currentUser.uid); // Reference to /users
 
   // actualiza el like en el post
-  updateDoc(postRef, {
-    likedBy: arrayRemove(userRef), // <- de quién es el like?
-  }).then((res) => {
-    console.log(res);
-  });
+  try {
+    await updateDoc(postRef, {
+      likedBy: arrayRemove(userRef),
+    });
+  } catch (error) {
+    console.error('Failed to add like:', error);
+    throw error;
+  }
 };
 
 export const getPosts = () => {

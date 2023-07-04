@@ -14,7 +14,6 @@ import {
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase';
 
-
 export const createPost = async (text, files) => { // files viene del input type file
   // Create post / newPost is the reference to the post in DB
   const newPost = await addDoc(collection(db, 'posts'), {
@@ -26,7 +25,6 @@ export const createPost = async (text, files) => { // files viene del input type
 
   const photosPublicURL = [];
 
- 
   // Upload files if any
   /* eslint-disable */
   for (const file of Array.from(files)) {
@@ -42,7 +40,7 @@ export const createPost = async (text, files) => { // files viene del input type
   /* eslint-enable */
 
   // Updates photos in post.
-  await updateDoc(newPost, { //Actualizar un doc que ya existe en Firebase
+  await updateDoc(newPost, { // Actualizar un doc que ya existe en Firebase
     photos: photosPublicURL, // <- que url publica tiene la foto?
   }).then((res) => {
     console.log(res);
@@ -84,7 +82,7 @@ export const getPosts = () => {
   const q = query(postRef, orderBy('timestamp', 'desc'));
   return getDocs(q).then((res) => {
     const postsArray = [];
-    console.log("res", res);
+    /* eslint-disable */
     res.forEach((doc) => { // res es el querySnapshot
       /* creamos un objeto data que tendrá el contenido y le agregamos
       por nuestra parte la ID que NO viene dentro de doc.data() */
@@ -92,8 +90,9 @@ export const getPosts = () => {
       data['id'] = doc.id;
       postsArray.push(data);
       return doc.data();
+      /* eslint-enable */
     });
-    // console.log(postsArray);
+
     return postsArray;
   });
 };

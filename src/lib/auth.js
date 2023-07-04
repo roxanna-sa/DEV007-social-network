@@ -22,7 +22,7 @@ export const createUser = (userMail, userPass, displayName) => createUserWithEma
     sendEmailVerification(user);
     // Prueba: Actualizar usuario con nombre de usuario
     updateProfile(getAuth().currentUser, {
-      displayName: displayName,
+      displayName,
     });
 
     return user;

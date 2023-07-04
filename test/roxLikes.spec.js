@@ -1,5 +1,5 @@
+import { updateDoc } from 'firebase/firestore';
 import { addLike } from '../src/lib/firestore';
-import { updateDoc, doc } from 'firebase/firestore';
 import { signIn } from '../src/lib/auth';
 
 jest.mock('firebase/firestore');

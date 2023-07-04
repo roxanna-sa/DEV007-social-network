@@ -8,8 +8,7 @@
 * [4. Prototipos](#4-prototipos)
 * [5. Pruebas de usabilidad](#5-pruebas-de-usabilidad)
 * [6. Pruebas unitarias](#6-pruebas-unitarias)
-* [7. Entrega](#7-entrega)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
+* [7. Interfaz](#7-interfaz)
 
 ## 1. Introducción
 
@@ -72,12 +71,32 @@ Criterios de aceptación:
 
 ## 4. Prototipos
 
+(Acá puse los nombres de lo que va, pero cuando subas las fotos Mafer lo borras :)
+Fotografías de prototipo baja fidelidad:
+Fotografías de prototipo alta fidelidad:
+Paleta de colores utilizada
+(Fotografía de la paleta)
+
 
 ## 5. Pruebas de usabilidad
+
+Se realizaron diversas pruebas de usabilidad, tanto con usuarios acostumbrados al uso de redes sociales como a gente que las utiliza muy poco o no sabe tanto de su manejo. Incorporamos las recomendaciones que aportaban contenido y eran realizables dentro de los plazos estipulados para el término del proyecto.
+
+Recomendaciones evaluadas y aceptadas:
+
+1.0 “—Sería interesante poder subir una imagen de las recetas que  se están compartiendo. Si no tengo una guía visual sobre cómo debe verse el producto final, me costará realizarla”
+Si bien, este punto estaba comprendido dentro de la edición especial de la aplicación, se incorporó dentro de las pruebas de usabilidad, ya que para un porcentaje no menor de personas fue catalogado como —Muy importante—.
+
+1.1 “—Me incomoda no poder cerrar la creación de post dando click fuera de la aplicación, tengo que recargar el sitio y se vuelve tedioso”
+Punto que inicialmente no se había considerado, pero al recibir las recomendaciones quedó en evidencia que era necesario implementarlo para facilitar la navegación dentro del sitio.
 
 
 ## 6. Pruebas unitarias
 
+(Acá subir captura)
+
 
 ## 7. Interfaz
+
+¿Estás interesado en conocer el proyecto Nutrivid? Puedes hacer click en el siguiente enlace: [enlace]
 

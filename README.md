@@ -71,11 +71,16 @@ Criterios de aceptación:
 
 ## 4. Prototipos
 
-(Acá puse los nombres de lo que va, pero cuando subas las fotos Mafer lo borras :)
-Fotografías de prototipo baja fidelidad:
-Fotografías de prototipo alta fidelidad:
-Paleta de colores utilizada
-(Fotografía de la paleta)
+### 4.1 Prototipos baja fidelidad para Móvil y Desktop:
+<img src="./images/prototiposBajaMovil.png">
+<img src="./images/prototiposBajaDesktop.png">
+
+### 4.2 Prototipos alta fidelidad para Móvil y Desktop:
+<img src="./images/prototiposAltaMovil.png">
+<img src="./images/prototiposAltaDesktop.png">
+
+### 4.3 Paleta de colores utilizada
+<img src="./images/paletaColores.png">
 
 
 ## 5. Pruebas de usabilidad

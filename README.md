@@ -84,7 +84,7 @@ Se realizaron diversas pruebas de usabilidad, tanto con usuarios acostumbrados a
 
 Recomendaciones evaluadas y aceptadas:
 
-1. “—Sería interesante poder subir una imagen de las recetas que  se están compartiendo. Si no tengo una guía visual sobre cómo debe verse el producto final, me costará realizarla”
+1.0 “—Sería interesante poder subir una imagen de las recetas que  se están compartiendo. Si no tengo una guía visual sobre cómo debe verse el producto final, me costará realizarla”
 Si bien, este punto estaba comprendido dentro de la edición especial de la aplicación, se incorporó dentro de las pruebas de usabilidad, ya que para un porcentaje no menor de personas fue catalogado como —Muy importante—.
 
 1.1 “—Me incomoda no poder cerrar la creación de post dando click fuera de la aplicación, tengo que recargar el sitio y se vuelve tedioso”

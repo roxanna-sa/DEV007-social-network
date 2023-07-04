@@ -32,27 +32,6 @@ export const Wall = (onNavigate) => {
     document.getElementById('fileToUpload').value = '';
   }
 
-  async function deletePostFromFirestore(postId) {
-    try {
-      await deletePost(postId);
-      // aquí listamos nuevamente el registro de todos los posts existentes
-      // eslint-disable-next-line
-      await showAllPosts();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function editPostFirestore(postId, editInput) {
-    try {
-      await editPost(postId, editInput);
-      // eslint-disable-next-line
-      await showAllPosts();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   // const getUser = localStorage.getItem('user');
 
   getLoggedUser()
@@ -129,6 +108,28 @@ export const Wall = (onNavigate) => {
             /* eslint-enable */
           }
         });
+
+
+        async function deletePostFromFirestore(postId) {
+          try {
+            await deletePost(postId);
+            // aquí listamos nuevamente el registro de todos los posts existentes
+            // eslint-disable-next-line
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      
+        async function editPostFirestore(postId, editInput) {
+          try {
+            await editPost(postId, editInput);
+            // eslint-disable-next-line
+            await showAllPosts();
+          } catch (error) {
+            console.error(error);
+          }
+        }
 
         // Muestra todos los posts ya guardados en firestore
         // eslint-disable-next-line
@@ -221,9 +222,11 @@ export const Wall = (onNavigate) => {
 
                     deletePostModal.classList.add('show-modal');
 
+                    // TO DO arreglar modal para eliminar 
                     const acceptDelete = document.getElementById('accept-button');
                     acceptDelete.addEventListener('click', async () => {
                       await deletePostFromFirestore(postId);
+                      await showAllPosts();
                       deletePostModal.classList.add('hidden');
                     });
 

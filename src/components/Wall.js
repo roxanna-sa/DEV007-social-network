@@ -112,7 +112,7 @@ export const Wall = (onNavigate) => {
         //Muestra todos los posts ya guardados en firestore
         async function showAllPosts() {
           let arrayPosts = await getAllPosts();
-          divPost.innerHTML = '';
+          divPost.innerHTML = ''; // está vacío porque al recargar necesitamos escribir todos los post de nuevo
           arrayPosts.forEach(post => {
             const singlePost = document.createElement('div');
 
@@ -129,9 +129,13 @@ export const Wall = (onNavigate) => {
             }
 
             let images = "";
-            post.photos?.forEach(photo => {
-              images += `<img src='${photo}' class="postPhoto" />`;
-            });
+            
+            if(post.photos !== undefined) {
+              post.photos.forEach(photo => {
+                images += `<img src='${photo}' class="postPhoto" />`;
+              });
+            }
+           
 
             singlePost.innerHTML = `
           <div class="userName">${post.userName}

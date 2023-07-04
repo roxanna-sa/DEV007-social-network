@@ -1,24 +1,60 @@
-import { updateDoc } from 'firebase/firestore';
-import { addLike } from '../src/lib/firestore';
-import { signIn } from '../src/lib/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { addLike, removeLike } from '../src/lib/firestore';
+import { arrayUnion, arrayRemove} from 'firebase/firestore';
 
 jest.mock('firebase/firestore');
 jest.mock('firebase/auth');
+jest.mock('../src/firebase.js', () => ({
+  auth: {
+    currentUser: {
+    },
+  },
+}));
 
-beforeEach(async () => {
-  jest.clearAllMocks();
-  // Autenticar al usuario antes de cada prueba
-  await signIn('roxanna.sa@gmail.com', '121212');
+
+describe('addLike', () => {
+  it('should be a function', () => {
+    expect(typeof addLike).toBe('function');
+  });
+  
+  it('should call updateDoc', async () => {
+    const mockingUpdateDoc = jest.fn();
+    updateDoc.mockImplementationOnce(mockingUpdateDoc);
+    await addLike();
+    expect(mockingUpdateDoc).toHaveBeenCalled();
+  });
+
+  it('should call arrayUnion', async () => {
+    const mockingArrayUnion = jest.fn();
+    arrayUnion.mockImplementationOnce(mockingArrayUnion);
+    await addLike();
+    expect(mockingArrayUnion).toHaveBeenCalled();
+  });
 });
 
-describe('Add like', () => {
-  it('deberia llamar a la funcion updateDoc cuando es ejecutada', async () => {
-    const updateDocMock = jest.fn(); // Crear función simulada para updateDoc
-    updateDoc.mockImplementation(updateDocMock);
-
-    const postId = 'ID';
-    await signIn('roxanna.sa@gmail.com', '121212'); // Autenticar nuevamente antes de llamar a addLike
-    await addLike(postId);
-    expect(updateDocMock).toHaveBeenCalled();
+describe('removeLike', () => {
+  it('should be a function', () => {
+    expect(typeof removeLike).toBe('function');
   });
+  
+  it('should call arrayRemove', async () => {
+    const mockingArrayRemove = jest.fn();
+    arrayRemove.mockImplementationOnce(mockingArrayRemove);
+    await removeLike();
+    expect(mockingArrayRemove).toHaveBeenCalled();
+  });
+
+  it('shoul call updateDoc', async () => {
+    const mockingUpDoc = jest.fn();
+    updateDoc.mockImplementationOnce(mockingUpDoc);
+    await removeLike();
+    expect(mockingUpDoc).toHaveBeenCalled();
+  });
+
+  it('should call doc', async () => {
+    const mockingDoc = jest.fn();
+    doc.mockImplementationOnce(mockingDoc);
+    await removeLike();
+    expect(mockingDoc).toHaveBeenCalled();
+  }); 
 });

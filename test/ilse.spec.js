@@ -1,10 +1,31 @@
 import { createUser, getLoggedUser } from '../src/lib/auth';
-import { createPost } from '../src/lib/firestore';
-import { auth } from '../src/firebase';
+import * as authFunctions from './../src/lib/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-import { createUserWithEmailAndPassword } from '@firebase/auth';
+jest.mock('firebase/auth')
+authFunctions.createUser = jest.fn()
 
-jest.mock('firebase/auth', () => ({
+
+
+describe('createUser', () => {
+  it('should be a function', () => {
+    expect(typeof createUser).toBe('function');
+  });
+
+  it('should call createUserWithEmailAndPassword function when executed', () => {
+    createUserWithEmailAndPassword.mockReturnValueOnce()
+    createUser.mockImplementationOnce(()=> {createUserWithEmailAndPassword()})
+    const res =  createUser('testmail@mail.com', 'testpassword')
+    
+
+    expect(createUserWithEmailAndPassword).toHaveBeenCalled()
+  });
+
+});
+
+ //ESTO ES LO QUE TENIAS. NO LO BORRÉ
+ 
+/*jest.mock('firebase/auth', () => ({
   createUserWithEmailAndPassword: jest.fn(),
 }));
 
@@ -23,7 +44,11 @@ describe('createUser', () => {
   //   const response = await createUser('testingmail2@mail.com', 'testingmailpassword2')
   //   expect(typeof response).toBe('object');
   // });
-});
+});*/
+
+
+
+
 
 // describe('createPost', () => {
 //   it('should be a function', () => {

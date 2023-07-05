@@ -12,7 +12,7 @@ import {
   arrayRemove,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, db, storage } from '../firebase';
+import { auth, db, storage } from '../firebase.js';
 
 export const createPost = async (text, files) => { // files viene del input type file
   // Create post / newPost is the reference to the post in DB

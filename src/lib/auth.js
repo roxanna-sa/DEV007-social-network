@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  updateProfile,
+  // updateProfile,
 } from 'firebase/auth';
 import { app } from '../firebase.js';
 

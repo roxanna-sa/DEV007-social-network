@@ -58,7 +58,6 @@ export const addLike = async (postId) => {
     await updateDoc(postRef, {
       likedBy: arrayUnion(userRef),
     });
-    console.log('Like added successfully');
   } catch (error) {
     console.error('Failed to add like:', error);
     throw error;

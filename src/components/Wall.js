@@ -1,5 +1,5 @@
 import { auth } from '../firebase.js';
-import { getLoggedUser, logOut } from '../lib/auth';
+import { getLoggedUser, logOut } from '../lib/auth.js';
 import {
   createPost,
   getPosts,
@@ -7,7 +7,7 @@ import {
   deletePost,
   removeLike,
   editPost,
-} from '../lib/firestore';
+} from '../lib/firestore.js';
 
 // muro personal
 export const Wall = (onNavigate) => {

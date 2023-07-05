@@ -1,103 +1,75 @@
-import { signIn, signInGoogle } from '../lib/auth.js'
+import { signIn, signInGoogle } from '../lib/auth.js';
 
-//para login o mandar a registro
+// para login o mandar a registro
 export const Login = (onNavigate) => {
   const LoginDiv = document.createElement('div');
-
-  //Form login
+  // Form login
   const loginForm = document.createElement('form');
-  const welcome = document.createElement('h2');
-  welcome.textContent = 'Bienvenido a Nutrivid';
-  //Div input email
-  const divEmail = document.createElement('div');
-  const emailLabel = document.createElement('label');
-  const emailInput = document.createElement('input');
-  // Div password
-  const divPassword = document.createElement('div');
-  const passwordLabel = document.createElement('label');
-  const passwordInput = document.createElement('input');
-  passwordInput.setAttribute('type', 'password');
+  loginForm.className = 'login-form';
+  loginForm.innerHTML = `
+  <h2>¡Bienvenido a Nutrivid!</h2>
+  <div class="div-email">
+    <label for='email'>Email:</label>
+    <input type='text' name='email' id='email'>
+  </div>
+  <div class="div-password">
+    <label for='password'>Contraseña:</label>
+    <input type='password' name='password' id='password'>
+  </div>
+  `;
 
-  // TO DO focus email input
-  // document.getElementById("myTextField").focus();
-  emailLabel.textContent = 'Email:';
-  passwordLabel.textContent = 'Contraseña:';
-
-  //buttons
+  // buttons
   const buttonDiv = document.createElement('div');
   buttonDiv.className = 'button-div';
-  const loginButton = document.createElement('button');
-  const registerButton = document.createElement('button');
+  buttonDiv.innerHTML = `
+  <button class='loginButton' id='loginButton'>Iniciar sesión</button>
+  <button class='registerButton'id='registerButton'>¿No tienes cuenta? \n Regístrate</button>
+  <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
+  <h3> Recetas para sentirte bien...</h3>
+  `;
+  const header = document.getElementById('logo');
 
-  //TO DO Acomodar logo google
-  const continueWithGoogle = document.createElement('button');
-  const googleLogo = document.createElement('img');
-  continueWithGoogle.textContent = 'Continuar con Google';
-  googleLogo.src = './img/google.png';
-  continueWithGoogle.appendChild(googleLogo);
-
-  registerButton.textContent = '¿No tienes cuenta? \n Únete';
-  loginButton.textContent = 'Iniciar Sesión';
-
-  LoginDiv.appendChild(welcome);
-
-  divEmail.appendChild(emailLabel);
-  divEmail.appendChild(emailInput);
-  loginForm.appendChild(divEmail);
-  
-  divPassword.appendChild(passwordLabel);
-  divPassword.appendChild(passwordInput);
-  loginForm.appendChild(divPassword);
-
-  buttonDiv.appendChild(loginButton);
-  buttonDiv.appendChild(registerButton);
-  buttonDiv.appendChild(continueWithGoogle);
+  // console.log(header.lastElementChild);
+  if (window.location.pathname !== '/wall') {
+    if (header.lastElementChild.id === 'logout-button') {
+      header.lastElementChild.remove();
+    }
+  }
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
 
-  //Agregando clases
+  const parentElement = document.getElementById('root');
+  parentElement.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target.matches('#loginButton')) {
+      event.preventDefault();
+      const userMail = document.getElementById('email').value;
+      const userPass = document.getElementById('password').value;
 
-  loginForm.className = 'login-form'
-  registerButton.classList.add('registerButton');
-  emailInput.classList.add('inputEmail');
-  passwordInput.classList.add('inputpassword');
-  continueWithGoogle.classList.add('continueWithGoogle');
-  loginButton.classList.add('loginButton');
+      if (userMail === '' || userPass === '') {
+        alert('Ingresa email y contraseña');
+      } else {
+        signIn(userMail, userPass).then((response) => {
+          localStorage.setItem('user', userMail);
+          localStorage.setItem('name', response.user.displayName);
+          onNavigate('/wall');
+        }).catch(() => {
+          alert('Email o contraseña incorrectos');
+        });
+      }
+    } else if (target.matches('#registerButton')) {
+      onNavigate('/register');
+    } else if (target.matches('#continueWithGoogle')) {
+      signInGoogle().then((googleResponse) => {
+        console.log('Rpta de google:', googleResponse);
+        localStorage.setItem('user', googleResponse.user.email);
+        localStorage.setItem('name', googleResponse.user.displayName);
 
-  registerButton.addEventListener('click', () => { onNavigate('/register') });
-
-  loginButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    const userMail = emailInput.value;
-    const userPass = passwordInput.value;
-
-    if (userMail === '' || userPass === '') {
-      alert('Ingresa email y contraseña')
-    } else {
-      signIn(userMail, userPass).then((response) => {
-        localStorage.setItem('user', userMail);
-        localStorage.setItem('name', response.user.displayName);
         onNavigate('/wall');
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert('Email o contraseña incorrectos');
-        console.log(errorCode, errorMessage);
       });
-    };
-  });
-
-  continueWithGoogle.addEventListener('click', () => {
-
-    signInGoogle().then((googleResponse) => {
-      console.log("Rpta de google:", googleResponse)
-      localStorage.setItem("user", googleResponse.user.email);
-      localStorage.setItem('name', googleResponse.user.displayName);
-
-      onNavigate('/wall');
-    });
+    }
   });
 
   return LoginDiv;
-}
+};

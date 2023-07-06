@@ -4,6 +4,7 @@ import { db } from '../src/firebase';
 
 jest.mock('firebase/firestore');
 
+
 describe('getPosts', () => {
   it('should return an array of posts', async () => {
     const mockData = [
@@ -18,20 +19,20 @@ describe('getPosts', () => {
     };
 
     const mockQuery = jest.fn();
-    const mockCollection = jest.spyOn(collection, 'call');
-
-    mockCollection.mockReturnValue(mockQuery);
+    collection.mockReturnValue(mockQuery);
     query.mockReturnValue(mockQuery);
     getDocs.mockResolvedValue(mockSnapshot);
 
     const result = await getPosts();
 
-    expect(mockCollection).toHaveBeenCalledWith(db, 'posts');
-    expect(query).toHaveBeenCalledWith(mockQuery, orderBy('timestamp', 'desc'));
-    expect(getDocs).toHaveBeenCalledWith(mockQuery);
-    expect(result).toEqual([
+    const expectedPosts = [
       { id: '1', title: 'Post 1' },
       { id: '2', title: 'Post 2' },
-    ]);
+    ];
+
+    expect(collection).toHaveBeenCalledWith(db, 'posts');
+    expect(query).toHaveBeenCalledWith(mockQuery, orderBy('timestamp', 'desc'));
+    expect(getDocs).toHaveBeenCalledWith(mockQuery);
+    expect(result).toEqual(expectedPosts);
   });
 });

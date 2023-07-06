@@ -29,13 +29,6 @@ export const Login = (onNavigate) => {
   `;
   const header = document.getElementById('logo');
 
-  // console.log(header.lastElementChild);
-  if (window.location.pathname !== '/wall') {
-    if (header.lastElementChild.id === 'logout-button') {
-      header.lastElementChild.remove();
-    }
-  }
-
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
 

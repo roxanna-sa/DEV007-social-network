@@ -30,6 +30,7 @@ body {
 
 
 .logo {
+  margin-top: 3em;
   height: 4rem;
   display: flex;
   flex-direction: row;
@@ -613,7 +614,7 @@ input[type=file]::file-selector-button:hover {
   }
 
   .divPost {
-    height: calc(100vh - 24rem);
+    height: calc(100vh - 23rem);
   }
 
   .menu {

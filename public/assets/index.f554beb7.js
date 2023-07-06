@@ -20483,12 +20483,7 @@ const Login = (onNavigate2) => {
   <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
   <h3> Recetas para sentirte bien...</h3>
   `;
-  const header = document.getElementById("logo");
-  if (window.location.pathname !== "/wall") {
-    if (header.lastElementChild.id === "logout-button") {
-      header.lastElementChild.remove();
-    }
-  }
+  document.getElementById("logo");
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
   const parentElement = document.getElementById("root");
@@ -20677,6 +20672,17 @@ const Wall = (onNavigate2) => {
   getLoggedUser().then((user) => {
     console.log(user);
     if (user) {
+      const header = document.createElement("header");
+      header.classList.add("logo");
+      header.id = "logo";
+      const headerImage = document.createElement("img");
+      headerImage.src = "./img/logoNutriVid.png";
+      header.appendChild(headerImage);
+      const headerLogOut = document.createElement("button");
+      headerLogOut.id = "logout-buton";
+      headerLogOut.innerHTML = "Cerrar sesi\xF3n";
+      headerLogOut.classList.add("logout-button");
+      header.appendChild(headerLogOut);
       const userNameLogged = localStorage.getItem("name");
       const divUserAndSearch = document.createElement("div");
       divUserAndSearch.className = "divUserAndSearch";
@@ -20707,6 +20713,7 @@ const Wall = (onNavigate2) => {
       <button><img src='../img/add-post.png' class='postIcon' id='createPostButton'></button>
       <button><img src='../img/friends.png'></button>
       `;
+      WallDiv.appendChild(header);
       WallDiv.appendChild(divUserAndSearch);
       WallDiv.appendChild(divPost);
       WallDiv.appendChild(modalPost);
@@ -20887,18 +20894,10 @@ const Wall = (onNavigate2) => {
         });
       }
       showAllPosts();
-      const logOutButton = document.createElement("button");
-      logOutButton.className = "logout-button";
-      logOutButton.id = "logout-button";
-      logOutButton.textContent = "Cerrar sesi\xF3n";
-      logOutButton.addEventListener("click", () => {
+      headerLogOut.addEventListener("click", () => {
         logOut();
         onNavigate2("/");
       });
-      if (window.location.pathname === "/wall") {
-        const header = document.getElementById("logo");
-        header.appendChild(logOutButton);
-      }
     } else {
       const notLoggedUser = document.createElement("div");
       notLoggedUser.innerHTML = `

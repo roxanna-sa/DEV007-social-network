@@ -38,6 +38,23 @@ export const Wall = (onNavigate) => {
     .then((user) => {
       console.log(user);
       if (user) {
+
+        // Header
+        const header = document.createElement('header');
+        header.classList.add('logo');
+        header.id = 'logo';
+
+        const headerImage = document.createElement('img');
+        headerImage.src = './img/logoNutriVid.png';
+        header.appendChild(headerImage);
+
+        const headerLogOut = document.createElement('button');
+        headerLogOut.id = 'logout-buton';
+        headerLogOut.innerHTML = 'Cerrar sesión';
+        headerLogOut.classList.add('logout-button');
+        header.appendChild(headerLogOut);
+        
+
         const userNameLogged = localStorage.getItem('name');
 
         const divUserAndSearch = document.createElement('div');
@@ -75,6 +92,7 @@ export const Wall = (onNavigate) => {
       <button><img src='../img/friends.png'></button>
       `;
 
+        WallDiv.appendChild(header);
         WallDiv.appendChild(divUserAndSearch);
         // WallDiv.appendChild(publishPostInputAndButton);
         WallDiv.appendChild(divPost);
@@ -328,21 +346,11 @@ export const Wall = (onNavigate) => {
 
         showAllPosts();
 
-        const logOutButton = document.createElement('button');
-        logOutButton.className = 'logout-button';
-        logOutButton.id = 'logout-button';
-        logOutButton.textContent = 'Cerrar sesión';
-
         // const logOutButton = document.getElementById('logout-button');
-        logOutButton.addEventListener('click', () => {
+        headerLogOut.addEventListener('click', () => {
           logOut();
           onNavigate('/');
         });
-
-        if (window.location.pathname === '/wall') {
-          const header = document.getElementById('logo');
-          header.appendChild(logOutButton);
-        }
       } else {
         const notLoggedUser = document.createElement('div');
         notLoggedUser.innerHTML = `

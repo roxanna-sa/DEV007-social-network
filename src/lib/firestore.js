@@ -29,6 +29,8 @@ export const createPost = async (text, files) => { // files viene del input type
   /* eslint-disable */
   for (const file of Array.from(files)) {
     const imageRef = ref(storage, `images/${newPost.id}/${file.name}`);
+    console.log(imageRef);
+    console.log(file.name);
 
     // 'file' comes from the Blob or File API
     await uploadBytes(imageRef, file);// sube los bytes de la imagen
@@ -45,6 +47,8 @@ export const createPost = async (text, files) => { // files viene del input type
   }).then((res) => {
     console.log(res);
   });
+
+  console.log(photosPublicURL);
 
   console.log('createPost....', newPost.path);
   console.log('newPost: ', newPost);

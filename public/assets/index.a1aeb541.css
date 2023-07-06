@@ -8,7 +8,7 @@
 
 body {
   background-image: linear-gradient(rgba(249, 249, 249, 0.5),
-      rgba(239, 229, 229, 0.8)), url(./img/fondo-mobile.png);
+      rgba(239, 229, 229, 0.8)), url(/assets/fondo-mobile.b2d504f8.png);
   background-position: center;
   background-size: 200%;
   background-attachment: fixed;
@@ -27,7 +27,6 @@ body {
   font-size: 1.8rem;
   color: #3B3F20;
 }
-
 
 .logo {
   margin-top: 3em;
@@ -179,6 +178,7 @@ body {
 }
 
 /* WALL PAGE */
+
 .wall-div {
   display: grid;
   row-gap: 1rem;
@@ -186,6 +186,7 @@ body {
 }
 
 /* Fix position */
+
 .logout-button {
   width: 10rem;
   height: 2rem;
@@ -245,6 +246,7 @@ body {
 }
 
 /* TODO LUPA */
+
 /* .lupa {
   background: url(./img/lupa.png);
   background-size: 2rem;
@@ -548,8 +550,8 @@ input[type=file]::file-selector-button:hover {
   transition: 0.2s all;
 }
 
-
 /* --------------- MEDIA QUERIES ------------------*/
+
 @media only screen and (min-width: 540px) {
   .divPost div {
     width: 90%;
@@ -643,7 +645,7 @@ input[type=file]::file-selector-button:hover {
     grid-template-columns: 1fr 1fr;
     justify-content: space-evenly;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 90%), url(./img/fondo-mobile.png);
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 90%), url(/assets/fondo-mobile.b2d504f8.png);
     /*Gradiente hacia la izquierda*/
   }
 

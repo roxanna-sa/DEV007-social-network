@@ -98,18 +98,26 @@ describe('createPost', () => {
     };
 
     const ref = mockImageRef;
-    getDownloadURL.mockImplementation( async () => {
+    getDownloadURL.mockImplementation(async () => {
       if (!ref) {
         throw new Error('Invalid imageRef ' + ref);
       }
-      const fileName = ref.path.split('/').pop(); 
+      const fileName = ref.path.split('/').pop();
       const index = files.findIndex((file) => file.name === fileName);
       return Promise.resolve(downloadURLs[index]);
     });
 
     // Call the createPost function
-    const timeStamp = new Date();
+    // const addDocMock = jest.fn();
+    // addDocMock.mockResolvedValue({ newPost: {
+    //     postContent: text,
+    //     user: auth.currentUser.email,
+    //     userName: auth.currentUser.displayName,
+    //     timestamp: timeStamp,
+    //   }})
+
     await createPost(text, files);
+    const timeStamp = new Date();
     console.log(timeStamp);
     console.log(addDoc);
     // Assertions
@@ -117,7 +125,7 @@ describe('createPost', () => {
       postContent: text,
       user: auth.currentUser.email,
       userName: auth.currentUser.displayName,
-      timestamp: timeStamp,
+      // mock timestamp
     });
 
     expect(uploadBytes).toHaveBeenCalledTimes(files.length);

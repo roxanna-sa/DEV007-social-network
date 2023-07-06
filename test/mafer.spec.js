@@ -1,19 +1,19 @@
 import {
-    logOut,
-    getLoggedUser
+  logOut,
+  getLoggedUser
 } from '../src/lib/auth';
 import {
-    signOut,
-    onAuthStateChanged
+  signOut,
+  onAuthStateChanged
 } from "firebase/auth";
 import {
-    deletePost,
-    editPost
+  deletePost,
+  editPost
 } from '../src/lib/firestore';
 import {
-    deleteDoc,
-    doc,
-    updateDoc
+  deleteDoc,
+  doc,
+  updateDoc
 } from 'firebase/firestore';
 import { db } from '../src/firebase';
 
@@ -21,34 +21,34 @@ import { db } from '../src/firebase';
 jest.mock('firebase/auth');
 
 beforeEach(() => {
-    jest.clearAllMocks()
+  jest.clearAllMocks()
 });
 const localStorageMock = {
-    clear: jest.fn(),
-    removeItem: jest.fn(),
+  clear: jest.fn(),
+  removeItem: jest.fn(),
 };
 
 // Reemplazar el objeto global localStorage con la implementación simulada
 Object.defineProperty(global, 'localStorage', { value: localStorageMock });
 
 describe('logOut', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        localStorageMock.clear();
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
+    localStorageMock.clear();
+  });
 
-    it('should be a function', () => {
-        expect(typeof logOut).toBe('function');
-    });
+  it('should be a function', () => {
+    expect(typeof logOut).toBe('function');
+  });
 
-    it('should call signOut', () => {
-        const signOutMock = jest.fn();
-        signOut.mockImplementation(signOutMock);
+  it('should call signOut', () => {
+    const signOutMock = jest.fn();
+    signOut.mockImplementation(signOutMock);
 
-        logOut();
+    logOut();
 
-        expect(signOutMock).toHaveBeenCalled();
-    });
+    expect(signOutMock).toHaveBeenCalled();
+  });
 });
 
 // Test para deletePost mafer
@@ -56,24 +56,24 @@ describe('logOut', () => {
 jest.mock('firebase/firestore');
 
 describe('deletePost', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    it('should be an async function', () => {
-        expect(deletePost).toBeInstanceOf(Function);
-        expect(deletePost.constructor.name).toBe('AsyncFunction');
-    });
+  it('should be an async function', () => {
+    expect(deletePost).toBeInstanceOf(Function);
+    expect(deletePost.constructor.name).toBe('AsyncFunction');
+  });
 
-    it('should call deleteDoc with the correct arguments', async () => {
-        const postId = 'postId';
-        const deleteDocMock = jest.fn();
-        deleteDoc.mockImplementation(deleteDocMock);
+  it('should call deleteDoc with the correct arguments', async () => {
+    const postId = 'postId';
+    const deleteDocMock = jest.fn();
+    deleteDoc.mockImplementation(deleteDocMock);
 
-        await deletePost(postId);
+    await deletePost(postId);
 
-        expect(deleteDocMock).toHaveBeenCalledWith(doc(db, 'posts', postId));
-    });
+    expect(deleteDocMock).toHaveBeenCalledWith(doc(db, 'posts', postId));
+  });
 });
 
 
@@ -83,30 +83,30 @@ describe('deletePost', () => {
 jest.mock('firebase/firestore');
 
 describe('editPost', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should be an async function', () => {
+    expect(editPost).toBeInstanceOf(Function);
+    expect(editPost.constructor.name).toBe('AsyncFunction');
+  });
+
+  it('should call updateDoc with the correct arguments', async () => {
+    const postId = 'postId';
+    const editInput = 'New content';
+    const postRefMock = jest.fn();
+    const updateDocMock = jest.fn();
+    doc.mockReturnValue(postRefMock);
+    updateDoc.mockImplementation(updateDocMock);
+
+    await editPost(postId, editInput);
+
+    expect(doc).toHaveBeenCalledWith(db, 'posts', postId);
+    expect(updateDocMock).toHaveBeenCalledWith(postRefMock, {
+      postContent: editInput,
     });
-
-    it('should be an async function', () => {
-        expect(editPost).toBeInstanceOf(Function);
-        expect(editPost.constructor.name).toBe('AsyncFunction');
-    });
-
-    it('should call updateDoc with the correct arguments', async () => {
-        const postId = 'postId';
-        const editInput = 'New content';
-        const postRefMock = jest.fn();
-        const updateDocMock = jest.fn();
-        doc.mockReturnValue(postRefMock);
-        updateDoc.mockImplementation(updateDocMock);
-
-        await editPost(postId, editInput);
-
-        expect(doc).toHaveBeenCalledWith(db, 'posts', postId);
-        expect(updateDocMock).toHaveBeenCalledWith(postRefMock, {
-            postContent: editInput,
-        });
-    });
+  });
 });
 
 
@@ -114,34 +114,34 @@ describe('editPost', () => {
 jest.mock('firebase/auth');
 
 describe('getLoggedUser', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should resolve with user email if user is logged in', async () => {
+    const user = { email: 'test@example.com' };
+    const onAuthStateChangedMock = jest.fn((auth, callback) => {
+      callback(user);
     });
+    onAuthStateChanged.mockImplementation(onAuthStateChangedMock);
 
-    it('should resolve with user email if user is logged in', async () => {
-        const user = { email: 'test@example.com' };
-        const onAuthStateChangedMock = jest.fn((auth, callback) => {
-            callback(user);
-        });
-        onAuthStateChanged.mockImplementation(onAuthStateChangedMock);
+    const result = await getLoggedUser();
 
-        const result = await getLoggedUser();
+    expect(onAuthStateChangedMock).toHaveBeenCalled();
+    expect(result).toBe(user.email);
+  });
 
-        expect(onAuthStateChangedMock).toHaveBeenCalled();
-        expect(result).toBe(user.email);
+  it('should resolve with null if no user is logged in', async () => {
+    const onAuthStateChangedMock = jest.fn((auth, callback) => {
+      callback(null);
     });
+    onAuthStateChanged.mockImplementation(onAuthStateChangedMock);
 
-    it('should resolve with null if no user is logged in', async () => {
-        const onAuthStateChangedMock = jest.fn((auth, callback) => {
-            callback(null);
-        });
-        onAuthStateChanged.mockImplementation(onAuthStateChangedMock);
+    const result = await getLoggedUser();
 
-        const result = await getLoggedUser();
-
-        expect(onAuthStateChangedMock).toHaveBeenCalled();
-        expect(result).toBeNull();
-    });
+    expect(onAuthStateChangedMock).toHaveBeenCalled();
+    expect(result).toBeNull();
+  });
 });
 
 

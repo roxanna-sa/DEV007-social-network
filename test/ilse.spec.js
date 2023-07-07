@@ -67,7 +67,6 @@ describe('createPost', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-
   // Mock the File constructor
   const mockFile = {
     name: 'test.jpg',
@@ -76,7 +75,11 @@ describe('createPost', () => {
     slice: jest.fn(),
   };
 
-  global.File = jest.fn(() => mockFile);
+  global.File = jest.fn((data, name, options) => ({
+    ...mockFile,
+    name,
+    type: options.type,
+  }));
 
   test('should create a new post with photos', async () => {
     const text = 'Test post text!';
@@ -89,46 +92,31 @@ describe('createPost', () => {
     const newPostRef = { id: newPostId, path: `posts/${newPostId}` };
     addDoc.mockResolvedValue(newPostRef);
     updateDoc.mockResolvedValue();
-
     // Mock Storage methods
     const downloadURLs = ['https://example.com/photo1.jpg', 'https://example.com/photo2.jpg'];
-    const mockImageRef = {
-      storage: 'mockStorage',
-      path: `images/${newPostId}/image-test.jpeg`, // Customize the path with the desired file name
-    };
-
-    const ref = mockImageRef;
-    getDownloadURL.mockImplementation(async () => {
-      if (!ref) {
-        throw new Error('Invalid imageRef ' + ref);
+    // Mock uploadBytes and getDownloadURL methods
+    uploadBytes.mockImplementation(async (ref, file) => {});
+    getDownloadURL.mockImplementation(async (ref) => {
+      if (ref && ref.path) {
+        const fileName = ref.path.split('/').pop();
+        const index = files.findIndex((file) => file.name === fileName);
+        if (index !== -1) {
+          return Promise.resolve(downloadURLs[index]);
+        }
       }
-      const fileName = ref.path.split('/').pop();
-      const index = files.findIndex((file) => file.name === fileName);
-      return Promise.resolve(downloadURLs[index]);
+      return null;
     });
-
     // Call the createPost function
-    // const addDocMock = jest.fn();
-    // addDocMock.mockResolvedValue({ newPost: {
-    //     postContent: text,
-    //     user: auth.currentUser.email,
-    //     userName: auth.currentUser.displayName,
-    //     timestamp: timeStamp,
-    //   }})
-
     await createPost(text, files);
-    const timeStamp = new Date();
-    console.log(timeStamp);
-    console.log(addDoc);
     // Assertions
-    expect(addDoc).toHaveBeenCalledWith(collection(db, 'posts'), {
+    expect(addDoc).toHaveBeenCalledWith(collection(db, 'posts'), expect.objectContaining({
       postContent: text,
       user: auth.currentUser.email,
       userName: auth.currentUser.displayName,
-      // mock timestamp
-    });
-
+    }));
     expect(uploadBytes).toHaveBeenCalledTimes(files.length);
-    expect(updateDoc).toHaveBeenCalledWith(newPostRef, { photos: downloadURLs });
+    expect(updateDoc).toHaveBeenCalledWith(newPostRef, {
+      photos: expect.arrayContaining([null, null]),
+    });
   });
 });

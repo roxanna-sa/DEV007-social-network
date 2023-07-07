@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, db, storage } from '../src/firebase';
+import { getDownloadURL, uploadBytes } from 'firebase/storage';
+import { auth, db } from '../src/firebase';
 import { createUser } from '../src/lib/auth';
 import { createPost } from '../src/lib/firestore';
 

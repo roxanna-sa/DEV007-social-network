@@ -98,10 +98,10 @@ Punto que inicialmente no se había considerado, pero al recibir las recomendaci
 
 ## 6. Pruebas unitarias
 
-(Acá subir captura)
+<img src="./images/testing social network11.png">
 
 
 ## 7. Interfaz
 
-¿Estás interesado en conocer el proyecto Nutrivid? Puedes hacer click en el siguiente enlace: [enlace]
+¿Estás interesado en conocer el proyecto Nutrivid? Puedes hacer click en el siguiente enlace: [NUTRIVID](https://social-network-366e3.web.app/)
 

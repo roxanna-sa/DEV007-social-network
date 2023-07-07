@@ -43,6 +43,10 @@ jest.mock('firebase/auth', () => {
 jest.mock('firebase/firestore');
 jest.mock('firebase/storage');
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('createUser', () => {
   it('should be a function', () => {
     expect(typeof createUser).toBe('function');
@@ -59,10 +63,6 @@ describe('createUser', () => {
     // Assert that the nested function was called
     expect(createUserWithEmailAndPassword).toHaveBeenCalled();
   });
-});
-
-beforeEach(() => {
-  jest.clearAllMocks();
 });
 
 describe('Login', () => {

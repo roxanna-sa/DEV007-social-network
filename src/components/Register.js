@@ -50,7 +50,7 @@ export const Register = (onNavigate) => {
     const passwordInput = document.getElementById('password');
     const userName = document.getElementById('name');
 
-    e.preventDefault(); // evitar que el formulario haga el proceso de submit
+    e.preventDefault(); // evitar que el formulario haga el proceso de submit porque no hay donde mandarlo
     joinButton.setAttribute('disabled', true); // Bloquear botón submit para evitar doble registro
     const email = emailUser.value.trim();
     const password = passwordInput.value.trim();

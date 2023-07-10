@@ -27,7 +27,7 @@ export const createPost = async (text, files) => { // files viene del input type
 
   // Upload files if any
   /* eslint-disable */
-  for (const file of Array.from(files)) {
+  for (const file of Array.from(files)) { // por cada vuelta del ciclo for genera un file por cada foto
     const imageRef = ref(storage, `images/${newPost.id}/${file.name}`);
 
     // 'file' comes from the Blob or File API
@@ -79,17 +79,17 @@ export const removeLike = async (postId) => {
   }
 };
 
-export const getPosts = () => {
-  const postRef = collection(db, 'posts');
+export const getPosts = () => { // traer los posts
+  const postRef = collection(db, 'posts'); // necesario para la query
   const q = query(postRef, orderBy('timestamp', 'desc'));
   return getDocs(q).then((res) => {
     const postsArray = [];
     /* eslint-disable */
-    res.forEach((doc) => { // res es el querySnapshot
+    res.forEach((doc) => { 
       /* creamos un objeto data que tendrá el contenido y le agregamos
       por nuestra parte la ID que NO viene dentro de doc.data() */
-      const data = doc.data();
-      data['id'] = doc.id;
+      const data = doc.data(); // por cada post trae toda la data como objeto
+      data['id'] = doc.id; 
       postsArray.push(data);
       return doc.data();
       /* eslint-enable */

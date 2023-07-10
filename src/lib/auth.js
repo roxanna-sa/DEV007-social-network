@@ -15,9 +15,9 @@ import { app } from '../firebase.js';
 const auth = getAuth(app);
 /* eslint-disable-next-line */
 export const createUser = (userMail, userPass, displayName) => createUserWithEmailAndPassword(auth, userMail, userPass)
-  .then((userCredential) => {
+  .then((userCredential) => { //devuelve el resultado de una promesa
     // Signed in
-    const user = userCredential.user;
+    const user = userCredential.user; // es lo que devuelve createUserWithEmailAndPassword y tomamos la propiedad user
     console.log(user);
     sendEmailVerification(user);
     // Prueba: Actualizar usuario con nombre de usuario
@@ -44,15 +44,15 @@ export const signIn = (userMail, userPass) => signInWithEmailAndPassword(auth, u
 
 // SignIn with Google
 export const signInGoogle = () => {
-  const provider = new GoogleAuthProvider();
+  const provider = new GoogleAuthProvider(); // new hace un nuevo objeto
   return signInWithPopup(auth, provider);
 };
 
 // get logged in user
 /* eslint-disable-next-line */
 export const getLoggedUser = () => {
-  return new Promise((resolve, reject) => {
-    onAuthStateChanged(auth, (user) => {
+  return new Promise((resolve, reject) => { // una nueva promeda creada es algo que puede o no puede resolverse
+    onAuthStateChanged(auth, (user) => { // observador suscribible
       if (user) {
         console.log('inside getLoggedUser', user.email);
         resolve(user.email);
@@ -69,6 +69,6 @@ export const getLoggedUser = () => {
 
 export const logOut = () => {
   localStorage.clear();
-  localStorage.removeItem('user');
+  //localStorage.removeItem('user'); esto está demás. .clear() borra todo
   signOut(auth);
 };

@@ -14,7 +14,7 @@ export const Wall = (onNavigate) => {
   const WallDiv = document.createElement('div');
   WallDiv.className = 'wall-div';
 
-  // Agregar el div del modal al final del wall-div
+  // Modal para editar
   const modal = document.createElement('div');
   modal.id = 'modal';
   modal.className = 'modalEdit';
@@ -159,18 +159,18 @@ export const Wall = (onNavigate) => {
             let imgUrl = '../img/like.png';
             let isLiked = ''; // Used to check if a post was liked, nothing else.
 
-            if (post.likedBy !== undefined) {
+            if (post.likedBy !== undefined) { // el post tiene likes?
               post.likedBy.forEach((like) => {
                 if (like.id === auth.currentUser.uid) {
-                  imgUrl = '../img/likeRed.png';
-                  isLiked = 'liked';
+                  imgUrl = '../img/likeRed.png';  
+                  isLiked = 'liked';  // dale el valor like
                 }
               });
             }
 
             let images = '';
 
-            if (post.photos !== undefined) {
+            if (post.photos !== undefined) { //Array de URL pública con la cantidad de fotos subidas
               post.photos.forEach((photo) => {
                 images += `<img src='${photo}' class="postPhoto" />`;
               });
@@ -182,17 +182,18 @@ export const Wall = (onNavigate) => {
             <ul class="menu hidden" id='menu-${post.id}'>
               <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
                 <hr></hr>
-              <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
+              <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li> 
             </ul>
           </button>
           </div>
           
           <p class= 'postContent'>${post.postContent}</p>
-          ${images}
+          ${images}                                                                  
           <button id="${post.id}" class="likeButton ${isLiked}"><img src='${imgUrl}'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
           `;
 
             divPost.appendChild(singlePost);
+
             if (user === post.user) {
               console.log('user verified');
               const MenuButton = document.getElementById(`menuPost-${post.id}`);
@@ -207,16 +208,16 @@ export const Wall = (onNavigate) => {
                 // eslint-disable-next-line
                 clickCount++;
 
-                const menuEditDelete = document.getElementById(`menu-${post.id}`);
+                const menuEditDelete = document.getElementById(`menu-${post.id}`); // la id se reemplaza por la del post.
 
-                if (clickCount % 2 === 1) {
+                if (clickCount % 2 === 1) { // si es impar
                   menuEditDelete.classList.add('show');
                   menuEditDelete.classList.remove('hidden');
 
                   // Delete post
                   const deletePostButton = document.getElementById(`deletePost-${post.id}`);
                   deletePostButton.addEventListener('click', (event) => {
-                    const postId = event.target.getAttribute('data-postid');
+                    const postId = event.target.getAttribute('data-postid'); // data-algo lee un atributo creado
 
                     // Check if deletePostModal already exists
                     let deletePostModal = document.getElementById('delete-post-modal-container');
@@ -319,10 +320,10 @@ export const Wall = (onNavigate) => {
             el.addEventListener('click', async (clickedElement) => {
               const currentTarget = clickedElement.currentTarget;
               const clickedElementId = currentTarget.id;
-              const currentLikesIMG = currentTarget.children[0];
-              const currentLikesP = currentTarget.children[1];
+              const currentLikesIMG = currentTarget.children[0]; // IMG
+              const currentLikesP = currentTarget.children[1]; // Parrafo
               // Check if post is already liked
-              const wasLiked = currentTarget.classList.contains('liked');
+              const wasLiked = currentTarget.classList.contains('liked'); // devuelve si es que tiene la clase liked o no
 
               /* eslint-disable */
               if (wasLiked) {

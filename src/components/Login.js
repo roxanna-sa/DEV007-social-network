@@ -9,7 +9,7 @@ export const Login = (onNavigate) => {
   loginForm.innerHTML = `
   <h2>¡Bienvenido a Nutrivid!</h2>
   <div class="div-email">
-    <label for='email'>Email:</label>
+    <label for='email'>Email:</label> 
     <input type='text' name='email' id='email'>
   </div>
   <div class="div-password">
@@ -27,7 +27,7 @@ export const Login = (onNavigate) => {
   <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
   <h3> Recetas para sentirte bien...</h3>
   `;
-  const header = document.getElementById('logo');
+  //const header = document.getElementById('logo');
 
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
@@ -36,16 +36,17 @@ export const Login = (onNavigate) => {
   parentElement.addEventListener('click', (event) => {
     const target = event.target;
     if (target.matches('#loginButton')) {
-      event.preventDefault();
+      event.preventDefault(); // evita que el boton login actualice
       const userMail = document.getElementById('email').value;
       const userPass = document.getElementById('password').value;
 
       if (userMail === '' || userPass === '') {
         alert('Ingresa email y contraseña');
       } else {
-        signIn(userMail, userPass).then((response) => {
+        signIn(userMail, userPass)
+        .then((response) => {
           localStorage.setItem('user', userMail);
-          localStorage.setItem('name', response.user.displayName);
+          localStorage.setItem('name', response.user.displayName); // objeto usuario tiene un display name. response = userCredential
           onNavigate('/wall');
         }).catch(() => {
           alert('Email o contraseña incorrectos');

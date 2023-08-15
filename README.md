@@ -103,5 +103,5 @@ Punto que inicialmente no se había considerado, pero al recibir las recomendaci
 
 ## 7. Interfaz
 
-¿Estás interesado en conocer el proyecto Nutrivid? Puedes hacer click en el siguiente enlace: [NUTRIVID](https://social-network-366e3.web.app/)
+¿Estás interesado en conocer el proyecto Nutrivid? Puedes hacer click en el siguiente enlace: [NUTRIVID](https://nutrivid-social-network.vercel.app/)
 

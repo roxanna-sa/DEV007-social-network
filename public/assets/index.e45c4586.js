@@ -2039,6 +2039,10 @@ function __rest(s, e) {
     }
   return t;
 }
+typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  var e = new Error(message);
+  return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
 function _prodErrorMap() {
   return {
     ["dependent-sdk-initialized-before-auth"]: "Another Firebase SDK was initialized and is trying to use Auth before Auth is initialized. Please be sure to call `initializeAuth` or `getAuth` before starting any other Firebase SDK."
@@ -20456,7 +20460,6 @@ const getLoggedUser = () => {
 };
 const logOut = () => {
   localStorage.clear();
-  localStorage.removeItem("user");
   signOut(auth);
 };
 const Login = (onNavigate2) => {
@@ -20466,7 +20469,7 @@ const Login = (onNavigate2) => {
   loginForm.innerHTML = `
   <h2>\xA1Bienvenido a Nutrivid!</h2>
   <div class="div-email">
-    <label for='email'>Email:</label>
+    <label for='email'>Email:</label> 
     <input type='text' name='email' id='email'>
   </div>
   <div class="div-password">
@@ -20480,10 +20483,9 @@ const Login = (onNavigate2) => {
   <button class='loginButton' id='loginButton'>Iniciar sesi\xF3n</button>
   <button class='registerButton'id='registerButton'>\xBFNo tienes cuenta? 
  Reg\xEDstrate</button>
-  <button class='continueWithGoogle' id='continueWithGoogle'>Continuar con Google<img src= './img/google.png'></button>
+  <button class='continueWithGoogle' id='continueWithGoogle'><img src= './img/google.png'>ACCEDER CON GOOGLE</button>
   <h3> Recetas para sentirte bien...</h3>
   `;
-  document.getElementById("logo");
   LoginDiv.appendChild(loginForm);
   LoginDiv.appendChild(buttonDiv);
   const parentElement = document.getElementById("root");
@@ -20613,7 +20615,6 @@ const addLike = async (postId) => {
     await gf(postRef, {
       likedBy: Qf(userRef)
     });
-    console.log("Like added successfully");
   } catch (error) {
     console.error("Failed to add like:", error);
     throw error;
@@ -20778,13 +20779,13 @@ const Wall = (onNavigate2) => {
             <ul class="menu hidden" id='menu-${post.id}'>
               <li id='editPost-${post.id}' data-postid="${post.id}">Editar</li>
                 <hr></hr>
-              <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li>
+              <li id='deletePost-${post.id}' data-postid="${post.id}">Eliminar</li> 
             </ul>
           </button>
           </div>
           
           <p class= 'postContent'>${post.postContent}</p>
-          ${images}
+          ${images}                                                                  
           <button id="${post.id}" class="likeButton ${isLiked}"><img src='${imgUrl}'class='iconLike'><p class="likedAmmount">${post.likedBy != null ? post.likedBy.length : 0}</p></button>
           `;
           divPost.appendChild(singlePost);

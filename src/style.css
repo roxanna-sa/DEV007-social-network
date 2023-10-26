@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Work+Sans:wght@200;300;500;600;700;800&display=swap');
 
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans';
+  
 }
 
 body {
@@ -12,6 +13,7 @@ body {
   background-position: center;
   background-size: 200%;
   background-attachment: fixed;
+  font-family: 'Noto Sans';
 }
 
 .root {
@@ -106,17 +108,36 @@ body {
   justify-content: space-evenly;
   width: 80%;
   height: 3rem;
-  background: #3B3F20;
-  color: white;
-  font-size: 1.3rem;
-  border-radius: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  border-radius: 5px;
   border: 0;
+  font-family: 'Roboto'!important;
 }
 
 .continueWithGoogle img {
-  width: 1.5rem;
+  width: 18px;
 }
 
+continueWithGoogle {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 60px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 1px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+
+}
+
+continueWithGoogle img {
+  width: 24px;
+  margin-right: 0px;
+}
 /* REGISTER PAGE */
 
 .register-div {
@@ -697,10 +718,21 @@ input[type=file]::file-selector-button:hover {
   }
 
   .continueWithGoogle {
-    background: #E9F0CE;
-    height: 4rem;
-    color: #3B3F20;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    height: 60px;
+    color: rgba(0, 0, 0, 0.54);
     font-weight: 1px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+  
+  }
+
+  .continueWithGoogle img {
+    width: 24px;
+    margin-right: 0px;
   }
 
   /* -----Vista Register---- */
